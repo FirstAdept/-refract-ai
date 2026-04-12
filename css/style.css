@@ -815,6 +815,10 @@ ul, ol {
     gap: 32px;
 }
 
+.team__grid--3 {
+    grid-template-columns: repeat(3, 1fr);
+}
+
 .team-member {
     text-align: center;
 }
