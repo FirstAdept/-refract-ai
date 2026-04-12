@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 70">
+  <defs>
+    <style>.a,.b{fill:none;stroke:#fff;stroke-width:2px;}.a{stroke-miterlimit:10;}.b{stroke-linejoin:bevel;}</style>
+  </defs>
+  <rect width="64" height="70" rx="12" fill="#14141e"/>
+  <g transform="translate(1, 0)">
+    <polygon class="a" points="32.11 69.38 1 52.63 1 17.38 32.11 1.13 62.5 17.38 62.5 52.63 32.11 69.38"/>
+    <polyline class="a" points="1 17.38 13.27 26.63 51.68 26.63 62.5 17.38"/>
+    <polygon class="b" points="62.5 52.63 51.31 26.63 32.11 1.13 12.91 26.63 1 52.63 32.11 58.63 62.5 52.63"/>
+    <polyline class="a" points="51.31 26.63 32.11 58.63 12.91 26.63"/>
+    <line class="a" x1="32.11" y1="69.38" x2="32.11" y2="58.63"/>
+  </g>
+</svg>
