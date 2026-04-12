@@ -1,3 +1,150 @@
+// ===== Smooth Scroll (Lenis-style) =====
+class SmoothScroll {
+    constructor() {
+        this.current = window.scrollY;
+        this.target = window.scrollY;
+        this.ease = 0.08;
+        this.running = true;
+        window.addEventListener('scroll', () => this.target = window.scrollY, { passive: true });
+        this.animate();
+    }
+    animate() {
+        this.current += (this.target - this.current) * this.ease;
+        document.documentElement.style.setProperty('--scroll', this.current);
+        if (this.running) requestAnimationFrame(() => this.animate());
+    }
+}
+new SmoothScroll();
+
+// ===== Split Text Animation =====
+function splitText(el) {
+    const text = el.textContent;
+    const words = text.split(' ');
+    el.innerHTML = '';
+    el.setAttribute('aria-label', text);
+
+    words.forEach((word, wi) => {
+        const wordSpan = document.createElement('span');
+        wordSpan.className = 'word';
+        wordSpan.style.display = 'inline-block';
+        wordSpan.style.overflow = 'hidden';
+
+        [...word].forEach((char, ci) => {
+            const charSpan = document.createElement('span');
+            charSpan.className = 'char';
+            charSpan.textContent = char;
+            charSpan.style.display = 'inline-block';
+            charSpan.style.transform = 'translateY(105%) rotateX(-25deg)';
+            charSpan.style.opacity = '0';
+            charSpan.style.transition = `transform 0.6s cubic-bezier(0.13, 0.47, 0.13, 0.98) ${(wi * 4 + ci) * 0.03}s, opacity 0.4s ease ${(wi * 4 + ci) * 0.03}s`;
+            wordSpan.appendChild(charSpan);
+        });
+
+        el.appendChild(wordSpan);
+        if (wi < words.length - 1) {
+            const space = document.createElement('span');
+            space.innerHTML = '&nbsp;';
+            space.style.display = 'inline-block';
+            el.appendChild(space);
+        }
+    });
+}
+
+function revealChars(el) {
+    el.querySelectorAll('.char').forEach(c => {
+        c.style.transform = 'translateY(0) rotateX(0)';
+        c.style.opacity = '1';
+    });
+}
+
+// Apply split text to hero title
+const heroTitle = document.querySelector('.hero__title');
+if (heroTitle) {
+    // Preserve <br> tags
+    const lines = heroTitle.innerHTML.split('<br>');
+    heroTitle.innerHTML = '';
+    lines.forEach((line, i) => {
+        const lineEl = document.createElement('span');
+        lineEl.className = 'split-line';
+        lineEl.textContent = line.trim();
+        splitText(lineEl);
+        heroTitle.appendChild(lineEl);
+        if (i < lines.length - 1) heroTitle.appendChild(document.createElement('br'));
+    });
+    // Reveal after small delay
+    setTimeout(() => {
+        heroTitle.querySelectorAll('.split-line').forEach(l => revealChars(l));
+    }, 300);
+}
+
+// Split text for section titles (on scroll)
+document.querySelectorAll('.section-title').forEach(el => {
+    splitText(el);
+    el.dataset.splitReady = 'true';
+});
+
+// ===== Custom Cursor =====
+const cursor = document.createElement('div');
+cursor.className = 'custom-cursor';
+const cursorDot = document.createElement('div');
+cursorDot.className = 'custom-cursor__dot';
+document.body.appendChild(cursor);
+document.body.appendChild(cursorDot);
+
+let cx = 0, cy = 0, dx = 0, dy = 0;
+
+document.addEventListener('mousemove', e => {
+    dx = e.clientX;
+    dy = e.clientY;
+    cursorDot.style.left = dx + 'px';
+    cursorDot.style.top = dy + 'px';
+});
+
+function updateCursor() {
+    cx += (dx - cx) * 0.12;
+    cy += (dy - cy) * 0.12;
+    cursor.style.left = cx + 'px';
+    cursor.style.top = cy + 'px';
+    requestAnimationFrame(updateCursor);
+}
+updateCursor();
+
+// Cursor grow on interactive elements
+document.querySelectorAll('a, button, .project-card, .service-card').forEach(el => {
+    el.addEventListener('mouseenter', () => cursor.classList.add('custom-cursor--active'));
+    el.addEventListener('mouseleave', () => cursor.classList.remove('custom-cursor--active'));
+});
+
+// ===== Magnetic Buttons =====
+document.querySelectorAll('.btn').forEach(btn => {
+    btn.addEventListener('mousemove', (e) => {
+        const rect = btn.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+        btn.style.transform = `translate(${x * 0.2}px, ${y * 0.2}px)`;
+    });
+    btn.addEventListener('mouseleave', () => {
+        btn.style.transform = 'translate(0, 0)';
+        btn.style.transition = 'transform 0.4s cubic-bezier(0.19, 1, 0.22, 1)';
+        setTimeout(() => btn.style.transition = '', 400);
+    });
+});
+
+// ===== Parallax on Scroll =====
+const parallaxElements = document.querySelectorAll('.hero__code, .project-card__bg, .stat__number');
+
+function updateParallax() {
+    const scrollY = window.scrollY;
+    parallaxElements.forEach(el => {
+        const rect = el.getBoundingClientRect();
+        const speed = parseFloat(el.dataset.speed || 0.05);
+        const yOffset = (rect.top - window.innerHeight / 2) * speed;
+        el.style.transform = `translateY(${yOffset}px)`;
+    });
+    requestAnimationFrame(updateParallax);
+}
+updateParallax();
+
 // ===== Header scroll effect =====
 const header = document.getElementById('header');
 
@@ -27,24 +174,39 @@ nav.querySelectorAll('.nav__link').forEach(link => {
     });
 });
 
-// ===== Scroll animations =====
+// ===== Scroll Reveal (stagger + split text) =====
 const animateElements = document.querySelectorAll('[data-animate]');
 
 const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry, index) => {
+    entries.forEach((entry) => {
         if (entry.isIntersecting) {
+            const el = entry.target;
+            const siblings = [...el.parentElement.children].filter(c => c.hasAttribute('data-animate'));
+            const index = siblings.indexOf(el);
             setTimeout(() => {
-                entry.target.classList.add('visible');
-            }, index * 100);
-            observer.unobserve(entry.target);
+                el.classList.add('visible');
+            }, index * 120);
+            observer.unobserve(el);
         }
     });
 }, {
     threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
+    rootMargin: '0px 0px -60px 0px'
 });
 
 animateElements.forEach(el => observer.observe(el));
+
+// Section title reveal on scroll
+const titleObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            revealChars(entry.target);
+            titleObserver.unobserve(entry.target);
+        }
+    });
+}, { threshold: 0.3 });
+
+document.querySelectorAll('.section-title[data-split-ready]').forEach(el => titleObserver.observe(el));
 
 // ===== Counter animation =====
 const counters = document.querySelectorAll('[data-count]');
@@ -86,6 +248,21 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         if (target) {
             target.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
+    });
+});
+
+// ===== Tilt effect on project cards =====
+document.querySelectorAll('.project-card').forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
+        card.style.transform = `perspective(800px) rotateY(${x * 6}deg) rotateX(${-y * 6}deg) translateY(-4px)`;
+    });
+    card.addEventListener('mouseleave', () => {
+        card.style.transform = 'perspective(800px) rotateY(0) rotateX(0) translateY(0)';
+        card.style.transition = 'transform 0.6s cubic-bezier(0.19, 1, 0.22, 1)';
+        setTimeout(() => card.style.transition = 'all 0.3s ease', 600);
     });
 });
 
