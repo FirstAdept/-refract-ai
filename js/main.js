@@ -312,18 +312,29 @@ form.addEventListener('submit', async (e) => {
         );
 
         if (res.ok) {
-            btn.textContent = 'Отправлено!';
+            btn.textContent = '✓ Отправлено';
+            btn.style.background = '#4ade80';
+            btn.style.color = '#000';
+            btn.style.borderColor = '#4ade80';
             form.reset();
         } else {
             btn.textContent = 'Ошибка, попробуйте ещё';
+            btn.style.background = '#ef4444';
+            btn.style.color = '#fff';
+            btn.style.borderColor = '#ef4444';
         }
     } catch {
         btn.textContent = 'Ошибка сети';
+        btn.style.background = '#ef4444';
+        btn.style.color = '#fff';
     }
 
     setTimeout(() => {
         btn.textContent = 'ОТПРАВИТЬ ЗАЯВКУ';
         btn.style.opacity = '1';
         btn.style.pointerEvents = 'auto';
+        btn.style.background = '';
+        btn.style.color = '';
+        btn.style.borderColor = '';
     }, 3000);
 });
