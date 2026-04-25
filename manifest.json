@@ -1,0 +1,22 @@
+{
+  "name": "REFRACT.AI — Студия разработки",
+  "short_name": "REFRACT.AI",
+  "description": "Разработка веб-приложений, мобильных приложений и AI-решений",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#14141e",
+  "theme_color": "#14141e",
+  "lang": "ru-RU",
+  "dir": "ltr",
+  "icons": [
+    {
+      "src": "assets/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["business", "productivity"]
+}

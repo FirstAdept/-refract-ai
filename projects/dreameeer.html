@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DREAMEEER — REFRACT.AI</title>
+    <meta name="description" content="DREAMEEER — социальная платформа для визуализации целей и мечт.">
+    <meta name="theme-color" content="#14141e">
+    <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/project.css">
+</head>
+<body>
+    <header class="header" id="header">
+        <div class="container header__inner">
+            <a href="../index.html" class="logo">
+                <img src="../assets/logo.svg" alt="REFRACT.AI" class="logo__img">
+            </a>
+            <nav class="nav">
+                <a href="../index.html#projects" class="nav__link">← Все проекты</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="project-page">
+        <section class="project-hero">
+            <div class="container">
+                <span class="project-hero__tag">Социальная платформа</span>
+                <h1 class="project-hero__title">DREAMEEER</h1>
+                <p class="project-hero__subtitle">Платформа, где люди визуализируют свои мечты, делятся ими и поддерживают друг друга в достижении целей</p>
+                <div class="project-hero__meta">
+                    <div class="project-meta-item">
+                        <span class="project-meta-label">Год</span>
+                        <span class="project-meta-value">2025</span>
+                    </div>
+                    <div class="project-meta-item">
+                        <span class="project-meta-label">Тип</span>
+                        <span class="project-meta-value">Web + Mobile</span>
+                    </div>
+                    <div class="project-meta-item">
+                        <span class="project-meta-label">Срок</span>
+                        <span class="project-meta-value">6 месяцев</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="project-mockup-section">
+            <div class="container">
+                <div class="project-big-mockup" style="background: linear-gradient(135deg, #1a0a2e 0%, #2e1a3e 100%);">
+                    <div class="preview-phone" style="transform: scale(2)">
+                        <div class="phone-screen">
+                            <div class="phone-header"></div>
+                            <div class="phone-card"></div>
+                            <div class="phone-card"></div>
+                            <div class="phone-nav">
+                                <span></span><span></span><span></span><span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="project-content">
+            <div class="container project-content__grid">
+                <div class="project-content__left">
+                    <h2 class="project-section-title">О проекте</h2>
+                    <p>DREAMEEER переосмысливает социальные сети — вместо ленты с инфошумом пользователи создают доски своих мечт и целей, делятся прогрессом, находят единомышленников.</p>
+                    <p>Каждая мечта оживает через интерактивную визуализацию: можно прикрепить фото, видео, аудио, поделиться этапами достижения. Сообщество поддерживает реакциями и историями вдохновения.</p>
+
+                    <h2 class="project-section-title">Что мы сделали</h2>
+                    <ul class="project-features">
+                        <li>Веб-приложение на React + TypeScript + Vite</li>
+                        <li>Мобильная версия на React Native</li>
+                        <li>Backend на Node.js с GraphQL API</li>
+                        <li>Интерактивные доски мечт с drag-and-drop</li>
+                        <li>Система реакций, комментариев, подписок</li>
+                        <li>Real-time уведомления через WebSocket</li>
+                        <li>Загрузка медиа в S3 с оптимизацией</li>
+                    </ul>
+                </div>
+
+                <div class="project-content__right">
+                    <div class="project-stack-card">
+                        <h3 class="project-stack-title">Технологии</h3>
+                        <div class="project-stack-list">
+                            <span>TypeScript</span>
+                            <span>React</span>
+                            <span>React Native</span>
+                            <span>Node.js</span>
+                            <span>GraphQL</span>
+                            <span>PostgreSQL</span>
+                            <span>WebSocket</span>
+                            <span>AWS S3</span>
+                        </div>
+                    </div>
+
+                    <div class="project-stats-grid">
+                        <div class="project-stat">
+                            <div class="project-stat__num">100%</div>
+                            <div class="project-stat__label">кастомный UI</div>
+                        </div>
+                        <div class="project-stat">
+                            <div class="project-stat__num">&lt;100ms</div>
+                            <div class="project-stat__label">отклик API</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="project-cta">
+            <div class="container project-cta__inner">
+                <h2 class="project-cta__title">Хотите такой же продукт?</h2>
+                <p class="project-cta__subtitle">Обсудим вашу идею и оценим сроки</p>
+                <a href="../index.html#contact" class="btn btn--primary">Написать нам</a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container footer__inner">
+            <div class="footer__left">
+                <a href="../index.html" class="logo">
+                    <img src="../assets/logo.svg" alt="REFRACT.AI" class="logo__img">
+                </a>
+                <p class="footer__copy">&copy; 2026 REFRACT.AI</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

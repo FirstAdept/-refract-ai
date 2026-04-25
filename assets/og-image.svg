@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#14141e"/>
+      <stop offset="100%" stop-color="#1a1a2e"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#667eea"/>
+      <stop offset="100%" stop-color="#764ba2"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="20" result="coloredBlur"/>
+      <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Grid pattern -->
+  <g opacity="0.04">
+    <path d="M0 50 L1200 50 M0 100 L1200 100 M0 150 L1200 150 M0 200 L1200 200 M0 250 L1200 250 M0 300 L1200 300 M0 350 L1200 350 M0 400 L1200 400 M0 450 L1200 450 M0 500 L1200 500 M0 550 L1200 550 M0 600 L1200 600" stroke="white" stroke-width="1"/>
+    <path d="M50 0 L50 630 M100 0 L100 630 M150 0 L150 630 M200 0 L200 630 M250 0 L250 630 M300 0 L300 630 M350 0 L350 630 M400 0 L400 630 M450 0 L450 630 M500 0 L500 630 M550 0 L550 630 M600 0 L600 630 M650 0 L650 630 M700 0 L700 630 M750 0 L750 630 M800 0 L800 630 M850 0 L850 630 M900 0 L900 630 M950 0 L950 630 M1000 0 L1000 630 M1050 0 L1050 630 M1100 0 L1100 630 M1150 0 L1150 630" stroke="white" stroke-width="1"/>
+  </g>
+
+  <!-- Large prism logo -->
+  <g transform="translate(860, 160) scale(4)">
+    <polygon points="32.11 69.38 1 52.63 1 17.38 32.11 1.13 62.5 17.38 62.5 52.63 32.11 69.38" fill="none" stroke="white" stroke-width="1.5"/>
+    <polyline points="1 17.38 13.27 26.63 51.68 26.63 62.5 17.38" fill="none" stroke="white" stroke-width="1.5"/>
+    <polygon points="62.5 52.63 51.31 26.63 32.11 1.13 12.91 26.63 1 52.63 32.11 58.63 62.5 52.63" fill="none" stroke="white" stroke-width="1.5" stroke-linejoin="bevel"/>
+    <polyline points="51.31 26.63 32.11 58.63 12.91 26.63" fill="none" stroke="white" stroke-width="1.5"/>
+    <line x1="32.11" y1="69.38" x2="32.11" y2="58.63" stroke="white" stroke-width="1.5"/>
+  </g>
+
+  <!-- Text block -->
+  <g transform="translate(80, 180)">
+    <text x="0" y="0" font-family="Inter, sans-serif" font-size="22" font-weight="500" letter-spacing="6" fill="#666680">REFRACT.AI</text>
+    <text x="0" y="90" font-family="Inter, sans-serif" font-size="72" font-weight="600" fill="white" letter-spacing="-2">Студия</text>
+    <text x="0" y="170" font-family="Inter, sans-serif" font-size="72" font-weight="600" fill="white" letter-spacing="-2">разработки</text>
+    <text x="0" y="240" font-family="Inter, sans-serif" font-size="72" font-weight="300" fill="white" fill-opacity="0.5" letter-spacing="-2">цифровых продуктов</text>
+
+    <text x="0" y="340" font-family="Inter, sans-serif" font-size="22" fill="#a0a0b0">Веб / Мобайл / AI / Блокчейн</text>
+  </g>
+
+  <!-- Bottom bar -->
+  <rect x="80" y="540" width="60" height="2" fill="white"/>
+  <text x="80" y="580" font-family="Inter, sans-serif" font-size="18" font-weight="500" fill="white" letter-spacing="2">refract-ai.ru</text>
+</svg>

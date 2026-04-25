@@ -1,3 +1,106 @@
+// ===== PWA Service Worker =====
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js').catch(() => {});
+    });
+}
+
+// ===== i18n (RU/EN) =====
+const translations = {
+    ru: {
+        'nav.projects': 'Проекты',
+        'nav.approach': 'Подход',
+        'nav.team': 'Команда',
+        'nav.contact': 'Контакты',
+        'hero.title': 'Разрабатываем<br>цифровые продукты<br>нового поколения',
+        'hero.subtitle': 'Веб-приложения, мобильные решения и AI-системы.<br>Полный цикл от идеи до запуска.',
+        'hero.cta': 'Обсудить проект',
+        'stats.projects': 'Проектов реализовано',
+        'stats.years': 'Лет на рынке',
+        'stats.team': 'Специалистов в команде',
+        'stats.return': '% клиентов возвращаются',
+        'projects.label': '01 / Проекты',
+        'projects.title': 'Наши работы',
+        'approach.label': '02 / Подход',
+        'approach.title': 'Как мы работаем',
+        'team.label': '03 / Команда',
+        'team.title': 'Люди, которые создают',
+        'cta.title': 'Обсудим ваш проект?',
+        'cta.subtitle': 'Расскажите о своей идее — мы предложим оптимальное решение и оценим сроки.',
+        'form.name': 'Ваше имя',
+        'form.phone': 'Телефон',
+        'form.email': 'Email',
+        'form.message': 'Расскажите о проекте',
+        'form.submit': 'Отправить заявку'
+    },
+    en: {
+        'nav.projects': 'Projects',
+        'nav.approach': 'Approach',
+        'nav.team': 'Team',
+        'nav.contact': 'Contact',
+        'hero.title': 'We build<br>next-generation<br>digital products',
+        'hero.subtitle': 'Web apps, mobile solutions and AI systems.<br>Full cycle from idea to launch.',
+        'hero.cta': 'Discuss project',
+        'stats.projects': 'Projects delivered',
+        'stats.years': 'Years on market',
+        'stats.team': 'Specialists in team',
+        'stats.return': '% of clients return',
+        'projects.label': '01 / Projects',
+        'projects.title': 'Our work',
+        'approach.label': '02 / Approach',
+        'approach.title': 'How we work',
+        'team.label': '03 / Team',
+        'team.title': 'The people who create',
+        'cta.title': 'Let\'s discuss your project?',
+        'cta.subtitle': 'Tell us about your idea — we\'ll propose the optimal solution and estimate the timeline.',
+        'form.name': 'Your name',
+        'form.phone': 'Phone',
+        'form.email': 'Email',
+        'form.message': 'Tell us about the project',
+        'form.submit': 'Send request'
+    }
+};
+
+function setLanguage(lang) {
+    document.documentElement.lang = lang === 'en' ? 'en' : 'ru';
+    const t = translations[lang];
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.dataset.i18n;
+        if (t[key]) el.textContent = t[key];
+    });
+    document.querySelectorAll('[data-i18n-html]').forEach(el => {
+        const key = el.dataset.i18nHtml;
+        if (t[key]) {
+            el.innerHTML = t[key];
+            // Re-apply split-text if needed
+            if (el.classList.contains('hero__title') && window.reapplySplitText) {
+                window.reapplySplitText(el);
+            }
+        }
+    });
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        const key = el.dataset.i18nPlaceholder;
+        if (t[key]) el.placeholder = t[key];
+    });
+
+    document.querySelectorAll('.lang-switch__btn').forEach(btn => {
+        btn.classList.toggle('lang-switch__btn--active', btn.dataset.lang === lang);
+    });
+
+    localStorage.setItem('lang', lang);
+}
+
+document.querySelectorAll('.lang-switch__btn').forEach(btn => {
+    btn.addEventListener('click', () => setLanguage(btn.dataset.lang));
+});
+
+// Apply saved lang or auto-detect
+const savedLang = localStorage.getItem('lang') ||
+                  (navigator.language.startsWith('en') ? 'en' : 'ru');
+if (savedLang === 'en') {
+    setLanguage('en');
+}
+
 // ===== Smooth Scroll (Lenis-style) =====
 class SmoothScroll {
     constructor() {

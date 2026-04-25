@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 — Страница не найдена | REFRACT.AI</title>
+    <meta name="theme-color" content="#14141e">
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .error-page {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 80px 24px;
+        }
+        .error-page__inner {
+            max-width: 600px;
+        }
+        .error-code {
+            font-size: clamp(120px, 20vw, 220px);
+            font-weight: 700;
+            line-height: 1;
+            letter-spacing: -8px;
+            background: linear-gradient(180deg, #fff 0%, #666 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 24px;
+            animation: glitch 3s ease-in-out infinite;
+        }
+        @keyframes glitch {
+            0%, 90%, 100% { transform: translate(0); filter: none; }
+            92% { transform: translate(-2px, 0); filter: hue-rotate(90deg); }
+            94% { transform: translate(2px, -1px); filter: hue-rotate(-90deg); }
+            96% { transform: translate(-1px, 1px); filter: none; }
+        }
+        .error-title {
+            font-size: clamp(24px, 3vw, 32px);
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+        .error-subtitle {
+            font-size: 16px;
+            color: var(--text-muted);
+            margin-bottom: 40px;
+            line-height: 1.7;
+        }
+        .error-actions {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+    </style>
+</head>
+<body>
+    <header class="header" id="header">
+        <div class="container header__inner">
+            <a href="/" class="logo">
+                <img src="assets/logo.svg" alt="REFRACT.AI" class="logo__img">
+            </a>
+        </div>
+    </header>
+
+    <main class="error-page">
+        <div class="error-page__inner">
+            <div class="error-code">404</div>
+            <h1 class="error-title">Страница не найдена</h1>
+            <p class="error-subtitle">Такой страницы не существует или она была перемещена.<br>Возможно, вы пришли по устаревшей ссылке.</p>
+            <div class="error-actions">
+                <a href="/" class="btn btn--primary">На главную</a>
+                <a href="/#contact" class="btn btn--outline">Связаться с нами</a>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

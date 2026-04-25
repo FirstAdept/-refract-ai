@@ -5,10 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>REFRACT.AI — Студия разработки</title>
     <meta name="description" content="REFRACT.AI — разработка веб-приложений, мобильных приложений, AI-решений. Полный цикл от идеи до продукта.">
+    <meta name="keywords" content="разработка сайтов, веб-разработка, мобильная разработка, AI, искусственный интеллект, студия разработки, refract">
+    <meta name="theme-color" content="#14141e">
+    <meta name="author" content="REFRACT.AI">
+
+    <!-- Open Graph / Facebook / Telegram / VK -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://refract-ai.ru/">
+    <meta property="og:title" content="REFRACT.AI — Студия разработки">
+    <meta property="og:description" content="Разрабатываем цифровые продукты нового поколения. Веб-приложения, мобильные решения, AI-системы.">
+    <meta property="og:image" content="https://refract-ai.ru/assets/og-image.svg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:locale" content="ru_RU">
+    <meta property="og:site_name" content="REFRACT.AI">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://refract-ai.ru/">
+    <meta name="twitter:title" content="REFRACT.AI — Студия разработки">
+    <meta name="twitter:description" content="Разрабатываем цифровые продукты нового поколения.">
+    <meta name="twitter:image" content="https://refract-ai.ru/assets/og-image.svg">
+
+    <link rel="canonical" href="https://refract-ai.ru/">
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+    <link rel="apple-touch-icon" href="assets/favicon.svg">
+    <link rel="manifest" href="manifest.json">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -19,11 +45,15 @@
                 <img src="assets/logo.svg" alt="REFRACT.AI" class="logo__img">
             </a>
             <nav class="nav" id="nav">
-                <a href="#projects" class="nav__link">Проекты</a>
-                <a href="#approach" class="nav__link">Подход</a>
-                <a href="#team" class="nav__link">Команда</a>
-                <a href="#contact" class="nav__link">Контакты</a>
+                <a href="#projects" class="nav__link" data-i18n="nav.projects">Проекты</a>
+                <a href="#approach" class="nav__link" data-i18n="nav.approach">Подход</a>
+                <a href="#team" class="nav__link" data-i18n="nav.team">Команда</a>
+                <a href="#contact" class="nav__link" data-i18n="nav.contact">Контакты</a>
             </nav>
+            <div class="lang-switch" id="langSwitch">
+                <button class="lang-switch__btn lang-switch__btn--active" data-lang="ru">RU</button>
+                <button class="lang-switch__btn" data-lang="en">EN</button>
+            </div>
             <a href="tel:+79167581336" class="header__phone">8 916 758-13-36</a>
             <button class="burger" id="burger" aria-label="Меню">
                 <span></span>
@@ -37,9 +67,9 @@
     <section class="hero" id="hero">
         <div class="container hero__inner">
             <div class="hero__content">
-                <h1 class="hero__title">Разрабатываем<br>цифровые продукты<br>нового поколения</h1>
-                <p class="hero__subtitle">Веб-приложения, мобильные решения и AI-системы.<br>Полный цикл от идеи до запуска.</p>
-                <a href="#contact" class="btn btn--primary">Обсудить проект</a>
+                <h1 class="hero__title" data-i18n-html="hero.title">Разрабатываем<br>цифровые продукты<br>нового поколения</h1>
+                <p class="hero__subtitle" data-i18n-html="hero.subtitle">Веб-приложения, мобильные решения и AI-системы.<br>Полный цикл от идеи до запуска.</p>
+                <a href="#contact" class="btn btn--primary" data-i18n="hero.cta">Обсудить проект</a>
             </div>
             <div class="hero__visual">
                 <div class="hero__code">
@@ -61,19 +91,19 @@
         <div class="container stats__inner">
             <div class="stat" data-animate>
                 <div class="stat__number" data-count="50">0</div>
-                <div class="stat__label">Проектов реализовано</div>
+                <div class="stat__label" data-i18n="stats.projects">Проектов реализовано</div>
             </div>
             <div class="stat" data-animate>
                 <div class="stat__number" data-count="5">0</div>
-                <div class="stat__label">Лет на рынке</div>
+                <div class="stat__label" data-i18n="stats.years">Лет на рынке</div>
             </div>
             <div class="stat" data-animate>
                 <div class="stat__number" data-count="15">0</div>
-                <div class="stat__label">Специалистов в команде</div>
+                <div class="stat__label" data-i18n="stats.team">Специалистов в команде</div>
             </div>
             <div class="stat" data-animate>
                 <div class="stat__number" data-count="98">0</div>
-                <div class="stat__label">% клиентов возвращаются</div>
+                <div class="stat__label" data-i18n="stats.return">% клиентов возвращаются</div>
             </div>
         </div>
     </section>
@@ -83,11 +113,11 @@
     <section class="projects" id="projects">
         <div class="container">
             <div class="section-header">
-                <span class="section-label">01 / Проекты</span>
-                <h2 class="section-title">Наши работы</h2>
+                <span class="section-label" data-i18n="projects.label">01 / Проекты</span>
+                <h2 class="section-title" data-i18n="projects.title">Наши работы</h2>
             </div>
             <div class="projects__grid">
-                <div class="project-card project-card--large" data-animate>
+                <a href="projects/fitbody.html" class="project-card project-card--large" data-animate>
                     <div class="project-card__bg" style="background: linear-gradient(135deg, #0a1a0a 0%, #1a2e1a 100%);">
                         <div class="project-card__preview">
                             <div class="preview-mockup">
@@ -113,9 +143,10 @@
                         <div class="project-card__stack">
                             <span>React Native</span><span>Node.js</span><span>PostgreSQL</span><span>OpenAI</span>
                         </div>
+                        <span class="project-card__cta">Подробнее →</span>
                     </div>
-                </div>
-                <div class="project-card" data-animate>
+                </a>
+                <a href="projects/dreameeer.html" class="project-card" data-animate>
                     <div class="project-card__bg" style="background: linear-gradient(135deg, #1a0a2e 0%, #2e1a3e 100%);">
                         <div class="project-card__preview">
                             <div class="preview-phone">
@@ -137,9 +168,10 @@
                         <div class="project-card__stack">
                             <span>TypeScript</span><span>React</span><span>Node.js</span>
                         </div>
+                        <span class="project-card__cta">Подробнее →</span>
                     </div>
-                </div>
-                <div class="project-card" data-animate>
+                </a>
+                <a href="projects/marqustrading.html" class="project-card" data-animate>
                     <div class="project-card__bg" style="background: linear-gradient(135deg, #1a1a0a 0%, #2e2a0a 100%);">
                         <div class="project-card__preview">
                             <div class="preview-ai">
@@ -157,8 +189,9 @@
                         <div class="project-card__stack">
                             <span>Python</span><span>Binance API</span><span>WebSocket</span><span>Telegram</span>
                         </div>
+                        <span class="project-card__cta">Подробнее →</span>
                     </div>
-                </div>
+                </a>
             </div>
         </div>
     </section>
@@ -167,8 +200,8 @@
     <section class="approach" id="approach">
         <div class="container">
             <div class="section-header">
-                <span class="section-label">02 / Подход</span>
-                <h2 class="section-title">Как мы работаем</h2>
+                <span class="section-label" data-i18n="approach.label">02 / Подход</span>
+                <h2 class="section-title" data-i18n="approach.title">Как мы работаем</h2>
             </div>
             <div class="approach__grid">
                 <div class="approach-step" data-animate>
@@ -204,10 +237,10 @@
     <section class="team" id="team">
         <div class="container">
             <div class="section-header">
-                <span class="section-label">03 / Команда</span>
-                <h2 class="section-title">Люди, которые создают</h2>
+                <span class="section-label" data-i18n="team.label">03 / Команда</span>
+                <h2 class="section-title" data-i18n="team.title">Люди, которые создают</h2>
             </div>
-            <div class="team__grid">
+            <div class="team__grid team__grid--5">
                 <div class="team-member" data-animate>
                     <div class="team-member__avatar team-member__avatar--pixel">
                         <img src="assets/pixel-head-1.svg" alt="Станислав Иванов" class="pixel-head" style="animation-delay: 0s">
@@ -217,21 +250,28 @@
                 </div>
                 <div class="team-member" data-animate>
                     <div class="team-member__avatar team-member__avatar--pixel">
-                        <img src="assets/pixel-head-2.svg" alt="Алексей INDI" class="pixel-head" style="animation-delay: 0.8s">
+                        <img src="assets/pixel-head-2.svg" alt="Алексей Ламышев" class="pixel-head" style="animation-delay: 0.4s">
                     </div>
-                    <h3 class="team-member__name">Алексей INDI</h3>
+                    <h3 class="team-member__name">Алексей Ламышев</h3>
                     <p class="team-member__role">Fullstack разработчик</p>
                 </div>
                 <div class="team-member" data-animate>
                     <div class="team-member__avatar team-member__avatar--pixel">
-                        <img src="assets/pixel-head-3.svg" alt="Сергей Петоян" class="pixel-head" style="animation-delay: 1.6s">
+                        <img src="assets/pixel-head-3.svg" alt="Сергей Петоян" class="pixel-head" style="animation-delay: 0.8s">
                     </div>
                     <h3 class="team-member__name">Сергей Петоян</h3>
                     <p class="team-member__role">Fullstack разработчик</p>
                 </div>
                 <div class="team-member" data-animate>
                     <div class="team-member__avatar team-member__avatar--pixel">
-                        <img src="assets/pixel-head-4.svg" alt="Анастасия Лещенко" class="pixel-head" style="animation-delay: 2.4s">
+                        <img src="assets/pixel-head-5.svg" alt="Лера Сафонова" class="pixel-head" style="animation-delay: 1.2s">
+                    </div>
+                    <h3 class="team-member__name">Лера Сафонова</h3>
+                    <p class="team-member__role">Project Manager</p>
+                </div>
+                <div class="team-member" data-animate>
+                    <div class="team-member__avatar team-member__avatar--pixel">
+                        <img src="assets/pixel-head-4.svg" alt="Анастасия Лещенко" class="pixel-head" style="animation-delay: 1.6s">
                     </div>
                     <h3 class="team-member__name">Анастасия Лещенко</h3>
                     <p class="team-member__role">UI/UX Designer</p>
@@ -244,17 +284,17 @@
     <section class="cta" id="contact">
         <div class="container cta__inner">
             <div class="cta__content">
-                <h2 class="cta__title">Обсудим ваш проект?</h2>
-                <p class="cta__subtitle">Расскажите о своей идее — мы предложим оптимальное решение и оценим сроки.</p>
+                <h2 class="cta__title" data-i18n="cta.title">Обсудим ваш проект?</h2>
+                <p class="cta__subtitle" data-i18n="cta.subtitle">Расскажите о своей идее — мы предложим оптимальное решение и оценим сроки.</p>
             </div>
             <form class="cta__form" id="contactForm">
                 <div class="form-row">
-                    <input type="text" class="form-input" placeholder="Ваше имя" required>
-                    <input type="tel" class="form-input" placeholder="Телефон" required>
+                    <input type="text" class="form-input" data-i18n-placeholder="form.name" placeholder="Ваше имя" required>
+                    <input type="tel" class="form-input" data-i18n-placeholder="form.phone" placeholder="Телефон" required>
                 </div>
-                <input type="email" class="form-input" placeholder="Email">
-                <textarea class="form-input form-textarea" placeholder="Расскажите о проекте" rows="4"></textarea>
-                <button type="submit" class="btn btn--primary btn--full">Отправить заявку</button>
+                <input type="email" class="form-input" data-i18n-placeholder="form.email" placeholder="Email">
+                <textarea class="form-input form-textarea" data-i18n-placeholder="form.message" placeholder="Расскажите о проекте" rows="4"></textarea>
+                <button type="submit" class="btn btn--primary btn--full" data-i18n="form.submit">Отправить заявку</button>
             </form>
         </div>
     </section>
@@ -297,5 +337,23 @@
     </footer>
 
     <script src="js/main.js"></script>
+
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript">
+        (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();
+        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+        (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+        // ЗАМЕНИ XXXXXXXX на свой ID счётчика Яндекс.Метрики
+        ym(XXXXXXXX, "init", {
+            clickmap:true,
+            trackLinks:true,
+            accurateTrackBounce:true,
+            webvisor:true
+        });
+    </script>
+    <noscript><div><img src="https://mc.yandex.ru/watch/XXXXXXXX" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 </body>
 </html>

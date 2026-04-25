@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FITBODY — REFRACT.AI</title>
+    <meta name="description" content="FITBODY — мобильное фитнес-приложение с AI-трекером калорий, сканером штрихкодов и персональными планами питания.">
+    <meta name="theme-color" content="#14141e">
+    <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/project.css">
+</head>
+<body>
+    <header class="header" id="header">
+        <div class="container header__inner">
+            <a href="../index.html" class="logo">
+                <img src="../assets/logo.svg" alt="REFRACT.AI" class="logo__img">
+            </a>
+            <nav class="nav">
+                <a href="../index.html#projects" class="nav__link">← Все проекты</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="project-page">
+        <section class="project-hero">
+            <div class="container">
+                <span class="project-hero__tag">Мобильное приложение</span>
+                <h1 class="project-hero__title">FITBODY</h1>
+                <p class="project-hero__subtitle">Фитнес-приложение нового поколения с AI-помощником, который ведёт пользователя от первой тренировки до результата</p>
+                <div class="project-hero__meta">
+                    <div class="project-meta-item">
+                        <span class="project-meta-label">Год</span>
+                        <span class="project-meta-value">2026</span>
+                    </div>
+                    <div class="project-meta-item">
+                        <span class="project-meta-label">Платформы</span>
+                        <span class="project-meta-value">iOS, Android, Web</span>
+                    </div>
+                    <div class="project-meta-item">
+                        <span class="project-meta-label">Срок</span>
+                        <span class="project-meta-value">8 месяцев</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="project-mockup-section">
+            <div class="container">
+                <div class="project-big-mockup" style="background: linear-gradient(135deg, #0a1a0a 0%, #1a2e1a 100%);">
+                    <div class="preview-mockup">
+                        <div class="mockup-bar"><span></span><span></span><span></span></div>
+                        <div class="mockup-content">
+                            <div class="mockup-sidebar"></div>
+                            <div class="mockup-main">
+                                <div class="mockup-chart" style="background: linear-gradient(135deg, rgba(76, 175, 80, 0.4), rgba(139, 195, 74, 0.3));"></div>
+                                <div class="mockup-cards">
+                                    <div></div><div></div><div></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="project-content">
+            <div class="container project-content__grid">
+                <div class="project-content__left">
+                    <h2 class="project-section-title">О проекте</h2>
+                    <p>FITBODY — это комплексное решение для людей, которые хотят взять под контроль своё здоровье и форму. Мы построили платформу, где AI-ассистент анализирует питание, тренировки и прогресс, давая рекомендации в реальном времени.</p>
+                    <p>Ключевая фишка — сканер штрихкодов с распознаванием продуктов через OpenFoodFacts и кастомный ML-движок для расчёта калорий по фото блюда. Пользователь просто фотографирует тарелку — приложение само определяет состав и БЖУ.</p>
+
+                    <h2 class="project-section-title">Что мы сделали</h2>
+                    <ul class="project-features">
+                        <li>Mobile-first приложение на React Native (iOS + Android)</li>
+                        <li>Веб-версия личного кабинета на React + TypeScript</li>
+                        <li>Backend на Node.js с PostgreSQL и Redis</li>
+                        <li>AI-интеграция с OpenAI для персональных рекомендаций</li>
+                        <li>Интеграция с базой OpenFoodFacts (3M+ продуктов)</li>
+                        <li>Платёжная система с подписками и trial-периодом</li>
+                        <li>Telegram-бот для быстрого учёта калорий</li>
+                    </ul>
+                </div>
+
+                <div class="project-content__right">
+                    <div class="project-stack-card">
+                        <h3 class="project-stack-title">Технологии</h3>
+                        <div class="project-stack-list">
+                            <span>React Native</span>
+                            <span>TypeScript</span>
+                            <span>Node.js</span>
+                            <span>PostgreSQL</span>
+                            <span>Redis</span>
+                            <span>OpenAI</span>
+                            <span>Stripe</span>
+                            <span>OpenFoodFacts API</span>
+                        </div>
+                    </div>
+
+                    <div class="project-stats-grid">
+                        <div class="project-stat">
+                            <div class="project-stat__num">3M+</div>
+                            <div class="project-stat__label">продуктов в базе</div>
+                        </div>
+                        <div class="project-stat">
+                            <div class="project-stat__num">95%</div>
+                            <div class="project-stat__label">точность AI</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="project-cta">
+            <div class="container project-cta__inner">
+                <h2 class="project-cta__title">Хотите такой же продукт?</h2>
+                <p class="project-cta__subtitle">Обсудим вашу идею и оценим сроки</p>
+                <a href="../index.html#contact" class="btn btn--primary">Написать нам</a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container footer__inner">
+            <div class="footer__left">
+                <a href="../index.html" class="logo">
+                    <img src="../assets/logo.svg" alt="REFRACT.AI" class="logo__img">
+                </a>
+                <p class="footer__copy">&copy; 2026 REFRACT.AI</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
