@@ -901,8 +901,13 @@ ul, ol {
     align-items: center;
     justify-content: center;
     background: var(--bg-card);
-    perspective: 400px;
+    perspective: 600px;
     transition: border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.pixel-head {
+    transform-style: preserve-3d;
+    transition: animation-duration 0.6s ease;
 }
 
 .team-member:hover .team-member__avatar {
@@ -919,29 +924,17 @@ ul, ol {
     height: 96px;
     image-rendering: pixelated;
     image-rendering: crisp-edges;
-    animation: pixelDance 1.6s ease-in-out infinite;
-    transform-origin: center bottom;
+    animation: pixelSpin360 10s linear infinite;
+    transform-origin: center center;
 }
 
 .team-member:hover .pixel-head {
-    animation: pixelExcited 0.5s ease-in-out infinite;
+    animation-duration: 5s;
 }
 
-@keyframes pixelDance {
-    0% { transform: translateY(0) rotate(-8deg) scale(1); }
-    15% { transform: translateY(-8px) rotate(0deg) scale(1.05); }
-    30% { transform: translateY(-2px) rotate(8deg) scale(1); }
-    45% { transform: translateY(-10px) rotate(0deg) scale(1.05); }
-    60% { transform: translateY(0) rotate(-8deg) scale(1); }
-    75% { transform: translateY(-6px) rotate(8deg) scale(1.05); }
-    100% { transform: translateY(0) rotate(-8deg) scale(1); }
-}
-
-@keyframes pixelExcited {
-    0%, 100% { transform: translateY(0) rotate(-15deg) scale(1.1); }
-    25% { transform: translateY(-12px) rotate(0deg) scale(1.15); }
-    50% { transform: translateY(-4px) rotate(15deg) scale(1.1); }
-    75% { transform: translateY(-12px) rotate(0deg) scale(1.15); }
+@keyframes pixelSpin360 {
+    0% { transform: rotateY(0deg); }
+    100% { transform: rotateY(360deg); }
 }
 
 .avatar-placeholder {

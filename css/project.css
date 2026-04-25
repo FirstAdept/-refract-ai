@@ -142,8 +142,15 @@
     border: 1px solid var(--border);
     border-radius: var(--radius-lg);
     padding: 32px;
+    margin-bottom: 24px;
+}
+
+.project-content__right {
     position: sticky;
     top: 100px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
 }
 
 .project-stack-title {
@@ -159,7 +166,6 @@
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
-    margin-bottom: 32px;
 }
 
 .project-stack-list span {
@@ -174,8 +180,10 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 16px;
-    padding-top: 24px;
-    border-top: 1px solid var(--border);
+    background: var(--bg-light);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 24px;
 }
 
 .project-stat__num {
@@ -212,13 +220,20 @@
     margin-bottom: 32px;
 }
 
+.project-cta__buttons {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
 @media (max-width: 768px) {
     .project-content__grid {
         grid-template-columns: 1fr;
         gap: 48px;
     }
 
-    .project-stack-card {
+    .project-content__right {
         position: static;
     }
 
