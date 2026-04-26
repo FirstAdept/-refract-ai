@@ -296,16 +296,25 @@ function updateParallax() {
 }
 updateParallax();
 
-// ===== Header scroll effect =====
+// ===== Header scroll + Progress bar =====
 const header = document.getElementById('header');
+const scrollProgress = document.getElementById('scrollProgress');
 
 window.addEventListener('scroll', () => {
-    if (window.scrollY > 60) {
+    const scrollY = window.scrollY;
+    if (scrollY > 60) {
         header.classList.add('header--scrolled');
     } else {
         header.classList.remove('header--scrolled');
     }
-});
+
+    // Scroll progress
+    if (scrollProgress) {
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = (scrollY / docHeight) * 100;
+        scrollProgress.style.width = Math.min(progress, 100) + '%';
+    }
+}, { passive: true });
 
 // ===== Mobile menu =====
 const burger = document.getElementById('burger');
