@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Бриф на ИИ-оптимизацию — REFRACT.AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#14141E; --surface:#1B1B28; --line:#2A2A3C;
+    --text:#F2F2F7; --muted:#9A9AAF;
+    --accent:#4D7CFE; --accent-2:#B96BFF; --warn:#FFB020;
+    --radius:12px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-serif;font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  .beam{height:3px;background:linear-gradient(90deg,var(--accent),var(--accent-2))}
+  .wrap{max-width:640px;margin:0 auto;padding:40px 20px 80px}
+  .tag{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+  h1{font-family:'Manrope',sans-serif;font-weight:800;font-size:clamp(26px,5vw,34px);line-height:1.15;margin:12px 0 10px}
+  .sub{color:var(--muted);margin-bottom:8px}
+  .eta{display:inline-block;margin:10px 0 34px;padding:6px 12px;border:1px solid var(--line);border-radius:999px;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--muted)}
+  fieldset{border:1px solid var(--line);border-radius:var(--radius);background:var(--surface);padding:20px;margin-bottom:16px}
+  legend{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding:0 8px}
+  label.q{display:block;font-weight:600;font-family:'Manrope',sans-serif;margin:14px 0 8px}
+  label.q:first-of-type{margin-top:4px}
+  input[type=text],input[type=email],select,textarea{width:100%;padding:12px 14px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;font-size:16px}
+  textarea{min-height:84px;resize:vertical}
+  input:focus,select:focus,textarea:focus{outline:none;border-color:var(--accent)}
+  .chips{display:flex;flex-wrap:wrap;gap:8px}
+  .chips label{border:1px solid var(--line);border-radius:999px;padding:9px 14px;cursor:pointer;font-size:14px;background:var(--bg);display:inline-flex;align-items:center;gap:7px}
+  .chips input{accent-color:var(--accent);width:15px;height:15px}
+  .chips label:has(input:checked){border-color:var(--accent);background:rgba(77,124,254,.12)}
+  button{width:100%;margin-top:8px;padding:16px;border:none;border-radius:var(--radius);background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#fff;font-family:'Manrope',sans-serif;font-weight:800;font-size:17px;cursor:pointer}
+  button:disabled{opacity:.6;cursor:wait}
+  .safe{margin-top:14px;font-size:13px;color:var(--muted);text-align:center}
+  .ok{display:none;border:1px solid var(--accent);border-radius:var(--radius);background:rgba(77,124,254,.1);padding:24px;text-align:center;margin-top:8px}
+  .ok h2{font-family:'Manrope',sans-serif;margin-bottom:6px}
+  .hp{position:absolute;left:-9999px;opacity:0}
+</style>
+</head>
+<body>
+<div class="beam"></div>
+<div class="wrap">
+  <span class="tag">REFRACT.AI · бриф</span>
+  <h1>Где вашему бизнесу поможет ИИ — узнайте за 2 минуты</h1>
+  <p class="sub">Ответьте на 8 вопросов — мы бесплатно разберём ваши процессы и вернёмся с конкретным планом: что автоматизировать первым и какой эффект это даст.</p>
+  <span class="eta">≈ 2 минуты · без звонков</span>
+
+  <form id="brief" method="POST" action="https://formsubmit.co/hello.refract@gmail.com">
+    <input type="hidden" name="_subject" value="Бриф на ИИ-оптимизацию (сайт)">
+    <input type="hidden" name="_template" value="table">
+    <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off">
+
+    <fieldset>
+      <legend>О компании</legend>
+      <label class="q">1. Чем занимается компания?</label>
+      <input type="text" name="Сфера" required placeholder="производство, услуги, торговля, логистика…">
+      <label class="q">2. Сколько человек в команде?</label>
+      <div class="chips">
+        <label><input type="radio" name="Размер" value="До 10">до 10</label>
+        <label><input type="radio" name="Размер" value="10–50">10–50</label>
+        <label><input type="radio" name="Размер" value="50–200">50–200</label>
+        <label><input type="radio" name="Размер" value="200+">200+</label>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Процессы</legend>
+      <label class="q">3. Что съедает больше всего времени? Отметьте всё подходящее</label>
+      <div class="chips">
+        <label><input type="checkbox" name="Боли" value="Документы и договоры">документы и договоры</label>
+        <label><input type="checkbox" name="Боли" value="Звонки и заявки">звонки и заявки</label>
+        <label><input type="checkbox" name="Боли" value="Ответы клиентам">ответы клиентам</label>
+        <label><input type="checkbox" name="Боли" value="Найм и текучка">найм и текучка</label>
+        <label><input type="checkbox" name="Боли" value="Отзывы и репутация">отзывы и репутация</label>
+        <label><input type="checkbox" name="Боли" value="Отчёты и учёт">отчёты и учёт</label>
+        <label><input type="checkbox" name="Боли" value="Контроль оплат">контроль оплат</label>
+      </div>
+      <label class="q">4. Опишите одну задачу, которую хочется «снять с людей» в первую очередь</label>
+      <textarea name="Главная задача" placeholder="своими словами"></textarea>
+      <label class="q">5. Какие системы уже используете?</label>
+      <div class="chips">
+        <label><input type="checkbox" name="Системы" value="1С">1С</label>
+        <label><input type="checkbox" name="Системы" value="CRM">CRM</label>
+        <label><input type="checkbox" name="Системы" value="Excel">Excel</label>
+        <label><input type="checkbox" name="Системы" value="Почти всё вручную">почти всё вручную</label>
+      </div>
+      <label class="q">6. Пробовали ли уже что-то с ИИ?</label>
+      <div class="chips">
+        <label><input type="radio" name="Опыт с ИИ" value="Нет">нет</label>
+        <label><input type="radio" name="Опыт с ИИ" value="Пробовали сами">пробовали сами</label>
+        <label><input type="radio" name="Опыт с ИИ" value="Есть работающие решения">есть работающие решения</label>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Рамки</legend>
+      <label class="q">7. Комфортный бюджет первого шага</label>
+      <div class="chips">
+        <label><input type="radio" name="Бюджет" value="До 100 тыс ₽">до 100 тыс ₽</label>
+        <label><input type="radio" name="Бюджет" value="100–300 тыс ₽">100–300 тыс ₽</label>
+        <label><input type="radio" name="Бюджет" value="300 тыс ₽+">300 тыс ₽+</label>
+        <label><input type="radio" name="Бюджет" value="Сначала расчёт">сначала хочу расчёт</label>
+      </div>
+      <label class="q">8. Когда хотите увидеть первый результат?</label>
+      <div class="chips">
+        <label><input type="radio" name="Срок" value="В этом месяце">в этом месяце</label>
+        <label><input type="radio" name="Срок" value="В квартале">в этом квартале</label>
+        <label><input type="radio" name="Срок" value="Изучаю вопрос">пока изучаю вопрос</label>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Контакты</legend>
+      <label class="q">Имя</label>
+      <input type="text" name="Имя" required>
+      <label class="q">Компания</label>
+      <input type="text" name="Компания">
+      <label class="q">Телефон или мессенджер</label>
+      <input type="text" name="Контакт" required placeholder="+7… / @телеграм">
+      <label class="q">Почта <span style="color:var(--muted);font-weight:400">(необязательно)</span></label>
+      <input type="email" name="Почта">
+    </fieldset>
+
+    <button type="submit" id="send">Отправить бриф — расчёт бесплатно</button>
+    <p class="safe">Данные уходят только команде REFRACT.AI и не передаются третьим лицам.</p>
+  </form>
+
+  <div class="ok" id="ok">
+    <h2>Спасибо!</h2>
+    <p>Бриф у нас. Вернёмся с планом в течение 1–2 рабочих дней.<br>REFRACT.AI · refract-ai.ru</p>
+  </div>
+</div>
+<script>
+  const form=document.getElementById('brief'),ok=document.getElementById('ok'),btn=document.getElementById('send');
+  form.addEventListener('submit',async e=>{
+    e.preventDefault();btn.disabled=true;btn.textContent='Отправляем…';
+    try{
+      const r=await fetch('https://formsubmit.co/ajax/hello.refract@gmail.com',{
+        method:'POST',headers:{'Accept':'application/json'},body:new FormData(form)});
+      if(!r.ok)throw 0;
+      form.style.display='none';ok.style.display='block';window.scrollTo({top:0,behavior:'smooth'});
+    }catch(_){form.submit();}
+  });
+</script>
+</body>
+</html>

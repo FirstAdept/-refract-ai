@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Анкета для «Белой Гвардии» — REFRACT.AI</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#161514; --surface:#1D1C1A; --line:#33312D;
+    --text:#F4F2EE; --muted:#8F8B84;
+    --accent:#F15A24; --accent-2:#F15A24; --warn:#F15A24;
+    --radius:2px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    background:var(--bg); color:var(--text);
+    font-family:'Inter',system-ui,sans-serif;
+    font-size:16px; line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  .beam{height:3px;background:var(--accent);}
+  .wrap{max-width:640px;margin:0 auto;padding:40px 20px 80px}
+  .tag{
+    font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;
+    letter-spacing:.12em;text-transform:uppercase;color:var(--accent);
+  }
+  h1{
+    font-family:'Inter Tight',sans-serif;font-weight:800;
+    font-size:clamp(26px,5vw,34px);line-height:1.15;margin:12px 0 10px;
+  }
+  .sub{color:var(--muted);margin-bottom:8px}
+  .eta{
+    display:inline-block;margin:10px 0 34px;padding:6px 12px;
+    border:1px solid var(--line);border-radius:2px;
+    font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--muted);
+  }
+  fieldset{
+    border:1px solid var(--line);border-radius:var(--radius);
+    background:var(--surface);padding:20px;margin-bottom:16px;
+  }
+  legend{
+    font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;
+    letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding:0 8px;
+  }
+  label.q{display:block;font-weight:600;font-family:'Inter Tight',sans-serif;margin:14px 0 8px}
+  label.q:first-of-type{margin-top:4px}
+  .hint{font-size:13px;color:var(--muted);margin:-4px 0 8px}
+  input[type=text],input[type=email],input[type=tel],select,textarea{
+    width:100%;padding:12px 14px;border-radius:2px;
+    border:1px solid var(--line);background:var(--bg);color:var(--text);
+    font-family:'Inter',sans-serif;font-size:16px;
+  }
+  textarea{min-height:84px;resize:vertical}
+  input:focus,select:focus,textarea:focus{outline:none;border-color:var(--accent)}
+  .chips{display:flex;flex-wrap:wrap;gap:8px}
+  .chips label{
+    border:1px solid var(--line);border-radius:2px;padding:9px 14px;
+    cursor:pointer;font-size:14px;color:var(--text);background:var(--bg);
+    display:inline-flex;align-items:center;gap:7px;
+  }
+  .chips input{accent-color:var(--accent);width:15px;height:15px}
+  .chips label:has(input:checked){border-color:var(--accent);background:rgba(241,90,36,.14)}
+  button{
+    width:100%;margin-top:8px;padding:16px;border:none;border-radius:var(--radius);
+    background:var(--accent);
+    color:#fff;font-family:'Inter Tight',sans-serif;font-weight:800;font-size:17px;cursor:pointer;
+  }
+  button:disabled{opacity:.6;cursor:wait}
+  .safe{margin-top:14px;font-size:13px;color:var(--muted);text-align:center}
+  .ok{
+    display:none;border:1px solid var(--accent);border-radius:var(--radius);
+    background:rgba(241,90,36,.12);padding:24px;text-align:center;margin-top:8px;
+  }
+  .ok h2{font-family:'Inter Tight',sans-serif;margin-bottom:6px}
+  .hp{position:absolute;left:-9999px;opacity:0}
+</style>
+</head>
+<body>
+<div class="beam"></div>
+<div class="wrap">
+  <span class="tag">REFRACT.AI → ООО «Белая Гвардия»</span>
+  <h1>10 вопросов, чтобы посчитать вашу рутину в рублях</h1>
+  <p class="sub">Ответьте как есть, примерно — этого достаточно. По ответам мы бесплатно посчитаем, сколько времени и денег заберёт автоматизация, и вернёмся с конкретными цифрами.</p>
+  <span class="eta">≈ 2 минуты · без звонков</span>
+
+  <form id="brief" method="POST" action="https://formsubmit.co/hello.refract@gmail.com">
+    <input type="hidden" name="_subject" value="Бриф: Белая Гвардия (логистика)">
+    <input type="hidden" name="_template" value="table">
+    <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off">
+
+    <fieldset>
+      <legend>Парк и рейсы</legend>
+      <label class="q">1. Сколько машин в работе?</label>
+      <div class="chips">
+        <label><input type="radio" name="Парк" value="1–3">1–3</label>
+        <label><input type="radio" name="Парк" value="4–10">4–10</label>
+        <label><input type="radio" name="Парк" value="10+">10+</label>
+        <label><input type="radio" name="Парк" value="Свои + наёмные">свои + наёмные</label>
+      </div>
+      <label class="q">2. Сколько рейсов в месяц в среднем?</label>
+      <input type="text" name="Рейсов в месяц" placeholder="например, 40">
+    </fieldset>
+
+    <fieldset>
+      <legend>Документы и заявки</legend>
+      <label class="q">3. Кто оформляет документы рейса (ТТН, УПД, акты)?</label>
+      <div class="chips">
+        <label><input type="radio" name="Документы делает" value="Сам руководитель">сам руководитель</label>
+        <label><input type="radio" name="Документы делает" value="Бухгалтер/офис">бухгалтер / офис</label>
+        <label><input type="radio" name="Документы делает" value="Наёмный аутсорс">аутсорс</label>
+      </div>
+      <label class="q">Сколько времени уходит на документы одного рейса?</label>
+      <div class="chips">
+        <label><input type="radio" name="Время на документы рейса" value="До 30 мин">до 30 мин</label>
+        <label><input type="radio" name="Время на документы рейса" value="Около часа">около часа</label>
+        <label><input type="radio" name="Время на документы рейса" value="Больше часа">больше часа</label>
+      </div>
+      <label class="q">4. Как приходят заявки?</label>
+      <div class="chips">
+        <label><input type="checkbox" name="Заявки" value="Телефон">телефон</label>
+        <label><input type="checkbox" name="Заявки" value="Мессенджер">мессенджер</label>
+        <label><input type="checkbox" name="Заявки" value="АТИ/биржа">АТИ / биржа</label>
+        <label><input type="checkbox" name="Заявки" value="Постоянные заказчики">постоянные заказчики</label>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Клиенты и деньги</legend>
+      <label class="q">5. Как заказчики узнают, где груз?</label>
+      <div class="chips">
+        <label><input type="radio" name="Статус груза" value="Звонят нам">звонят нам</label>
+        <label><input type="radio" name="Статус груза" value="Пишем сами">пишем сами</label>
+        <label><input type="radio" name="Статус груза" value="Есть трекинг">есть трекинг</label>
+      </div>
+      <label class="q">6. Бывают ли задержки оплаты от заказчиков?</label>
+      <div class="chips">
+        <label><input type="radio" name="Задержки оплаты" value="Редко">редко</label>
+        <label><input type="radio" name="Задержки оплаты" value="Регулярно">регулярно</label>
+        <label><input type="radio" name="Задержки оплаты" value="Это главная боль">это главная боль</label>
+      </div>
+      <label class="q">7. Где ищете загрузки, включая обратные?</label>
+      <input type="text" name="Поиск загрузок" placeholder="АТИ, знакомые, тендеры…">
+    </fieldset>
+
+    <fieldset>
+      <legend>Учёт и команда</legend>
+      <label class="q">8. Какой учёт используете?</label>
+      <div class="chips">
+        <label><input type="checkbox" name="Учёт" value="1С">1С</label>
+        <label><input type="checkbox" name="Учёт" value="Excel">Excel</label>
+        <label><input type="checkbox" name="Учёт" value="Бумага">бумага</label>
+        <label><input type="checkbox" name="Учёт" value="Другое">другое</label>
+      </div>
+      <label class="q">9. Сколько человек в офисе, кроме водителей?</label>
+      <input type="text" name="Людей в офисе" placeholder="например, 2">
+      <label class="q">10. Что съедает больше всего вашего личного времени в неделю?</label>
+      <textarea name="Главный пожиратель времени" placeholder="своими словами, пары фраз достаточно"></textarea>
+    </fieldset>
+
+    <fieldset>
+      <legend>Как с вами связаться</legend>
+      <label class="q">Имя</label>
+      <input type="text" name="Имя" required>
+      <label class="q">Телефон или мессенджер</label>
+      <input type="text" name="Контакт" required placeholder="+7… / @телеграм">
+      <label class="q">Почта <span style="color:var(--muted);font-weight:400">(необязательно)</span></label>
+      <input type="email" name="Почта">
+    </fieldset>
+
+    <button type="submit" id="send">Отправить — и получить расчёт бесплатно</button>
+    <p class="safe">Данные уходят только команде REFRACT.AI и не передаются третьим лицам.</p>
+  </form>
+
+  <div class="ok" id="ok">
+    <h2>Спасибо!</h2>
+    <p>Анкета у нас. Вернёмся с расчётом в течение 1–2 рабочих дней.<br>REFRACT.AI · refract-ai.ru</p>
+  </div>
+</div>
+<script>
+  const form=document.getElementById('brief'),ok=document.getElementById('ok'),btn=document.getElementById('send');
+  form.addEventListener('submit',async e=>{
+    e.preventDefault();btn.disabled=true;btn.textContent='Отправляем…';
+    try{
+      const r=await fetch('https://formsubmit.co/ajax/hello.refract@gmail.com',{
+        method:'POST',headers:{'Accept':'application/json'},body:new FormData(form)});
+      if(!r.ok)throw 0;
+      form.style.display='none';ok.style.display='block';window.scrollTo({top:0,behavior:'smooth'});
+    }catch(_){form.submit();}
+  });
+</script>
+</body>
+</html>
