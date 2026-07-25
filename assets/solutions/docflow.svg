@@ -10,17 +10,21 @@
     <line x1="76" y1="162" x2="124" y2="162"/>
   </g>
   <g stroke="#7f77dd" stroke-width="1.2" opacity="0.9">
-    <path d="M160 142 L214 142"/><path d="M206 136 L214 142 L206 148"/>
+    <path d="M162 142 L212 142"/><path d="M204 136 L212 142 L204 148"/>
   </g>
-  <g stroke="#ffffff" stroke-width="1.6">
-    <polygon points="266 84 226 108 226 156 266 180 306 156 306 108"/>
+  <g transform="translate(223.67 94.99) scale(1.3333)" fill="none">
+    <g stroke="#ffffff" stroke-width="1.2" stroke-miterlimit="10">
+      <polygon points="32.11 69.38 1 52.63 1 17.38 32.11 1.13 62.5 17.38 62.5 52.63"/>
+      <polyline points="1 17.38 13.27 26.63 51.68 26.63 62.5 17.38"/>
+      <line x1="32.11" y1="69.38" x2="32.11" y2="58.63"/>
+    </g>
+    <g stroke="#9be1cb" stroke-width="0.862" stroke-linejoin="bevel" opacity="0.9">
+      <polygon points="62.5 52.63 51.31 26.63 32.11 1.13 12.91 26.63 1 52.63 32.11 58.63"/>
+      <polyline points="51.31 26.63 32.11 58.63 12.91 26.63"/>
+    </g>
   </g>
-  <g stroke="#9be1cb" stroke-width="1.1" opacity="0.85">
-    <path d="M226 108 L266 132 L306 108"/><path d="M266 132 L266 180"/>
-  </g>
-  <circle cx="266" cy="132" r="3.4" fill="#9be1cb"/>
   <g stroke="#9be1cb" stroke-width="1.2" opacity="0.9">
-    <path d="M320 142 L374 142"/><path d="M366 136 L374 142 L366 148"/>
+    <path d="M322 142 L372 142"/><path d="M364 136 L372 142 L364 148"/>
   </g>
   <g>
     <rect x="388" y="92" width="106" height="20" rx="3" stroke="#ffffff" stroke-width="1" opacity="0.65"/>
