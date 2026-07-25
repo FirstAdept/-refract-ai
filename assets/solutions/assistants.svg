@@ -1,4 +1,26 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 300" fill="none">
+  <style>
+    .spin {
+      transform-box: fill-box;
+      transform-origin: center;
+      animation: spinY 13s cubic-bezier(0.45, 0, 0.55, 1) 1.5s infinite;
+    }
+    @keyframes spinY {
+      0%   { transform: scaleX(1); }
+      45%  { transform: scaleX(-1); }
+      50%  { transform: scaleX(-1); }
+      95%  { transform: scaleX(1); }
+      100% { transform: scaleX(1); }
+    }
+    .facet { animation: facetGlow 13s ease-in-out 1.5s infinite; }
+    @keyframes facetGlow {
+      0%, 100% { opacity: 0.9; }
+      42%, 53% { opacity: 0.35; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .spin, .facet { animation: none; }
+    }
+  </style>
   <g stroke="#ffffff" stroke-width="1.2" opacity="0.55">
     <path d="M42 74 h150 a4 4 0 0 1 4 4 v40 a4 4 0 0 1 -4 4 h-124 l-18 18 v-18 h-8 a4 4 0 0 1 -4 -4 v-40 a4 4 0 0 1 4 -4 z"/>
     <line x1="60" y1="92" x2="150" y2="92"/><line x1="60" y1="106" x2="126" y2="106"/>
@@ -11,14 +33,16 @@
     <path d="M204 106 L224 124"/><path d="M204 190 L224 160"/>
   </g>
   <g transform="translate(221.73 97.29) scale(1.2683)" fill="none">
-    <g stroke="#ffffff" stroke-width="1.262" stroke-miterlimit="10">
-      <polygon points="32.11 69.38 1 52.63 1 17.38 32.11 1.13 62.5 17.38 62.5 52.63"/>
-      <polyline points="1 17.38 13.27 26.63 51.68 26.63 62.5 17.38"/>
-      <line x1="32.11" y1="69.38" x2="32.11" y2="58.63"/>
-    </g>
-    <g stroke="#9be1cb" stroke-width="0.907" stroke-linejoin="bevel" opacity="0.9">
-      <polygon points="62.5 52.63 51.31 26.63 32.11 1.13 12.91 26.63 1 52.63 32.11 58.63"/>
-      <polyline points="51.31 26.63 32.11 58.63 12.91 26.63"/>
+    <g class="spin">
+      <g stroke="#ffffff" stroke-width="1.262" stroke-miterlimit="10">
+        <polygon points="32.11 69.38 1 52.63 1 17.38 32.11 1.13 62.5 17.38 62.5 52.63"/>
+        <polyline points="1 17.38 13.27 26.63 51.68 26.63 62.5 17.38"/>
+        <line x1="32.11" y1="69.38" x2="32.11" y2="58.63"/>
+      </g>
+      <g class="facet" stroke="#9be1cb" stroke-width="0.907" stroke-linejoin="bevel">
+        <polygon points="62.5 52.63 51.31 26.63 32.11 1.13 12.91 26.63 1 52.63 32.11 58.63"/>
+        <polyline points="51.31 26.63 32.11 58.63 12.91 26.63"/>
+      </g>
     </g>
   </g>
   <g stroke="#9be1cb" stroke-width="1.2">
