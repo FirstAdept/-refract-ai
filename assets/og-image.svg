@@ -33,11 +33,11 @@
   <!-- Text block -->
   <g transform="translate(80, 180)">
     <text x="0" y="0" font-family="Inter, sans-serif" font-size="22" font-weight="500" letter-spacing="6" fill="#666680">REFRACT.AI</text>
-    <text x="0" y="90" font-family="Inter, sans-serif" font-size="72" font-weight="600" fill="white" letter-spacing="-2">Студия</text>
-    <text x="0" y="170" font-family="Inter, sans-serif" font-size="72" font-weight="600" fill="white" letter-spacing="-2">разработки</text>
-    <text x="0" y="240" font-family="Inter, sans-serif" font-size="72" font-weight="300" fill="white" fill-opacity="0.5" letter-spacing="-2">цифровых продуктов</text>
+    <text x="0" y="90" font-family="Inter, sans-serif" font-size="72" font-weight="600" fill="white" letter-spacing="-2">ИИ-оптимизация</text>
+    <text x="0" y="170" font-family="Inter, sans-serif" font-size="72" font-weight="600" fill="white" letter-spacing="-2">вашего</text>
+    <text x="0" y="240" font-family="Inter, sans-serif" font-size="72" font-weight="300" fill="white" fill-opacity="0.5" letter-spacing="-2">бизнеса</text>
 
-    <text x="0" y="340" font-family="Inter, sans-serif" font-size="22" fill="#a0a0b0">Веб / Мобайл / AI / Блокчейн</text>
+    <text x="0" y="340" font-family="Inter, sans-serif" font-size="22" fill="#a0a0b0">Автоматизация / AI-агенты / Аналитика</text>
   </g>
 
   <!-- Bottom bar -->
