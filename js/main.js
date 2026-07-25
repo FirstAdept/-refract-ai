@@ -8,45 +8,96 @@ if ('serviceWorker' in navigator) {
 // ===== i18n (RU/EN) =====
 const translations = {
     ru: {
-        'nav.projects': 'Проекты',
+        'nav.projects': 'Решения',
+        'nav.ind': 'Отрасли',
+        'pains.label': '01 / Диагностика',
+        'pains.title': 'С чем к нам обращаются чаще всего',
+        'pain1.t': 'Обращения обрабатываются с задержкой',
+        'pain1.d': 'Объём входящих запросов превышает пропускную способность отдела. Часть обращений остаётся без ответа в нерабочие часы и в пиковые периоды.',
+        'pain2.t': 'Данные переносятся между системами вручную',
+        'pain2.d': 'Сотрудники дублируют информацию из почты в учётную систему и обратно в отчётность. Ручной ввод расходует рабочее время и остаётся источником ошибок.',
+        'pain3.t': 'Адаптация новых сотрудников занимает месяцы',
+        'pain3.d': 'Экспертиза не формализована и хранится у опытных специалистов. При смене состава качество работы снижается, а регламенты приходится восстанавливать заново.',
+        'pain4.t': 'Управленческие решения принимаются без опоры на данные',
+        'pain4.d': 'Отчётность формируется вручную и поступает с задержкой. Информация в системах накоплена, но не превращается в основу для планирования.',
+        'ind.label': '03 / Отрасли',
+        'ind.title': 'Что автоматизируем в вашей сфере',
+        'ind1.n': 'Розница и e-commerce',
+        'ind1.a': 'Прогноз спроса и точки дозаказа',
+        'ind1.b': 'Ассистент на все каналы: сайт, мессенджеры, маркетплейсы',
+        'ind1.c': 'Автоописания и категоризация товаров',
+        'ind2.n': 'Производство',
+        'ind2.a': 'Планирование загрузки и закупок сырья',
+        'ind2.b': 'Предсказание простоев по данным оборудования',
+        'ind2.c': 'Обработка спецификаций и технической документации',
+        'ind3.n': 'Логистика и дистрибуция',
+        'ind3.a': 'Разбор накладных и актов без ручного ввода',
+        'ind3.b': 'Оптимизация остатков по складам',
+        'ind3.c': 'Ответы перевозчикам и статусы отгрузок',
+        'ind4.n': 'Услуги и клиники',
+        'ind4.a': 'Запись и напоминания без участия администратора',
+        'ind4.b': 'Ответы на типовые вопросы 24/7',
+        'ind4.c': 'Контроль качества диалогов с клиентами',
+        'ind5.n': 'Финансы и бухгалтерия',
+        'ind5.a': 'Обработка первички и сверка с учётной системой',
+        'ind5.b': 'Прогноз кассовых разрывов',
+        'ind5.c': 'Проверка договоров на расхождения',
+        'ind6.n': 'Вашей сферы здесь нет?',
+        'ind6.d': 'Опишите процесс — посмотрим, что в нём можно снять с людей.',
+        'ind6.cta': 'Описать задачу →',
+        'free.label': '05 / С чего начать',
+        'free.title': 'Первый модуль — бесплатно',
+        'free.lead': 'Мы не предлагаем внедрение без подтверждённого результата. Выбираем один процесс, собираем на нём работающий модуль и показываем эффект на ваших данных. Дальнейшее сотрудничество — по итогам, без обязательств на старте.',
+        'free.cta': 'Забрать модуль',
+        'free1.t': 'Разбор процесса',
+        'free1.d': 'Созвон на час. Разбираем, где у вас уходит время, и выбираем участок с самой быстрой отдачей.',
+        'free2.t': 'Рабочий модуль',
+        'free2.d': 'Собираем решение под выбранный участок и запускаем на ваших реальных данных. Не презентация, а работающий инструмент.',
+        'free3.t': 'Замер и решение',
+        'free3.d': 'Считаем, сколько времени сэкономлено. Дальше вы решаете, масштабировать это на остальные процессы или нет.',
         'nav.approach': 'Подход',
         'nav.team': 'Команда',
         'nav.contact': 'Контакты',
-        'hero.title': 'Разрабатываем<br>цифровые продукты<br>нового поколения',
-        'hero.subtitle': 'Веб-приложения, мобильные решения и AI-системы.<br>Полный цикл от идеи до запуска.',
-        'hero.cta': 'Обсудить проект',
+        'hero.title': 'Внедряем ИИ<br>в процессы<br>вашего бизнеса',
+        'hero.subtitle': 'Автоматизация рутины, AI-агенты и прогнозная аналитика.<br>Полный цикл: от аудита процессов до внедрения.',
+        'hero.cta': 'Обсудить задачу',
+        'hero.scroll': 'Ведите курсором',
         'stats.projects': 'Проектов реализовано',
         'stats.years': 'Лет на рынке',
         'stats.team': 'Специалистов в команде',
         'stats.return': '% клиентов возвращаются',
-        'projects.label': '01 / Проекты',
-        'projects.title': 'Наши работы',
-        'approach.label': '02 / Подход',
+        'projects.label': '02 / Решения',
+        'projects.title': 'Что мы автоматизируем',
+        'approach.label': '04 / Подход',
         'approach.title': 'Как мы работаем',
-        'team.label': '03 / Команда',
+        'team.label': '06 / Команда',
         'team.title': 'Люди, которые создают',
-        'cta.title': 'Обсудим ваш проект?',
-        'cta.subtitle': 'Расскажите о своей идее — мы предложим оптимальное решение и оценим сроки.',
+        'cta.title': 'Обсудим, что можно автоматизировать?',
+        'cta.subtitle': 'Расскажите о своих процессах — покажем, где ИИ сэкономит время и деньги, и оценим сроки внедрения.',
         'form.name': 'Ваше имя',
         'form.phone': 'Телефон',
         'form.email': 'Email',
-        'form.message': 'Расскажите о проекте',
+        'form.message': 'Опишите ваши процессы и задачи',
         'form.submit': 'Отправить заявку',
-        'proj.fitbody.tag': 'Мобильное приложение',
-        'proj.fitbody.desc': 'Умный счётчик калорий: фотография блюда → AI определяет состав, калорийность и БЖУ',
-        'proj.dream.tag': 'AI-сонник',
-        'proj.dream.desc': 'AI-сонник с разбором символов сна и генерацией видео-визуализации в сюрреалистическом стиле',
-        'proj.marqus.tag': 'Трейдинг-бот',
-        'proj.marqus.desc': 'Автоматизированный грид-бот для криптотрейдинга с адаптивным спредом и риск-менеджментом',
+        'proj.docflow.tag': 'Автоматизация процессов',
+        'proj.docflow.desc': 'Договоры, счета, заявки: ИИ распознаёт, извлекает данные, классифицирует и маршрутизирует документы без ручного разбора',
+        'proj.agents.tag': 'AI-агенты',
+        'proj.agents.desc': 'Чат-боты для поддержки и продаж: отвечают на типовые вопросы, квалифицируют лиды и передают сложные случаи людям',
+        'proj.analytics.tag': 'Аналитика и прогнозы',
+        'proj.analytics.desc': 'Прогноз спроса, управление запасами, дашборды для руководителей — решения на данных, а не на интуиции',
         'proj.more': 'Подробнее →',
-        'step1.title': 'Аналитика',
-        'step1.desc': 'Погружаемся в бизнес, изучаем аудиторию, анализируем конкурентов. Формируем чёткое ТЗ.',
-        'step2.title': 'Прототип',
-        'step2.desc': 'Проектируем архитектуру, создаём интерактивные прототипы. Тестируем на пользователях.',
-        'step3.title': 'Разработка',
-        'step3.desc': 'Agile-спринты, код-ревью, автотесты. Прозрачный процесс с демо каждые 2 недели.',
-        'step4.title': 'Запуск',
-        'step4.desc': 'Деплой, мониторинг, поддержка. Остаёмся на связи и развиваем продукт вместе.',
+        'step1.n': '01 / Аудит',
+        'step2.n': '02 / Пилот',
+        'step3.n': '03 / Внедрение',
+        'step4.n': '04 / Партнёрство',
+        'step1.title': 'Сначала изучаем ваши процессы',
+        'step1.desc': 'Находим рутину и узкие места. Считаем, где ИИ даст измеримую экономию.',
+        'step2.title': 'Запускаем прототип на ваших данных',
+        'step2.desc': 'Две-четыре недели. Измеряем результат до того, как масштабировать.',
+        'step3.title': 'Соединяем ИИ с вашими системами',
+        'step3.desc': '1С, CRM, ERP. Обучаем сотрудников работе с новым инструментом.',
+        'step4.title': 'Человек и машина работают вместе',
+        'step4.desc': 'Мониторим качество, дообучаем модели, масштабируем на новые процессы.',
         'role.fullstack': 'Fullstack разработчик',
         'role.pm': 'Project Manager',
         'role.ux': 'UI/UX Designer',
@@ -58,45 +109,96 @@ const translations = {
         'name.nastya': 'Анастасия Лещенко'
     },
     en: {
-        'nav.projects': 'Projects',
+        'nav.projects': 'Solutions',
+        'nav.ind': 'Industries',
+        'pains.label': '01 / Diagnostics',
+        'pains.title': 'What companies come to us with',
+        'pain1.t': 'Enquiries are handled with delay',
+        'pain1.d': 'Incoming volume exceeds the department\'s capacity. A share of enquiries goes unanswered outside business hours and during peak periods.',
+        'pain2.t': 'Data moves between systems manually',
+        'pain2.d': 'Staff duplicate information from email into the accounting system and back into reporting. Manual entry consumes working hours and remains a source of errors.',
+        'pain3.t': 'Onboarding new staff takes months',
+        'pain3.d': 'Expertise is undocumented and held by senior specialists. When the team changes, quality drops and procedures have to be rebuilt from scratch.',
+        'pain4.t': 'Decisions are made without reliable data',
+        'pain4.d': 'Reporting is compiled manually and arrives late. The data is accumulated in your systems but never becomes a basis for planning.',
+        'ind.label': '03 / Industries',
+        'ind.title': 'What we automate in your field',
+        'ind1.n': 'Retail and e-commerce',
+        'ind1.a': 'Demand forecasting and reorder points',
+        'ind1.b': 'One assistant across site, messengers and marketplaces',
+        'ind1.c': 'Automatic product copy and categorisation',
+        'ind2.n': 'Manufacturing',
+        'ind2.a': 'Capacity planning and raw material purchasing',
+        'ind2.b': 'Downtime prediction from equipment data',
+        'ind2.c': 'Processing specifications and technical documents',
+        'ind3.n': 'Logistics and distribution',
+        'ind3.a': 'Parsing waybills and delivery notes with no manual entry',
+        'ind3.b': 'Stock optimisation across warehouses',
+        'ind3.c': 'Carrier replies and shipment statuses',
+        'ind4.n': 'Services and clinics',
+        'ind4.a': 'Booking and reminders without a receptionist',
+        'ind4.b': 'Answers to routine questions 24/7',
+        'ind4.c': 'Quality control across client conversations',
+        'ind5.n': 'Finance and accounting',
+        'ind5.a': 'Processing source documents and reconciling with the ledger',
+        'ind5.b': 'Cash gap forecasting',
+        'ind5.c': 'Checking contracts for discrepancies',
+        'ind6.n': 'Your field is not listed?',
+        'ind6.d': 'Describe the process and we will see what can be taken off people.',
+        'ind6.cta': 'Describe the task →',
+        'free.label': '05 / Where to start',
+        'free.title': 'The first module is free',
+        'free.lead': 'We do not propose a rollout without a proven result. We select one process, build a working module on it and demonstrate the effect on your own data. Further cooperation follows from the outcome, with no commitment upfront.',
+        'free.cta': 'Claim the module',
+        'free1.t': 'Process review',
+        'free1.d': 'A one-hour call. We map where your time goes and pick the area with the fastest payback.',
+        'free2.t': 'A working module',
+        'free2.d': 'We build a solution for that area and run it on your real data. Not a demo deck — a working tool.',
+        'free3.t': 'Measure and decide',
+        'free3.d': 'We count the hours saved. Then you decide whether to scale it to the rest of your processes.',
         'nav.approach': 'Approach',
         'nav.team': 'Team',
         'nav.contact': 'Contact',
-        'hero.title': 'We build<br>next-generation<br>digital products',
-        'hero.subtitle': 'Web apps, mobile solutions and AI systems.<br>Full cycle from idea to launch.',
-        'hero.cta': 'Discuss project',
+        'hero.title': 'We bring AI<br>into your<br>business processes',
+        'hero.subtitle': 'Routine automation, AI agents and predictive analytics.<br>Full cycle: from process audit to deployment.',
+        'hero.cta': 'Discuss your case',
+        'hero.scroll': 'Move your cursor',
         'stats.projects': 'Projects delivered',
         'stats.years': 'Years on market',
         'stats.team': 'Specialists in team',
         'stats.return': '% of clients return',
-        'projects.label': '01 / Projects',
-        'projects.title': 'Our work',
-        'approach.label': '02 / Approach',
+        'projects.label': '02 / Solutions',
+        'projects.title': 'What we automate',
+        'approach.label': '04 / Approach',
         'approach.title': 'How we work',
-        'team.label': '03 / Team',
+        'team.label': '06 / Team',
         'team.title': 'The people who create',
-        'cta.title': 'Let\'s discuss your project?',
-        'cta.subtitle': 'Tell us about your idea — we\'ll propose the optimal solution and estimate the timeline.',
+        'cta.title': 'Let\'s discuss what to automate?',
+        'cta.subtitle': 'Tell us about your processes — we\'ll show where AI saves time and money, and estimate the timeline.',
         'form.name': 'Your name',
         'form.phone': 'Phone',
         'form.email': 'Email',
-        'form.message': 'Tell us about the project',
+        'form.message': 'Describe your processes and goals',
         'form.submit': 'Send request',
-        'proj.fitbody.tag': 'Mobile app',
-        'proj.fitbody.desc': 'Smart calorie counter: photograph your meal → AI detects ingredients, calories and macros',
-        'proj.dream.tag': 'AI dream interpreter',
-        'proj.dream.desc': 'AI dream analyzer with symbol breakdown and surreal video visualizations for each dream',
-        'proj.marqus.tag': 'Trading bot',
-        'proj.marqus.desc': 'Automated grid bot for crypto trading with adaptive spread and risk management',
+        'proj.docflow.tag': 'Process automation',
+        'proj.docflow.desc': 'Contracts, invoices, requests: AI recognizes, extracts data, classifies and routes documents with no manual sorting',
+        'proj.agents.tag': 'AI agents',
+        'proj.agents.desc': 'Chatbots for support and sales: answer routine questions, qualify leads and hand complex cases to humans',
+        'proj.analytics.tag': 'Analytics & forecasts',
+        'proj.analytics.desc': 'Demand forecasting, inventory management, executive dashboards — decisions driven by data, not gut feeling',
         'proj.more': 'Learn more →',
-        'step1.title': 'Analysis',
-        'step1.desc': 'We dive into the business, study the audience, analyze competitors. Form a clear specification.',
-        'step2.title': 'Prototype',
-        'step2.desc': 'We design architecture, create interactive prototypes. Test on users.',
-        'step3.title': 'Development',
-        'step3.desc': 'Agile sprints, code review, automated tests. Transparent process with demos every 2 weeks.',
-        'step4.title': 'Launch',
-        'step4.desc': 'Deployment, monitoring, support. We stay in touch and grow the product together.',
+        'step1.n': '01 / Audit',
+        'step2.n': '02 / Pilot',
+        'step3.n': '03 / Deployment',
+        'step4.n': '04 / Partnership',
+        'step1.title': 'First we study your processes',
+        'step1.desc': 'We find routine work and bottlenecks, and calculate where AI delivers measurable savings.',
+        'step2.title': 'We launch a prototype on your data',
+        'step2.desc': 'Two to four weeks. We measure the result before scaling it up.',
+        'step3.title': 'We connect AI to your systems',
+        'step3.desc': 'ERP, CRM, accounting. We train your team to work with the new tool.',
+        'step4.title': 'People and machines work together',
+        'step4.desc': 'We monitor quality, fine-tune models and scale to new processes.',
         'role.fullstack': 'Fullstack Developer',
         'role.pm': 'Project Manager',
         'role.ux': 'UI/UX Designer',
@@ -148,6 +250,283 @@ const savedLang = localStorage.getItem('lang') ||
 if (savedLang === 'en') {
     setLanguage('en');
 }
+
+// ===== Neural network background (hero + team) =====
+function initNeuralNet(canvasId, hostId, opts) {
+    const cv = document.getElementById(canvasId);
+    const host = document.getElementById(hostId);
+    if (!cv || !host) return;
+
+    const ctx = cv.getContext('2d');
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const cfg = Object.assign({ density: 15500, link: 132, radius: 190, max: 96 }, opts || {});
+
+    let W = 0, H = 0, nodes = [], links = [], pulses = [], visible = true;
+    const mouse = { x: -9999, y: -9999, active: false };
+    const rand = (a, b) => a + Math.random() * (b - a);
+
+    function build() {
+        const count = Math.max(26, Math.min(cfg.max, Math.round((W * H) / cfg.density)));
+        nodes = [];
+        for (let i = 0; i < count; i++) {
+            nodes.push({
+                x: rand(0, W), y: rand(0, H), hx: 0, hy: 0,
+                vx: rand(-0.16, 0.16), vy: rand(-0.16, 0.16),
+                r: rand(1.1, 2.6), e: 0, accent: Math.random() < 0.24
+            });
+        }
+        pulses = [];
+    }
+
+    function resize() {
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        W = host.clientWidth; H = host.clientHeight;
+        if (!W || !H) return;
+        cv.width = Math.floor(W * dpr); cv.height = Math.floor(H * dpr);
+        cv.style.width = W + 'px'; cv.style.height = H + 'px';
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        build();
+    }
+    window.addEventListener('resize', resize);
+
+    function nearest(x, y) {
+        let best = null, bd = Infinity;
+        for (const n of nodes) {
+            const d = (n.x - x) * (n.x - x) + (n.y - y) * (n.y - y);
+            if (d < bd) { bd = d; best = n; }
+        }
+        return best;
+    }
+
+    function spawn(x, y, burst) {
+        const a = nearest(x, y);
+        if (!a) return;
+        const cands = nodes.filter(b => b !== a && Math.hypot(b.x - a.x, b.y - a.y) < cfg.link);
+        for (const b of (burst ? cands.slice(0, 5) : cands.slice(0, 1))) {
+            if (pulses.length > 80) break;
+            pulses.push({ a: a, b: b, t: 0, sp: rand(0.012, 0.026), hop: burst ? 2 : 1 });
+        }
+    }
+
+    host.addEventListener('mousemove', e => {
+        const r = host.getBoundingClientRect();
+        mouse.x = e.clientX - r.left; mouse.y = e.clientY - r.top; mouse.active = true;
+        if (Math.random() < 0.16) spawn(mouse.x, mouse.y);
+    });
+    host.addEventListener('mouseleave', () => { mouse.active = false; mouse.x = -9999; mouse.y = -9999; });
+    host.addEventListener('touchmove', e => {
+        const r = host.getBoundingClientRect(), t = e.touches[0];
+        mouse.x = t.clientX - r.left; mouse.y = t.clientY - r.top; mouse.active = true;
+    }, { passive: true });
+    host.addEventListener('click', e => {
+        const r = host.getBoundingClientRect();
+        spawn(e.clientX - r.left, e.clientY - r.top, true);
+    });
+
+    new IntersectionObserver(es => { visible = es[0].isIntersecting; }, { threshold: 0 }).observe(host);
+
+    function step() {
+        for (const n of nodes) {
+            if (!reduce) { n.x += n.vx; n.y += n.vy; }
+            if (n.x < 0 || n.x > W) n.vx *= -1;
+            if (n.y < 0 || n.y > H) n.vy *= -1;
+            n.x = Math.max(0, Math.min(W, n.x));
+            n.y = Math.max(0, Math.min(H, n.y));
+            let pull = 0;
+            if (mouse.active) {
+                const dx = mouse.x - n.x, dy = mouse.y - n.y, d2 = dx * dx + dy * dy;
+                if (d2 < cfg.radius * cfg.radius) {
+                    pull = 1 - Math.sqrt(d2) / cfg.radius;
+                    n.hx += dx * 0.0016 * pull; n.hy += dy * 0.0016 * pull;
+                }
+            }
+            n.hx *= 0.90; n.hy *= 0.90;
+            n.x += n.hx; n.y += n.hy;
+            n.e += (pull - n.e) * 0.12;
+        }
+        links.length = 0;
+        for (let i = 0; i < nodes.length; i++) {
+            for (let k = i + 1; k < nodes.length; k++) {
+                const a = nodes[i], b = nodes[k];
+                const dx = a.x - b.x, dy = a.y - b.y, d = Math.sqrt(dx * dx + dy * dy);
+                if (d < cfg.link) links.push({ a: a, b: b, d: d });
+            }
+        }
+        for (let i = pulses.length - 1; i >= 0; i--) {
+            const p = pulses[i];
+            p.t += p.sp;
+            if (p.t >= 1) {
+                if (p.hop > 0) {
+                    const next = nodes.filter(c => c !== p.b && c !== p.a && Math.hypot(c.x - p.b.x, c.y - p.b.y) < cfg.link);
+                    if (next.length && pulses.length < 80) {
+                        pulses.push({ a: p.b, b: next[Math.floor(Math.random() * next.length)], t: 0, sp: p.sp, hop: p.hop - 1 });
+                    }
+                }
+                pulses.splice(i, 1);
+            }
+        }
+        if (!reduce && Math.random() < 0.045) spawn(rand(0, W), rand(0, H));
+    }
+
+    function draw() {
+        ctx.clearRect(0, 0, W, H);
+        for (const l of links) {
+            const t = 1 - l.d / cfg.link;
+            const heat = Math.max(l.a.e, l.b.e);
+            ctx.strokeStyle = 'rgba(' + Math.round(140 + heat * 115) + ',' + Math.round(136 + heat * 120) + ',' + Math.round(210 + heat * 45) + ',' + (t * 0.20 + heat * 0.42) + ')';
+            ctx.lineWidth = 0.6 + heat * 0.9;
+            ctx.beginPath(); ctx.moveTo(l.a.x, l.a.y); ctx.lineTo(l.b.x, l.b.y); ctx.stroke();
+        }
+        for (const p of pulses) {
+            const e = p.t < 0.5 ? 2 * p.t * p.t : 1 - Math.pow(-2 * p.t + 2, 2) / 2;
+            const x = p.a.x + (p.b.x - p.a.x) * e, y = p.a.y + (p.b.y - p.a.y) * e;
+            const fade = Math.sin(p.t * Math.PI);
+            ctx.fillStyle = 'rgba(155,225,203,' + (fade * 0.95) + ')';
+            ctx.beginPath(); ctx.arc(x, y, 2.1, 0, 6.2832); ctx.fill();
+            ctx.strokeStyle = 'rgba(155,225,203,' + (fade * 0.3) + ')';
+            ctx.lineWidth = 1.4;
+            ctx.beginPath(); ctx.moveTo(p.a.x, p.a.y); ctx.lineTo(x, y); ctx.stroke();
+        }
+        for (const n of nodes) {
+            const base = n.accent ? [127, 119, 221] : [168, 166, 196];
+            const g = n.e;
+            ctx.fillStyle = 'rgba(' + Math.round(base[0] + (255 - base[0]) * g) + ',' + Math.round(base[1] + (255 - base[1]) * g) + ',' + Math.round(base[2] + (255 - base[2]) * g) + ',' + (0.45 + g * 0.55) + ')';
+            ctx.beginPath(); ctx.arc(n.x, n.y, n.r + g * 2.4, 0, 6.2832); ctx.fill();
+            if (g > 0.28) {
+                ctx.strokeStyle = 'rgba(155,225,203,' + ((g - 0.28) * 0.5) + ')';
+                ctx.lineWidth = 1;
+                ctx.beginPath(); ctx.arc(n.x, n.y, n.r + 7 + g * 9, 0, 6.2832); ctx.stroke();
+            }
+        }
+    }
+
+    function loop() {
+        if (visible) { step(); draw(); }
+        requestAnimationFrame(loop);
+    }
+    resize();
+    loop();
+}
+
+initNeuralNet('heroNet', 'hero');
+initNeuralNet('teamNet', 'team', { density: 22000, max: 60, radius: 165 });
+
+// ===== Logo: снять пунктир после отрисовки =====
+(function () {
+    const logo = document.querySelector('.hero__logo');
+    if (!logo) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        logo.classList.add('lg-done');
+        return;
+    }
+    setTimeout(() => logo.classList.add('lg-done'), 2900);
+})();
+
+// ===== Approach: scroll-driven handshake sequence (no dependencies) =====
+(function () {
+    const cv = document.getElementById('shakeCanvas');
+    const section = document.querySelector('.approach');
+    if (!cv || !section) return;
+
+    const steps = [...document.querySelectorAll('.approach-step')];
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        steps.forEach(s => s.classList.add('approach-step--on'));
+        return;
+    }
+
+    const TOTAL = 113;
+    const ctx = cv.getContext('2d');
+    const prog = document.getElementById('approachProg');
+    const stage = section.querySelector('.approach__stage');
+    const imgs = [];
+
+    const load = document.createElement('div');
+    load.className = 'approach__load';
+    load.textContent = 'Загрузка';
+    if (stage) stage.appendChild(load);
+
+    let loaded = 0, pos = 0, target = 0, visible = false;
+
+    const ready = i => { const m = imgs[i]; return m && m.complete && m.naturalWidth > 0; };
+
+    function draw(f) {
+        const i = Math.max(0, Math.min(TOTAL - 1, Math.floor(f)));
+        const frac = f - i;
+        const j = Math.min(TOTAL - 1, i + 1);
+        ctx.globalAlpha = 1;
+        if (ready(i)) ctx.drawImage(imgs[i], 0, 0, cv.width, cv.height);
+        if (frac > 0.01 && ready(j)) {
+            ctx.globalAlpha = frac;
+            ctx.drawImage(imgs[j], 0, 0, cv.width, cv.height);
+        }
+        ctx.globalAlpha = 1;
+    }
+
+    for (let i = 0; i < TOTAL; i++) {
+        const im = new Image();
+        im.onload = () => {
+            loaded++;
+            if (loaded === 1) draw(0);
+            if (loaded === TOTAL) load.classList.add('approach__load--done');
+        };
+        im.onerror = () => {
+            loaded++;
+            if (loaded === TOTAL) load.classList.add('approach__load--done');
+        };
+        im.src = 'assets/handshake/h' + String(i).padStart(3, '0') + '.webp';
+        imgs.push(im);
+    }
+
+    function setStep(p) {
+        const idx = Math.max(0, Math.min(steps.length - 1, Math.floor(p * steps.length)));
+        steps.forEach((s, i) => s.classList.toggle('approach-step--on', i === idx));
+    }
+    setStep(0);
+
+    const vh = () => window.innerHeight;
+
+    function layout() {
+        const r = section.getBoundingClientRect();
+        const h = vh();
+        if (r.top <= 0 && r.bottom >= h) {
+            stage.classList.add('approach__stage--pin');
+            stage.classList.remove('approach__stage--end');
+        } else if (r.bottom < h) {
+            stage.classList.remove('approach__stage--pin');
+            stage.classList.add('approach__stage--end');
+        } else {
+            stage.classList.remove('approach__stage--pin', 'approach__stage--end');
+        }
+        const total = r.height - h;
+        return total <= 0 ? 0 : Math.max(0, Math.min(1, -r.top / total));
+    }
+
+    function onScroll() {
+        const p = layout();
+        target = p * (TOTAL - 1);
+        setStep(p);
+        if (prog) prog.style.width = (p * 100).toFixed(1) + '%';
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+
+    new IntersectionObserver(es => { visible = es[0].isIntersecting; }, { threshold: 0 })
+        .observe(section);
+
+    function loop() {
+        if (visible || Math.abs(target - pos) > 0.001) {
+            pos += (target - pos) * 0.14;
+            if (Math.abs(target - pos) < 0.001) pos = target;
+            draw(pos);
+        }
+        requestAnimationFrame(loop);
+    }
+
+    onScroll();
+    loop();
+})();
 
 // ===== Smooth Scroll (Lenis-style) =====
 class SmoothScroll {
@@ -282,7 +661,7 @@ document.querySelectorAll('.btn').forEach(btn => {
 });
 
 // ===== Parallax on Scroll =====
-const parallaxElements = document.querySelectorAll('.hero__code, .project-card__bg, .stat__number');
+const parallaxElements = document.querySelectorAll('.project-card__bg, .stat__number');
 
 function updateParallax() {
     const scrollY = window.scrollY;
