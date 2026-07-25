@@ -1,7 +1,7 @@
 {
-  "name": "REFRACT.AI — Студия разработки",
+  "name": "REFRACT.AI — ИИ-оптимизация бизнеса",
   "short_name": "REFRACT.AI",
-  "description": "Разработка веб-приложений, мобильных приложений и AI-решений",
+  "description": "Внедрение ИИ в бизнес-процессы: автоматизация, AI-агенты, прогнозная аналитика",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
@@ -18,5 +18,8 @@
       "purpose": "any maskable"
     }
   ],
-  "categories": ["business", "productivity"]
+  "categories": [
+    "business",
+    "productivity"
+  ]
 }

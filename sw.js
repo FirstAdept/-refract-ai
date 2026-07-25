@@ -1,17 +1,22 @@
-const CACHE_NAME = 'refract-ai-v1';
+const CACHE_NAME = 'refract-ai-v8';
 const ASSETS = [
     '/',
     '/index.html',
+    '/404.html',
+    '/manifest.json',
     '/css/style.css',
     '/js/main.js',
     '/assets/logo.svg',
     '/assets/favicon.svg',
+    '/assets/og-image.svg',
+    '/assets/solutions/docflow.svg',
+    '/assets/solutions/assistants.svg',
+    '/assets/solutions/analytics.svg',
     '/assets/pixel-head-1.svg',
     '/assets/pixel-head-2.svg',
     '/assets/pixel-head-3.svg',
     '/assets/pixel-head-4.svg',
-    '/manifest.json',
-    '/404.html'
+    '/assets/pixel-head-5.svg'
 ];
 
 self.addEventListener('install', (e) => {
