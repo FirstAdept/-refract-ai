@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 300" fill="none">
+  <g stroke="#ffffff" stroke-width="1" opacity="0.34">
+    <rect x="26" y="58" width="86" height="112" rx="4" transform="rotate(-9 69 114)"/>
+    <rect x="44" y="72" width="86" height="112" rx="4" transform="rotate(-3 87 128)"/>
+  </g>
+  <rect x="62" y="86" width="86" height="112" rx="4" stroke="#ffffff" stroke-width="1.4"/>
+  <g stroke="#ffffff" stroke-width="1" opacity="0.5">
+    <line x1="76" y1="106" x2="128" y2="106"/><line x1="76" y1="120" x2="118" y2="120"/>
+    <line x1="76" y1="134" x2="132" y2="134"/><line x1="76" y1="148" x2="110" y2="148"/>
+    <line x1="76" y1="162" x2="124" y2="162"/>
+  </g>
+  <g stroke="#7f77dd" stroke-width="1.2" opacity="0.9">
+    <path d="M160 142 L214 142"/><path d="M206 136 L214 142 L206 148"/>
+  </g>
+  <g stroke="#ffffff" stroke-width="1.6">
+    <polygon points="266 84 226 108 226 156 266 180 306 156 306 108"/>
+  </g>
+  <g stroke="#9be1cb" stroke-width="1.1" opacity="0.85">
+    <path d="M226 108 L266 132 L306 108"/><path d="M266 132 L266 180"/>
+  </g>
+  <circle cx="266" cy="132" r="3.4" fill="#9be1cb"/>
+  <g stroke="#9be1cb" stroke-width="1.2" opacity="0.9">
+    <path d="M320 142 L374 142"/><path d="M366 136 L374 142 L366 148"/>
+  </g>
+  <g>
+    <rect x="388" y="92" width="106" height="20" rx="3" stroke="#ffffff" stroke-width="1" opacity="0.65"/>
+    <rect x="388" y="120" width="106" height="20" rx="3" stroke="#ffffff" stroke-width="1" opacity="0.65"/>
+    <rect x="388" y="148" width="106" height="20" rx="3" stroke="#ffffff" stroke-width="1" opacity="0.65"/>
+    <rect x="388" y="176" width="106" height="20" rx="3" stroke="#ffffff" stroke-width="1" opacity="0.65"/>
+    <line x1="398" y1="102" x2="430" y2="102" stroke="#9be1cb" stroke-width="1.6"/>
+    <line x1="398" y1="130" x2="422" y2="130" stroke="#9be1cb" stroke-width="1.6"/>
+    <line x1="398" y1="158" x2="436" y2="158" stroke="#9be1cb" stroke-width="1.6"/>
+    <line x1="398" y1="186" x2="416" y2="186" stroke="#9be1cb" stroke-width="1.6"/>
+    <line x1="444" y1="102" x2="484" y2="102" stroke="#ffffff" stroke-width="1.4" opacity="0.45"/>
+    <line x1="436" y1="130" x2="484" y2="130" stroke="#ffffff" stroke-width="1.4" opacity="0.45"/>
+    <line x1="450" y1="158" x2="484" y2="158" stroke="#ffffff" stroke-width="1.4" opacity="0.45"/>
+    <line x1="430" y1="186" x2="484" y2="186" stroke="#ffffff" stroke-width="1.4" opacity="0.45"/>
+  </g>
+</svg>
