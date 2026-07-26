@@ -421,39 +421,65 @@ function initNeuralNet(canvasId, hostId, opts) {
 initNeuralNet('heroNet', 'hero');
 initNeuralNet('teamNet', 'team', { density: 22000, max: 60, radius: 165 });
 
-// ===== Rotating 3D prism (logo crystal) =====
+// ===== Rotating 3D crystal (logo solid) =====
 (function () {
     const mounts = [...document.querySelectorAll('[data-prism]')];
     if (!mounts.length) return;
 
-    const PHI = 20 * Math.PI / 180;          // наклон камеры, как на логотипе
-    const cosP = Math.cos(PHI), sinP = Math.sin(PHI);
     const R = 30.75, YU = -19.1, YL = 18.5, YT = -36.4, YB = 36.4;
     const MODEL_W = 61.5;
+    const PHI = 20 * Math.PI / 180;
+    const cosP = Math.cos(PHI), sinP = Math.sin(PHI);
 
-    const up = [], lo = [];
-    for (let i = 0; i < 6; i++) {
+    const V = [];
+    V.push([0, YT, 0]);                                  // 0  верхняя вершина
+    for (let i = 0; i < 6; i++) {                        // 1..6  верхнее кольцо
         const a = i * Math.PI / 3;
-        up.push([R * Math.cos(a), YU, R * Math.sin(a)]);
-        lo.push([R * Math.cos(a), YL, R * Math.sin(a)]);
+        V.push([R * Math.cos(a), YU, R * Math.sin(a)]);
     }
-    const top = [0, YT, 0], bot = [0, YB, 0];
+    for (let i = 0; i < 6; i++) {                        // 7..12 нижнее кольцо
+        const a = i * Math.PI / 3;
+        V.push([R * Math.cos(a), YL, R * Math.sin(a)]);
+    }
+    V.push([0, YB, 0]);                                  // 13 нижняя вершина
 
-    const edges = [];
+    const FACES = [];
     for (let i = 0; i < 6; i++) {
         const n = (i + 1) % 6;
-        edges.push([top, up[i]]);
-        edges.push([up[i], up[n]]);
-        edges.push([up[i], lo[i]]);
-        edges.push([lo[i], lo[n]]);
-        edges.push([lo[i], bot]);
+        FACES.push([0, 1 + i, 1 + n]);                   // корона
+        FACES.push([1 + i, 7 + i, 7 + n, 1 + n]);        // пояс
+        FACES.push([13, 7 + n, 7 + i]);                  // павильон
     }
 
-    function project(p, t) {
-        const ct = Math.cos(t), st = Math.sin(t);
-        const rx = p[0] * ct - p[2] * st;
-        const rz = p[0] * st + p[2] * ct;
-        return { x: rx, y: p[1] * cosP + rz * sinP, d: rz * cosP - p[1] * sinP };
+    const LIGHT = (() => {
+        const v = [-0.35, -0.72, 0.6];
+        const m = Math.hypot(v[0], v[1], v[2]);
+        return [v[0] / m, v[1] / m, v[2] / m];
+    })();
+
+    // палитра бренда: глубокий фиолетовый в тени, мятный на свету
+    const DARK = [38, 34, 66], MID = [98, 90, 170], LIT = [155, 225, 203];
+
+    function shade(k) {
+        let c;
+        if (k < 0.55) {
+            const u = k / 0.55;
+            c = DARK.map((d, i) => d + (MID[i] - d) * u);
+        } else {
+            const u = (k - 0.55) / 0.45;
+            c = MID.map((d, i) => d + (LIT[i] - d) * u);
+        }
+        return 'rgb(' + c.map(n => Math.round(n)).join(',') + ')';
+    }
+
+    function rot(p, ry, rx) {
+        let [x, y, z] = p;
+        let c = Math.cos(ry), s = Math.sin(ry);
+        let nx = x * c - z * s, nz = x * s + z * c;
+        x = nx; z = nz;
+        c = Math.cos(rx); s = Math.sin(rx);
+        const ny = y * c - z * s; nz = y * s + z * c;
+        return [x, ny, nz];
     }
 
     const NS = 'http://www.w3.org/2000/svg';
@@ -465,27 +491,19 @@ initNeuralNet('teamNet', 'team', { density: 22000, max: 60, radius: 165 });
         const phase = parseFloat(g.dataset.phase || '0');
         const s = size / MODEL_W;
 
-        const back = document.createElementNS(NS, 'path');
-        back.setAttribute('fill', 'none');
-        back.setAttribute('stroke', '#9be1cb');
-        back.setAttribute('stroke-width', (1.1 / s).toFixed(2));
-        back.setAttribute('stroke-opacity', '0.5');
-        back.setAttribute('stroke-linejoin', 'round');
-
-        const front = document.createElementNS(NS, 'path');
-        front.setAttribute('fill', 'none');
-        front.setAttribute('stroke', '#ffffff');
-        front.setAttribute('stroke-width', (1.6 / s).toFixed(2));
-        front.setAttribute('stroke-linejoin', 'round');
-        front.setAttribute('stroke-linecap', 'round');
-
         const wrap = document.createElementNS(NS, 'g');
         wrap.setAttribute('transform', 'translate(' + cx + ' ' + cy + ') scale(' + s.toFixed(4) + ')');
-        wrap.appendChild(back);
-        wrap.appendChild(front);
+
+        const polys = FACES.map(() => {
+            const p = document.createElementNS(NS, 'polygon');
+            p.setAttribute('stroke-width', (1.1 / s).toFixed(2));
+            p.setAttribute('stroke-linejoin', 'round');
+            wrap.appendChild(p);
+            return p;
+        });
         g.appendChild(wrap);
 
-        return { back: back, front: front, speed: speed, phase: phase, visible: true, host: g.closest('section') || g };
+        return { polys, speed, phase, visible: true, host: g.closest('section') || g };
     });
 
     items.forEach(it => {
@@ -494,14 +512,37 @@ initNeuralNet('teamNet', 'team', { density: 22000, max: 60, radius: 165 });
     });
 
     function render(it, t) {
-        let fd = '', bd = '';
-        for (const e of edges) {
-            const a = project(e[0], t), b = project(e[1], t);
-            const seg = 'M' + a.x.toFixed(2) + ' ' + a.y.toFixed(2) + 'L' + b.x.toFixed(2) + ' ' + b.y.toFixed(2);
-            if ((a.d + b.d) / 2 >= 0) fd += seg; else bd += seg;
-        }
-        it.front.setAttribute('d', fd);
-        it.back.setAttribute('d', bd);
+        const ry = t;
+        const rx = Math.sin(t * 0.53) * 0.42 - 0.12;     // кувырок вокруг второй оси
+
+        const P = V.map(v => {
+            const r = rot(v, ry, rx);
+            return { x: r[0], y: r[1] * cosP + r[2] * sinP, z: r[2] * cosP - r[1] * sinP, w: r };
+        });
+
+        const drawn = FACES.map((f, idx) => {
+            const a = P[f[0]].w, b = P[f[1]].w, c = P[f[2]].w;
+            const u = [b[0] - a[0], b[1] - a[1], b[2] - a[2]];
+            const v = [c[0] - a[0], c[1] - a[1], c[2] - a[2]];
+            let n = [u[1] * v[2] - u[2] * v[1], u[2] * v[0] - u[0] * v[2], u[0] * v[1] - u[1] * v[0]];
+            const m = Math.hypot(n[0], n[1], n[2]) || 1;
+            n = [n[0] / m, n[1] / m, n[2] / m];
+            let k = n[0] * LIGHT[0] + n[1] * LIGHT[1] + n[2] * LIGHT[2];
+            k = Math.max(0, Math.abs(k));
+            const depth = f.reduce((acc, i) => acc + P[i].z, 0) / f.length;
+            const pts = f.map(i => P[i].x.toFixed(2) + ',' + P[i].y.toFixed(2)).join(' ');
+            const back = n[2] < 0;          // грань отвёрнута от камеры
+            return { idx, depth, k, pts, back };
+        }).sort((p, q) => p.depth - q.depth);
+
+        drawn.forEach((d, order) => {
+            const el = it.polys[order];
+            el.setAttribute('points', d.pts);
+            el.setAttribute('fill', shade(d.k));
+            el.setAttribute('fill-opacity', d.back ? '0.24' : '0.82');
+            el.setAttribute('stroke', d.back ? 'rgba(155,225,203,0.35)' : '#ffffff');
+            el.setAttribute('stroke-opacity', d.back ? '1' : '0.85');
+        });
     }
 
     const stat = document.querySelector('.lg-prism-static');
@@ -517,7 +558,7 @@ initNeuralNet('teamNet', 'team', { density: 22000, max: 60, radius: 165 });
         const sec = (now - t0) / 1000;
         for (const it of items) {
             if (!it.visible) continue;
-            render(it, (sec * it.speed * 0.42) + it.phase);
+            render(it, sec * it.speed * 0.38 + it.phase);
         }
         requestAnimationFrame(loop);
     }
