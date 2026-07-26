@@ -48,7 +48,8 @@ const translations = {
         'free.label': '05 / С чего начать',
         'free.title': 'Первый модуль — бесплатно',
         'free.lead': 'Мы не предлагаем внедрение без подтверждённого результата. Выбираем один процесс, собираем на нём работающий модуль и показываем эффект на ваших данных. Дальнейшее сотрудничество — по итогам, без обязательств на старте.',
-        'free.cta': 'Забрать модуль',
+        'free.cta': 'Заполнить бриф',
+        'free.alt': 'Просто написать',
         'free1.t': 'Разбор процесса',
         'free1.d': 'Созвон на час. Разбираем, где у вас уходит время, и выбираем участок с самой быстрой отдачей.',
         'free2.t': 'Рабочий модуль',
@@ -61,15 +62,15 @@ const translations = {
         'hero.title': 'Внедряем ИИ<br>в процессы<br>вашего бизнеса',
         'hero.subtitle': 'Автоматизация рутины, AI-агенты и прогнозная аналитика.<br>Полный цикл: от аудита процессов до внедрения.',
         'hero.cta': 'Обсудить задачу',
+        'hero.brief': 'Пройти бриф · 2 минуты',
         'hero.scroll': 'Ведите курсором',
         'stats.projects': 'Проектов реализовано',
-        'stats.years': 'Лет на рынке',
+        'stats.processes': 'Процессов автоматизировано',
         'stats.team': 'Специалистов в команде',
         'stats.return': '% клиентов возвращаются',
         'projects.label': '02 / Решения',
         'projects.title': 'Что мы автоматизируем',
         'approach.label': '04 / Подход',
-        'approach.title': 'Как мы работаем',
         'team.label': '06 / Команда',
         'team.title': 'Люди, которые создают',
         'cta.title': 'Обсудим, что можно автоматизировать?',
@@ -79,6 +80,10 @@ const translations = {
         'form.email': 'Email',
         'form.message': 'Опишите ваши процессы и задачи',
         'form.submit': 'Отправить заявку',
+        'proj.docflow.t': 'AI-документооборот',
+        'proj.agents.t': 'AI-ассистенты 24/7',
+        'proj.analytics.t': 'Прогнозная аналитика',
+        'stack.erp': '1С / CRM',
         'proj.docflow.tag': 'Автоматизация процессов',
         'proj.docflow.desc': 'Договоры, счета, заявки: ИИ распознаёт, извлекает данные, классифицирует и маршрутизирует документы без ручного разбора',
         'proj.agents.tag': 'AI-агенты',
@@ -149,7 +154,8 @@ const translations = {
         'free.label': '05 / Where to start',
         'free.title': 'The first module is free',
         'free.lead': 'We do not propose a rollout without a proven result. We select one process, build a working module on it and demonstrate the effect on your own data. Further cooperation follows from the outcome, with no commitment upfront.',
-        'free.cta': 'Claim the module',
+        'free.cta': 'Fill in the brief',
+        'free.alt': 'Just write to us',
         'free1.t': 'Process review',
         'free1.d': 'A one-hour call. We map where your time goes and pick the area with the fastest payback.',
         'free2.t': 'A working module',
@@ -162,15 +168,15 @@ const translations = {
         'hero.title': 'We bring AI<br>into your<br>business processes',
         'hero.subtitle': 'Routine automation, AI agents and predictive analytics.<br>Full cycle: from process audit to deployment.',
         'hero.cta': 'Discuss your case',
+        'hero.brief': 'Take the brief · 2 min',
         'hero.scroll': 'Move your cursor',
         'stats.projects': 'Projects delivered',
-        'stats.years': 'Years on market',
+        'stats.processes': 'Processes automated',
         'stats.team': 'Specialists in team',
         'stats.return': '% of clients return',
         'projects.label': '02 / Solutions',
         'projects.title': 'What we automate',
         'approach.label': '04 / Approach',
-        'approach.title': 'How we work',
         'team.label': '06 / Team',
         'team.title': 'The people who create',
         'cta.title': 'Let\'s discuss what to automate?',
@@ -180,6 +186,10 @@ const translations = {
         'form.email': 'Email',
         'form.message': 'Describe your processes and goals',
         'form.submit': 'Send request',
+        'proj.docflow.t': 'AI document flow',
+        'proj.agents.t': 'AI assistants 24/7',
+        'proj.analytics.t': 'Predictive analytics',
+        'stack.erp': 'ERP / CRM',
         'proj.docflow.tag': 'Process automation',
         'proj.docflow.desc': 'Contracts, invoices, requests: AI recognizes, extracts data, classifies and routes documents with no manual sorting',
         'proj.agents.tag': 'AI agents',
@@ -410,6 +420,109 @@ function initNeuralNet(canvasId, hostId, opts) {
 
 initNeuralNet('heroNet', 'hero');
 initNeuralNet('teamNet', 'team', { density: 22000, max: 60, radius: 165 });
+
+// ===== Rotating 3D prism (logo crystal) =====
+(function () {
+    const mounts = [...document.querySelectorAll('[data-prism]')];
+    if (!mounts.length) return;
+
+    const PHI = 20 * Math.PI / 180;          // наклон камеры, как на логотипе
+    const cosP = Math.cos(PHI), sinP = Math.sin(PHI);
+    const R = 30.75, YU = -19.1, YL = 18.5, YT = -36.4, YB = 36.4;
+    const MODEL_W = 61.5;
+
+    const up = [], lo = [];
+    for (let i = 0; i < 6; i++) {
+        const a = i * Math.PI / 3;
+        up.push([R * Math.cos(a), YU, R * Math.sin(a)]);
+        lo.push([R * Math.cos(a), YL, R * Math.sin(a)]);
+    }
+    const top = [0, YT, 0], bot = [0, YB, 0];
+
+    const edges = [];
+    for (let i = 0; i < 6; i++) {
+        const n = (i + 1) % 6;
+        edges.push([top, up[i]]);
+        edges.push([up[i], up[n]]);
+        edges.push([up[i], lo[i]]);
+        edges.push([lo[i], lo[n]]);
+        edges.push([lo[i], bot]);
+    }
+
+    function project(p, t) {
+        const ct = Math.cos(t), st = Math.sin(t);
+        const rx = p[0] * ct - p[2] * st;
+        const rz = p[0] * st + p[2] * ct;
+        return { x: rx, y: p[1] * cosP + rz * sinP, d: rz * cosP - p[1] * sinP };
+    }
+
+    const NS = 'http://www.w3.org/2000/svg';
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const items = mounts.map(g => {
+        const [cx, cy, size] = g.dataset.prism.split(',').map(Number);
+        const speed = parseFloat(g.dataset.speed || '1');
+        const phase = parseFloat(g.dataset.phase || '0');
+        const s = size / MODEL_W;
+
+        const back = document.createElementNS(NS, 'path');
+        back.setAttribute('fill', 'none');
+        back.setAttribute('stroke', '#9be1cb');
+        back.setAttribute('stroke-width', (1.1 / s).toFixed(2));
+        back.setAttribute('stroke-opacity', '0.5');
+        back.setAttribute('stroke-linejoin', 'round');
+
+        const front = document.createElementNS(NS, 'path');
+        front.setAttribute('fill', 'none');
+        front.setAttribute('stroke', '#ffffff');
+        front.setAttribute('stroke-width', (1.6 / s).toFixed(2));
+        front.setAttribute('stroke-linejoin', 'round');
+        front.setAttribute('stroke-linecap', 'round');
+
+        const wrap = document.createElementNS(NS, 'g');
+        wrap.setAttribute('transform', 'translate(' + cx + ' ' + cy + ') scale(' + s.toFixed(4) + ')');
+        wrap.appendChild(back);
+        wrap.appendChild(front);
+        g.appendChild(wrap);
+
+        return { back: back, front: front, speed: speed, phase: phase, visible: true, host: g.closest('section') || g };
+    });
+
+    items.forEach(it => {
+        new IntersectionObserver(es => { it.visible = es[0].isIntersecting; }, { threshold: 0 })
+            .observe(it.host);
+    });
+
+    function render(it, t) {
+        let fd = '', bd = '';
+        for (const e of edges) {
+            const a = project(e[0], t), b = project(e[1], t);
+            const seg = 'M' + a.x.toFixed(2) + ' ' + a.y.toFixed(2) + 'L' + b.x.toFixed(2) + ' ' + b.y.toFixed(2);
+            if ((a.d + b.d) / 2 >= 0) fd += seg; else bd += seg;
+        }
+        it.front.setAttribute('d', fd);
+        it.back.setAttribute('d', bd);
+    }
+
+    const stat = document.querySelector('.lg-prism-static');
+    if (stat) stat.style.display = 'none';
+
+    if (reduce) {
+        items.forEach(it => render(it, 0));
+        return;
+    }
+
+    const t0 = performance.now();
+    function loop(now) {
+        const sec = (now - t0) / 1000;
+        for (const it of items) {
+            if (!it.visible) continue;
+            render(it, (sec * it.speed * 0.42) + it.phase);
+        }
+        requestAnimationFrame(loop);
+    }
+    requestAnimationFrame(loop);
+})();
 
 // ===== Logo: снять пунктир после отрисовки =====
 (function () {
