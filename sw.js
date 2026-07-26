@@ -1,4 +1,4 @@
-const CACHE_NAME = 'refract-ai-v11';
+const CACHE_NAME = 'refract-ai-v12';
 const ASSETS = [
     '/',
     '/index.html',
