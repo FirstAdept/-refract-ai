@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>РАМПА — кабинет перевозчика · демо</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#161514">
+<meta name="description" content="РАМПА — кабинет перевозчика: рейсы, простои, документы, заработок.">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png" sizes="192x192">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="РАМПА">
+<style>
+/* Шрифты Inter, Inter Tight, JetBrains Mono — SIL OFL 1.1, встроены локально */
+@font-face{font-family:'Inter';font-style:normal;font-weight:400;font-display:swap;src:url(fonts/inter-cyrillic-400-normal.woff2) format('woff2');unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;}
+@font-face{font-family:'Inter';font-style:normal;font-weight:400;font-display:swap;src:url(fonts/inter-latin-400-normal.woff2) format('woff2');}
+@font-face{font-family:'Inter';font-style:normal;font-weight:500;font-display:swap;src:url(fonts/inter-cyrillic-500-normal.woff2) format('woff2');unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;}
+@font-face{font-family:'Inter';font-style:normal;font-weight:500;font-display:swap;src:url(fonts/inter-latin-500-normal.woff2) format('woff2');}
+@font-face{font-family:'Inter';font-style:normal;font-weight:600;font-display:swap;src:url(fonts/inter-cyrillic-600-normal.woff2) format('woff2');unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;}
+@font-face{font-family:'Inter';font-style:normal;font-weight:600;font-display:swap;src:url(fonts/inter-latin-600-normal.woff2) format('woff2');}
+@font-face{font-family:'Inter Tight';font-style:normal;font-weight:700;font-display:swap;src:url(fonts/inter-tight-cyrillic-700-normal.woff2) format('woff2');unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;}
+@font-face{font-family:'Inter Tight';font-style:normal;font-weight:700;font-display:swap;src:url(fonts/inter-tight-latin-700-normal.woff2) format('woff2');}
+@font-face{font-family:'Inter Tight';font-style:normal;font-weight:800;font-display:swap;src:url(fonts/inter-tight-cyrillic-800-normal.woff2) format('woff2');unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;}
+@font-face{font-family:'Inter Tight';font-style:normal;font-weight:800;font-display:swap;src:url(fonts/inter-tight-latin-800-normal.woff2) format('woff2');}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:600;font-display:swap;src:url(fonts/jetbrains-mono-cyrillic-600-normal.woff2) format('woff2');unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:600;font-display:swap;src:url(fonts/jetbrains-mono-latin-600-normal.woff2) format('woff2');}
+/* ===== Visual DNA refract-blueprint-orange v1.0 · семантические токены ===== */
+:root{
+  --bg:#161514; --sur:#1D1C1A; --tx:#F4F2EE; --mut:#8F8B84; --ln:#33312D;
+  --acc:#F15A24; --on-acc:#FFFFFF;
+  --fd:'Inter Tight','Arial Narrow',Arial,sans-serif;
+  --fb:'Inter',Arial,sans-serif;
+  --fm:'JetBrains Mono',Consolas,'Courier New',monospace;
+  --r:2px;
+}
+[data-theme="light"]{
+  --bg:#F4F2EE; --sur:#FFFFFF; --tx:#161514; --mut:#807B73; --ln:#D8D4CC;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{font-family:var(--fb);background:var(--bg);color:var(--tx);line-height:1.5;
+     -webkit-font-smoothing:antialiased;min-height:100vh;transition:background .2s,color .2s}
+button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+
+.mono{font-family:var(--fm);font-weight:600;font-size:11px;letter-spacing:.11em;text-transform:uppercase}
+.acc{color:var(--acc)}
+.mut{color:var(--mut)}
+.ai{font-family:var(--fm);font-weight:600;font-size:9px;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--acc);border:1px solid var(--acc);border-radius:var(--r);padding:1px 5px;white-space:nowrap;display:inline-block}
+
+/* ===== shell ===== */
+.top{position:sticky;top:0;z-index:50;background:var(--bg);border-bottom:1px solid var(--ln)}
+.top-in{max-width:1320px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.brand{font-family:var(--fm);font-weight:600;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--acc)}
+.brand span{color:var(--mut);letter-spacing:.1em}
+.top .rule{flex:1;height:1px;background:var(--ln);min-width:16px}
+.roles{display:flex;border:1px solid var(--ln);border-radius:var(--r)}
+.roles button{font-family:var(--fm);font-weight:600;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;
+              padding:9px 13px;color:var(--mut);border-right:1px solid var(--ln)}
+.roles button:last-child{border-right:none}
+.roles button[aria-selected="true"]{background:var(--acc);color:var(--on-acc)}
+.theme{border:1px solid var(--ln);border-radius:var(--r);padding:9px 13px;font-family:var(--fm);
+       font-weight:600;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--mut);white-space:nowrap}
+.theme:hover{border-color:var(--acc);color:var(--acc)}
+
+.note{max-width:1320px;margin:0 auto;padding:10px 24px 0;font-family:var(--fm);font-size:10px;
+      letter-spacing:.08em;text-transform:uppercase;color:var(--mut)}
+
+.view{display:none;max-width:1320px;margin:0 auto;padding:26px 24px 64px}
+.view.on{display:block}
+
+h1{font-family:var(--fd);font-weight:800;font-size:clamp(23px,3.3vw,36px);line-height:1.12;letter-spacing:-.01em}
+h2{font-family:var(--fd);font-weight:700;font-size:19px;line-height:1.25}
+.lead{color:var(--mut);max-width:62ch;margin-top:10px;font-size:15px}
+.head{display:flex;align-items:center;gap:14px;margin-bottom:20px}
+.head .rule{flex:1;height:1px;background:var(--ln)}
+
+.stage{display:grid;grid-template-columns:minmax(0,360px) minmax(0,1fr);gap:52px;align-items:start;margin-top:26px}
+@media(max-width:900px){.stage{grid-template-columns:1fr;gap:30px}}
+
+/* ===== phone ===== */
+.phone{border:1px solid var(--ln);border-radius:14px;background:var(--sur);overflow:hidden;max-width:360px;width:100%}
+.ph-bar{display:flex;justify-content:space-between;align-items:center;padding:8px 16px;
+        font-family:var(--fm);font-size:10px;color:var(--mut);border-bottom:1px solid var(--ln)}
+.ph-body{padding:16px}
+.screen{display:none}.screen.on{display:block}
+.ph-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px}
+.ph-head .t{font-family:var(--fd);font-weight:800;font-size:20px}
+
+.step-dots{display:flex;gap:5px;margin-bottom:16px}
+.step-dots i{flex:1;height:3px;background:var(--ln);border-radius:1px}
+.step-dots i.done{background:var(--mut)}
+.step-dots i.now{background:var(--acc)}
+
+.point{border:1px solid var(--ln);border-radius:var(--r);padding:14px;background:var(--bg)}
+.point.live{border-color:var(--acc)}
+.point .nm{font-family:var(--fd);font-weight:700;font-size:17px}
+.point .ad{font-size:12.5px;color:var(--mut);margin-top:2px}
+.point .win{display:flex;gap:14px;margin-top:10px;font-family:var(--fm);font-size:10px;
+            letter-spacing:.06em;color:var(--mut);text-transform:uppercase;flex-wrap:wrap}
+
+/* signature: мерная шкала простоя */
+.gauge{margin:16px 0 4px}
+.gauge-top{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:8px}
+.gauge-val{font-family:var(--fd);font-weight:800;font-size:38px;line-height:.9;letter-spacing:-.02em}
+.gauge-val.over{color:var(--acc)}
+.gauge-val small{font-family:var(--fb);font-weight:500;font-size:12px;color:var(--mut);letter-spacing:0;margin-left:5px}
+.gauge-cap{font-family:var(--fm);font-size:9.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--mut);text-align:right;line-height:1.6}
+.dim{position:relative;height:26px;margin-top:4px}
+.dim .track{position:absolute;top:9px;left:0;right:0;height:1px;background:var(--ln)}
+.dim .fill{position:absolute;top:8px;left:0;height:3px;background:var(--mut);transition:width .5s linear}
+.dim .fill.over{background:var(--acc)}
+.dim .thr{position:absolute;top:0;height:19px;width:1px;background:var(--acc)}
+.dim .thr:after{content:'60 мин';position:absolute;top:20px;left:-16px;font-family:var(--fm);font-size:9px;letter-spacing:.06em;color:var(--acc)}
+.dim .start,.dim .end{position:absolute;top:3px;height:13px;width:1px;background:var(--ln)}
+.dim .start{left:0}.dim .end{right:0}
+
+.banner{border:1px solid var(--acc);border-radius:var(--r);padding:10px 12px;margin-top:12px;display:none}
+.banner.on{display:block}
+.banner .h{font-family:var(--fm);font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:var(--acc)}
+.banner p{font-size:12.5px;margin-top:4px}
+
+.acts{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}
+.acts .wide{grid-column:1/-1}
+.btn{border:1px solid var(--ln);border-radius:var(--r);padding:11px 12px;text-align:left;display:block;
+     font-family:var(--fm);font-weight:600;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;
+     color:var(--tx);text-decoration:none;transition:border-color .15s,background .15s}
+.btn:hover{border-color:var(--mut)}
+.btn.primary{background:var(--acc);border-color:var(--acc);color:var(--on-acc)}
+.btn.primary:hover{background:#d94d1b;border-color:#d94d1b}
+.btn.ghost-acc{border-color:var(--acc);color:var(--acc)}
+
+.result{border:1px solid var(--ln);border-radius:var(--r);padding:12px;background:var(--bg);margin-top:12px}
+.result .rh{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px}
+.result .rh span:first-child{font-family:var(--fm);font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:var(--mut)}
+.kv{display:flex;justify-content:space-between;gap:12px;font-size:12.5px;padding:5px 0;border-bottom:1px dashed var(--ln)}
+.kv:last-child{border-bottom:none}
+.kv b{font-weight:600}
+.kv .flag{color:var(--acc)}
+.quote{font-size:13px;font-style:italic;color:var(--mut);border-left:1px solid var(--acc);padding-left:10px;margin:2px 0 10px}
+
+.stops{margin-top:16px;border-top:1px solid var(--ln);padding-top:12px}
+.stop{display:flex;gap:10px;align-items:baseline;padding:7px 0;font-size:13px;border-bottom:1px dashed var(--ln)}
+.stop:last-child{border-bottom:none}
+.stop .i{font-family:var(--fm);font-size:10px;color:var(--mut);width:16px;flex:none}
+.stop .s{margin-left:auto;font-family:var(--fm);font-size:9.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--mut);flex:none}
+.stop.done .n{color:var(--mut)}
+.stop.now .n{color:var(--acc);font-weight:600}
+.stop.now .i,.stop.now .s{color:var(--acc)}
+
+.ph-nav{display:flex;border-top:1px solid var(--ln)}
+.ph-nav button{flex:1;text-align:center;padding:11px 4px;font-family:var(--fm);font-size:9.5px;
+               letter-spacing:.08em;text-transform:uppercase;color:var(--mut);border-right:1px solid var(--ln)}
+.ph-nav button:last-child{border-right:none}
+.ph-nav button[aria-current="true"]{color:var(--acc)}
+
+/* ===== ЛК водителя ===== */
+.me{display:flex;gap:12px;align-items:center;padding-bottom:14px;border-bottom:1px solid var(--ln)}
+.me .av{width:44px;height:44px;border:1px solid var(--acc);border-radius:var(--r);display:flex;
+        align-items:center;justify-content:center;font-family:var(--fd);font-weight:800;font-size:17px;color:var(--acc);flex:none}
+.me .nm{font-family:var(--fd);font-weight:700;font-size:17px}
+.me .ds{font-family:var(--fm);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--mut);margin-top:3px}
+
+.earn{margin-top:16px}
+.earn .big{font-family:var(--fd);font-weight:800;font-size:44px;line-height:1;letter-spacing:-.02em;color:var(--acc)}
+.earn .big small{font-family:var(--fb);font-weight:500;font-size:13px;color:var(--mut);letter-spacing:0;margin-left:6px}
+.earn .lbl{font-family:var(--fm);font-size:9.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--mut);margin-bottom:7px}
+.brk{margin-top:14px;border:1px solid var(--ln);border-radius:var(--r);padding:12px}
+.month{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.month div{border:1px solid var(--ln);border-radius:var(--r);padding:11px 12px}
+.month .n{font-family:var(--fd);font-weight:800;font-size:21px;line-height:1}
+.month .c{font-family:var(--fm);font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--mut);margin-top:6px;line-height:1.5}
+.hidden-rate{border:1px dashed var(--ln);border-radius:var(--r);padding:11px 12px;margin-top:14px;
+             font-size:12.5px;color:var(--mut)}
+
+/* ===== десктопные панели ===== */
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(148px,1fr));gap:14px;margin:24px 0}
+.kpi{border:1px solid var(--ln);border-radius:var(--r);background:var(--sur);padding:16px 18px}
+.kpi .n{font-family:var(--fd);font-weight:800;font-size:32px;line-height:1;letter-spacing:-.01em}
+.kpi .n.acc{color:var(--acc)}
+.kpi .c{font-family:var(--fm);font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:var(--mut);margin-top:9px;line-height:1.5}
+
+.cols{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(0,1fr);gap:22px;align-items:start}
+@media(max-width:960px){.cols{grid-template-columns:1fr}}
+.stackx{display:flex;flex-direction:column;gap:22px}
+
+.panel{border:1px solid var(--ln);border-radius:var(--r);background:var(--sur)}
+.panel-h{display:flex;align-items:center;gap:12px;padding:14px 18px;border-bottom:1px solid var(--ln)}
+.panel-h .rule{flex:1;height:1px;background:var(--ln)}
+.panel-b{padding:16px 18px}
+
+.alert{display:grid;grid-template-columns:auto 1fr;gap:12px;padding:12px 0;border-bottom:1px dashed var(--ln);align-items:start}
+.alert:last-child{border-bottom:none;padding-bottom:0}
+.alert .mk{width:6px;height:6px;background:var(--acc);margin-top:7px}
+.alert .t{font-size:14px;font-weight:500}
+.alert .d{font-size:12.5px;color:var(--mut);margin-top:3px}
+
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{font-family:var(--fm);font-weight:600;font-size:9.5px;letter-spacing:.09em;text-transform:uppercase;
+   color:var(--mut);text-align:left;padding:0 10px 9px 0;border-bottom:1px solid var(--ln)}
+td{padding:10px 10px 10px 0;border-bottom:1px dashed var(--ln);vertical-align:top}
+tr:last-child td{border-bottom:none}
+td .plate{font-family:var(--fm);font-size:11.5px;letter-spacing:.04em}
+.pill{font-family:var(--fm);font-size:9.5px;letter-spacing:.07em;text-transform:uppercase;
+      border:1px solid var(--ln);border-radius:var(--r);padding:2px 6px;color:var(--mut);white-space:nowrap;display:inline-block}
+.pill.hot{border-color:var(--acc);color:var(--acc)}
+
+.ev{padding:12px 0;border-bottom:1px dashed var(--ln)}
+.ev:last-child{border-bottom:none}
+.ev .m{font-family:var(--fm);font-size:9.5px;letter-spacing:.08em;color:var(--mut);text-transform:uppercase}
+.ev .x{font-size:13.5px;margin-top:4px}
+
+.chrow{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;
+       border:1px solid var(--ln);border-radius:var(--r);padding:12px 14px;cursor:pointer;text-align:left;width:100%;margin-bottom:10px}
+.chrow[aria-pressed="true"]{border-color:var(--acc)}
+.chrow .dot{width:9px;height:9px;border:1px solid var(--mut);border-radius:50%}
+.chrow[aria-pressed="true"] .dot{border-color:var(--acc);background:var(--acc)}
+.chrow .nm{font-size:14px;font-weight:500}
+.chrow .ds{font-size:12px;color:var(--mut);margin-top:2px;display:block}
+.chrow.off{opacity:.55;cursor:not-allowed}
+
+.docrow{display:grid;grid-template-columns:1fr auto;gap:14px;align-items:center;padding:13px 0;border-bottom:1px dashed var(--ln)}
+.docrow:last-child{border-bottom:none}
+.docrow .nm{font-size:14px;font-weight:500}
+.docrow .ds{font-size:12.5px;color:var(--mut);margin-top:2px}
+
+/* ===== выноски ===== */
+.calls{display:flex;flex-direction:column;gap:22px;padding-top:6px}
+.call{display:grid;grid-template-columns:34px 1fr;gap:14px;align-items:start}
+.call .num{font-family:var(--fm);font-weight:600;font-size:11px;color:var(--acc);border:1px solid var(--acc);
+           border-radius:var(--r);height:26px;display:flex;align-items:center;justify-content:center}
+.call h3{font-family:var(--fd);font-weight:700;font-size:16px;margin-bottom:5px}
+.call p{font-size:14px;color:var(--mut);max-width:52ch}
+
+.foot{max-width:1320px;margin:0 auto;padding:22px 24px 40px;border-top:1px solid var(--ln);
+      display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
+      font-family:var(--fm);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--mut)}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+
+/* ===== мобильный режим: демо превращается в само приложение ===== */
+@media(max-width:720px){
+  .top-in{padding:10px 14px;gap:10px}
+  .brand span{display:none}
+  .roles{flex:1}
+  .roles button{flex:1;padding:9px 6px;font-size:9.5px;letter-spacing:.06em}
+  .theme{padding:9px 10px;font-size:9.5px;letter-spacing:.06em}
+  .note{padding:8px 14px 0;font-size:9px}
+  .view{padding:0 0 40px}
+  #logist,#client{padding:18px 14px 48px}
+  #login{padding:18px 0 48px}
+  #login>.head,#login>h1,#login>.lead{padding:0 14px}
+  .stage{gap:0;margin-top:0}
+  .phone{max-width:none;border:none;border-radius:0;background:var(--bg)}
+  .ph-bar{padding:8px 14px}
+  .ph-body{padding:14px}
+  .ph-nav{position:sticky;bottom:0;background:var(--bg)}
+  #driver>.head,#driver>h1,#driver>.lead{display:none}
+  .calls{margin-top:22px;padding:22px 14px 0;border-top:1px solid var(--ln)}
+  .kpis{grid-template-columns:1fr 1fr;gap:10px;margin:18px 0}
+  .kpi{padding:13px 14px}
+  .kpi .n{font-size:26px}
+  .cols{gap:16px}
+  .panel-b{padding:14px}
+  .foot{padding:20px 14px 32px;flex-direction:column;gap:12px}
+}
+/* установленное на главный экран: убираем всю витрину, остаётся приложение */
+.installed .note,.installed .calls,.installed #driver>.head,
+.installed #driver>h1,.installed #driver>.lead{display:none}
+.installed .foot{display:none}
+
+.cta-foot{border:1px solid var(--acc);border-radius:var(--r);padding:9px 14px;color:var(--acc);
+          text-decoration:none;font-family:var(--fm);font-weight:600;font-size:10px;
+          letter-spacing:.1em;text-transform:uppercase;white-space:nowrap}
+.cta-foot:hover{background:var(--acc);color:var(--on-acc)}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="top-in">
+    <div class="brand">РАМПА <span>· кабинет перевозчика</span></div>
+    <div class="rule"></div>
+    <div class="roles" role="tablist" aria-label="Роль">
+      <button role="tab" aria-selected="false" data-view="login">Вход</button>
+      <button role="tab" aria-selected="true" data-view="driver">Водитель</button>
+      <button role="tab" aria-selected="false" data-view="logist">Логист</button>
+      <button role="tab" aria-selected="false" data-view="client">Заказчик</button>
+    </div>
+    <button class="theme" id="themeBtn" aria-label="Сменить тему">Светлая тема</button>
+  </div>
+</header>
+
+<p class="note">Демо · данные вымышлены · демо-время ×60 · refract-ai.ru/rampa</p>
+
+<!-- ============================ ВХОД ============================ -->
+<main class="view" id="login">
+  <div class="head"><span class="mono acc">00 / Вход</span><div class="rule"></div><span class="mono mut">у каждого свой кабинет</span></div>
+  <h1>Один кабинет — три разных экрана</h1>
+  <p class="lead">Вход по номеру телефона и коду из SMS: паролей нет, потому что водителю их некуда записывать. Что человек увидит после входа, определяет его роль в компании.</p>
+
+  <div class="stage">
+    <div class="phone">
+      <div class="ph-bar"><span>РАМПА</span><span>вход</span></div>
+      <div class="ph-body">
+        <div style="padding:14px 0 20px">
+          <div style="font-family:var(--fd);font-weight:800;font-size:26px;line-height:1.1">Здравствуйте.<br>Введите код из SMS</div>
+          <p style="font-size:13px;color:var(--mut);margin-top:10px">Отправили на +7 951 ••• 42 17. Код действует 5 минут.</p>
+        </div>
+        <div style="display:flex;gap:8px">
+          <div style="flex:1;border:1px solid var(--acc);border-radius:var(--r);padding:14px;text-align:center;font-family:var(--fd);font-weight:800;font-size:22px">4</div>
+          <div style="flex:1;border:1px solid var(--acc);border-radius:var(--r);padding:14px;text-align:center;font-family:var(--fd);font-weight:800;font-size:22px">1</div>
+          <div style="flex:1;border:1px solid var(--acc);border-radius:var(--r);padding:14px;text-align:center;font-family:var(--fd);font-weight:800;font-size:22px">7</div>
+          <div style="flex:1;border:1px solid var(--ln);border-radius:var(--r);padding:14px;text-align:center;color:var(--mut);font-size:22px">·</div>
+        </div>
+        <div class="acts"><button class="btn primary wide" data-goto="driver">Войти как водитель</button></div>
+        <p style="font-size:12px;color:var(--mut);margin-top:12px">Номер привязан к сотруднику один раз. Уволился — доступ закрывается в один клик, данные рейсов остаются в компании.</p>
+      </div>
+    </div>
+
+    <div class="calls">
+      <div class="call"><div class="num">01</div><div><h3>Водитель</h3><p>Видит только свой рейс, свои документы и свой заработок. Чужие рейсы, ставки других водителей и переписку с заказчиком — нет.</p></div></div>
+      <div class="call"><div class="num">02</div><div><h3>Логист</h3><p>Видит весь парк, ставит задачи, разбирает отклонения. Может открыть или закрыть водителям показ стоимости заказа — это настройка компании, а не жёсткое правило системы.</p></div></div>
+      <div class="call"><div class="num">03</div><div><h3>Заказчик</h3><p>Видит только свои грузы и свои документы. Другие клиенты перевозчика для него не существуют — это обязательное условие, если возите конкурентов.</p></div></div>
+      <div class="call"><div class="num">04</div><div><h3>Владелец</h3><p>Всё то же, что логист, плюс деньги: выручка по заказчикам, оплаченные простои, задержки оплат. В демо не показан — собирается на пилоте под конкретную отчётность.</p></div></div>
+    </div>
+  </div>
+</main>
+
+<!-- ============================ ВОДИТЕЛЬ ============================ -->
+<main class="view on" id="driver">
+  <div class="head"><span class="mono acc">01 / Водитель</span><div class="rule"></div><span class="mono mut">PWA · открывается по ссылке</span></div>
+  <h1>Экран смены и личный кабинет</h1>
+  <p class="lead">Слева переключаются два экрана телефона: «Рейс» — то, что нужно в дороге, «Кабинет» — сколько человек заработал. Кнопки внизу телефона рабочие.</p>
+
+  <div class="stage">
+    <div class="phone">
+      <div class="ph-bar"><span>09:14</span><span>31.07 · Рейс 4417</span></div>
+      <div class="ph-body">
+
+        <!-- экран РЕЙС -->
+        <div class="screen on" id="scr-trip">
+          <div class="ph-head"><div class="t">Точка 3 из 5</div><div class="mono mut">Х312УК31</div></div>
+          <div class="step-dots"><i class="done"></i><i class="done"></i><i class="now"></i><i></i><i></i></div>
+
+          <div class="point live">
+            <div class="nm">«Магнит» · ТК-3121</div>
+            <div class="ad">Белгород, ул. Костюкова, 12 · паллет 6</div>
+            <div class="win"><span>Окно 09:00–11:00</span><span class="acc">Прибыл 09:14</span></div>
+
+            <div class="gauge">
+              <div class="gauge-top">
+                <div class="gauge-val" id="gv">47<small>мин на точке</small></div>
+                <div class="gauge-cap">норма<br>простоя 60 мин</div>
+              </div>
+              <div class="dim">
+                <div class="track"></div><div class="fill" id="gfill" style="width:52%"></div>
+                <div class="start"></div><div class="thr" style="left:66%"></div><div class="end"></div>
+              </div>
+            </div>
+
+            <div class="banner" id="gban">
+              <div class="h">Простой пошёл в оплату</div>
+              <p>Заказчику — в счёт, вам — в смену по 12 ₽ за минуту. Время, геометка и фото рампы записаны.</p>
+            </div>
+
+            <div class="acts">
+              <button class="btn primary wide" id="bLeave">Выехал с точки</button>
+              <button class="btn" id="bDoc">Фото документа</button>
+              <button class="btn" id="bVoice">Сказать голосом</button>
+              <a class="btn ghost-acc wide" id="bNav" href="yandexnavi://build_route_on_map?lat_to=50.586500&amp;lon_to=36.547900&amp;client=refract-rampa">Маршрут в Яндекс Навигаторе →</a>
+            </div>
+            <div id="slot"></div>
+          </div>
+
+          <div class="stops">
+            <div class="stop done"><span class="i">01</span><span class="n">«Пятёрочка» · Щорса, 45</span><span class="s">сдано 07:52</span></div>
+            <div class="stop done"><span class="i">02</span><span class="n">«Магнит» · Губкина, 17</span><span class="s">сдано 08:40</span></div>
+            <div class="stop now"><span class="i">03</span><span class="n">«Магнит» · Костюкова, 12</span><span class="s">на разгрузке</span></div>
+            <div class="stop"><span class="i">04</span><span class="n">«Перекрёсток» · Ватутина, 2</span><span class="s">окно 12:00–14:00</span></div>
+            <div class="stop"><span class="i">05</span><span class="n">Возврат на склад</span><span class="s">до 17:00</span></div>
+          </div>
+        </div>
+
+        <!-- экран КАБИНЕТ -->
+        <div class="screen" id="scr-me">
+          <div class="me">
+            <div class="av">КА</div>
+            <div><div class="nm">Ковалёв Андрей</div><div class="ds">Х312УК31 · с марта 2023</div></div>
+          </div>
+
+          <div class="earn">
+            <div class="lbl">Заработано за смену</div>
+            <div class="big" id="eTotal">4 024<small>₽</small></div>
+            <div class="brk">
+              <div class="kv"><span>Ставка рейса 4417</span><b>3 200 ₽</b></div>
+              <div class="kv"><span>Точки сверх трёх · 2 × 250</span><b>500 ₽</b></div>
+              <div class="kv"><span>Оплаченный простой</span><b id="eIdle">324 ₽</b></div>
+              <div class="kv"><span>Штрафы и удержания</span><b>0 ₽</b></div>
+            </div>
+          </div>
+
+          <div id="rateBox" class="hidden-rate">Стоимость заказа для заказчика скрыта настройкой компании.</div>
+
+          <div class="month">
+            <div><div class="n">18</div><div class="c">смен<br>в июле</div></div>
+            <div><div class="n">68 400 ₽</div><div class="c">начислено<br>за месяц</div></div>
+            <div><div class="n acc">3 100 ₽</div><div class="c">из них<br>оплаченные простои</div></div>
+            <div><div class="n">4 ч 20 м</div><div class="c">простоя<br>зафиксировано</div></div>
+          </div>
+
+          <div class="stops">
+            <div class="stop done"><span class="i">30.07</span><span class="n">Рейс 4402 · 6 точек</span><span class="s">3 950 ₽</span></div>
+            <div class="stop done"><span class="i">29.07</span><span class="n">Рейс 4391 · 4 точки</span><span class="s">3 460 ₽</span></div>
+            <div class="stop done"><span class="i">28.07</span><span class="n">Рейс 4377 · 5 точек</span><span class="s">4 180 ₽</span></div>
+          </div>
+        </div>
+      </div>
+
+      <nav class="ph-nav">
+        <button data-scr="scr-trip" aria-current="true">Рейс</button>
+        <button data-scr="scr-me" aria-current="false">Кабинет</button>
+      </nav>
+    </div>
+
+    <div class="calls">
+      <div class="call"><div class="num">01</div><div><h3>Статусы в два касания, геометка сама</h3><p>«Прибыл», «на разгрузке», «выехал» — водитель не пишет ни слова. Время и координаты проставляются автоматически, поэтому отчёт нельзя забыть или подправить задним числом.</p></div></div>
+      <div class="call"><div class="num">02</div><div><h3>Простой в кабинете водителя — вот главный трюк</h3><p>Пока простой был проблемой офиса, водитель не имел причин его фиксировать. Как только минуты ожидания превращаются в его деньги, он нажимает кнопку сам и вовремя. Так система начинает работать без контроля — посмотрите, как растут обе цифры на глазах.</p></div></div>
+      <div class="call"><div class="num">03</div><div><h3>Заработок без «узнаю в конце месяца»</h3><p>Ставка рейса, доплаты, простои и удержания видны в момент, когда они начислены. Половина конфликтов с водителями — это спор о том, что было в смене, а не о размере ставки.</p></div></div>
+      <div class="call"><div class="num">04</div><div><h3>Маршрут — в Яндекс Навигаторе <span class="ai">внешне</span></h3><p>Кнопка открывает Навигатор с уже проложенным маршрутом до точки. Свою карту рисовать не нужно и не стоит: водители доверяют Навигатору и пробкам в нём, а нам достаточно передать координаты.</p></div></div>
+    </div>
+  </div>
+</main>
+
+<!-- ============================ ЛОГИСТ ============================ -->
+<main class="view" id="logist">
+  <div class="head"><span class="mono acc">02 / Логист</span><div class="rule"></div><span class="mono mut">Смирнова О. · доступ к парку</span></div>
+  <h1>Доска рейсов вместо двадцати телефонных разговоров</h1>
+  <p class="lead">Логист перестаёт быть переводчиком между водителем и заказчиком: он видит отклонения и занимается только ими.</p>
+
+  <div class="kpis">
+    <div class="kpi"><div class="n">18</div><div class="c">рейсов сегодня</div></div>
+    <div class="kpi"><div class="n">12</div><div class="c">машин в пути</div></div>
+    <div class="kpi"><div class="n acc" id="kDwell">3</div><div class="c">простоя сейчас</div></div>
+    <div class="kpi"><div class="n acc" id="kBill">2 ч 40 м</div><div class="c">сверх нормы за сутки<br>к выставлению</div></div>
+    <div class="kpi"><div class="n">7</div><div class="c">документов на проверке</div></div>
+  </div>
+
+  <div class="cols">
+    <div class="stackx">
+      <section class="panel">
+        <div class="panel-h"><span class="mono acc">Требует решения</span><div class="rule"></div><span class="mono mut">3</span></div>
+        <div class="panel-b">
+          <div class="alert"><div class="mk"></div><div>
+            <div class="t">Х312УК31 · простой <span id="aDwell">47</span> мин на «Магните», Костюкова 12</div>
+            <div class="d" id="aDwellD">До сверхнормативного 13 минут. Дальше время идёт в счёт заказчику.</div></div></div>
+          <div class="alert"><div class="mk"></div><div>
+            <div class="t">В802НО31 · рискует не успеть в окно 14:00–16:00 <span class="ai">прогноз</span></div>
+            <div class="d">По текущему темпу опоздание 25–40 минут. Предупредить «Перекрёсток» или переставить точки местами.</div></div></div>
+          <div class="alert"><div class="mk"></div><div>
+            <div class="t">УПД 8842 · недовоз 2 короба <span class="ai">ИИ</span></div>
+            <div class="d">Расхождение найдено при распознавании, заказчик уведомлён. Нужно ваше решение по списанию.</div></div></div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-h"><span class="mono acc">Машины в работе</span><div class="rule"></div><span class="mono mut">20 в парке · 12 в рейсе</span></div>
+        <div class="panel-b" style="overflow-x:auto">
+          <table>
+            <thead><tr><th>Машина</th><th>Водитель</th><th>Точка</th><th>Статус</th><th>На точке</th><th>Заказ</th></tr></thead>
+            <tbody>
+              <tr><td class="plate">Х312УК31</td><td>Ковалёв А.</td><td>3 из 5 · Костюкова</td><td><span class="pill hot">Простой</span></td><td class="acc" id="tDwell">47 мин</td><td>11 500 ₽</td></tr>
+              <tr><td class="plate">В802НО31</td><td>Сафонов И.</td><td>2 из 6 · Щорса</td><td><span class="pill hot">Риск окна</span></td><td>18 мин</td><td>14 200 ₽</td></tr>
+              <tr><td class="plate">Е447КМ31</td><td>Гринёв П.</td><td>4 из 4 · склад</td><td><span class="pill">В пути</span></td><td>—</td><td>9 800 ₽</td></tr>
+              <tr><td class="plate">К019АТ31</td><td>Мельник Д.</td><td>1 из 5 · Ватутина</td><td><span class="pill">Разгрузка</span></td><td>12 мин</td><td>12 300 ₽</td></tr>
+              <tr><td class="plate">М228ОС31</td><td>Зубков С.</td><td>2 из 7 · Есенина</td><td><span class="pill hot">Простой</span></td><td class="acc">1 ч 04 м</td><td>16 700 ₽</td></tr>
+            </tbody>
+          </table>
+          <p class="mono mut" style="margin-top:14px">показаны 5 из 12 · в демо остальные скрыты</p>
+        </div>
+      </section>
+    </div>
+
+    <div class="stackx">
+      <section class="panel">
+        <div class="panel-h"><span class="mono acc">Настройки компании</span><div class="rule"></div><span class="mono mut">права доступа</span></div>
+        <div class="panel-b">
+          <button class="chrow" id="rateToggle" aria-pressed="false">
+            <span class="dot"></span>
+            <span><span class="nm">Показывать водителям стоимость заказа</span><span class="ds">Сейчас выключено. Включите и посмотрите, что появится в кабинете водителя.</span></span>
+            <span class="pill" id="ratePill">Выкл</span>
+          </button>
+          <p style="font-size:12.5px;color:var(--mut);margin-top:6px">Решение не техническое, а коммерческое: увидев сумму заказа, водитель начнёт сравнивать её со своей ставкой. Часть перевозчиков открывает её сознательно — вместе со ставкой за простой это снимает разговоры «вы на мне наживаетесь».</p>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-h"><span class="mono acc">Лента смены</span><div class="rule"></div><span class="mono mut">сегодня</span></div>
+        <div class="panel-b" id="feed">
+          <div class="ev"><div class="m">09:14 · Х312УК31</div><div class="x">Прибытие на Костюкова, 12. Геометка подтверждена.</div></div>
+          <div class="ev"><div class="m">08:52 · В802НО31 · голосовое <span class="ai">ИИ</span></div><div class="x">«Тут очередь на рампе, машин пять» → зафиксировано ожидание рампы, прогноз сдвинут на 55 минут, заказчик уведомлён.</div></div>
+          <div class="ev"><div class="m">08:31 · заказчик <span class="ai">автоответ</span></div><div class="x">«Черноземье-Продукт» спросил статус заказа 71-0442 — ответ отправлен без участия логиста.</div></div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-h"><span class="mono acc">Куда шлём уведомления</span><div class="rule"></div><span class="mono mut">настройка</span></div>
+        <div class="panel-b">
+          <button class="chrow" aria-pressed="true"><span class="dot"></span><span><span class="nm">Push в кабинете</span><span class="ds">Основной канал. Без мессенджеров и магазинов приложений.</span></span><span class="pill hot">Основной</span></button>
+          <button class="chrow" aria-pressed="false"><span class="dot"></span><span><span class="nm">MAX</span><span class="ds">Бот в мессенджере. Публикация — от верифицированного юрлица РФ.</span></span><span class="pill">Доступен</span></button>
+          <button class="chrow" aria-pressed="false"><span class="dot"></span><span><span class="nm">SMS</span><span class="ds">Резерв для срочного: новый рейс, смена задания, отмена.</span></span><span class="pill">Резерв</span></button>
+          <button class="chrow off" aria-pressed="false" disabled><span class="dot"></span><span><span class="nm">Telegram</span><span class="ds">Отключён: с февраля 2026 работает в РФ нестабильно.</span></span><span class="pill">Недоступен</span></button>
+        </div>
+      </section>
+    </div>
+  </div>
+</main>
+
+<!-- ============================ ЗАКАЗЧИК ============================ -->
+<main class="view" id="client">
+  <div class="head"><span class="mono acc">03 / Заказчик</span><div class="rule"></div><span class="mono mut">ООО «Черноземье-Продукт» · договор 14-ТР</span></div>
+  <h1>То, чего нет у соседнего перевозчика</h1>
+  <p class="lead">Клиент видит свои машины сам и забирает документы в день доставки. Это не только снимает звонки — это аргумент на тендере.</p>
+
+  <div class="kpis">
+    <div class="kpi"><div class="n">6</div><div class="c">заказов в работе</div></div>
+    <div class="kpi"><div class="n">14</div><div class="c">точек сегодня</div></div>
+    <div class="kpi"><div class="n acc">1</div><div class="c">расхождение<br>требует ответа</div></div>
+    <div class="kpi"><div class="n">0 дн.</div><div class="c">задержка документов</div></div>
+  </div>
+
+  <div class="cols">
+    <section class="panel">
+      <div class="panel-h"><span class="mono acc">Заказ 71-0442 · 11 500 ₽</span><div class="rule"></div><span class="mono mut">в пути</span></div>
+      <div class="panel-b">
+        <table>
+          <thead><tr><th>Точка</th><th>Окно</th><th>Факт</th><th>На точке</th><th>Документ</th></tr></thead>
+          <tbody>
+            <tr><td>«Пятёрочка» · Щорса, 45</td><td>07:30–09:30</td><td>07:30</td><td>22 мин</td><td><span class="pill">УПД 8840</span></td></tr>
+            <tr><td>«Магнит» · Губкина, 17</td><td>08:00–10:00</td><td>08:18</td><td>19 мин</td><td><span class="pill">УПД 8841</span></td></tr>
+            <tr><td>«Магнит» · Костюкова, 12</td><td>09:00–11:00</td><td>09:14</td><td class="acc" id="cDwell">47 мин</td><td><span class="pill hot">недовоз 2 кор.</span></td></tr>
+            <tr><td>«Перекрёсток» · Ватутина, 2</td><td>12:00–14:00</td><td>—</td><td>—</td><td><span class="pill">ожидается</span></td></tr>
+          </tbody>
+        </table>
+        <p style="font-size:13px;color:var(--mut);margin-top:14px">Прогноз прибытия на последнюю точку обновляется сам и приходит вам за час до окна. <span class="ai">ИИ</span></p>
+      </div>
+    </section>
+
+    <div class="stackx">
+      <section class="panel">
+        <div class="panel-h"><span class="mono acc">Документы дня</span><div class="rule"></div><span class="mono mut">3</span></div>
+        <div class="panel-b">
+          <div class="docrow"><div><div class="nm">УПД 8840 · Щорса, 45</div><div class="ds">Принято полностью · 07:52</div></div><button class="btn">Скачать</button></div>
+          <div class="docrow"><div><div class="nm">УПД 8841 · Губкина, 17</div><div class="ds">Принято полностью · 08:40</div></div><button class="btn">Скачать</button></div>
+          <div class="docrow"><div><div class="nm">УПД 8842 · Костюкова, 12</div><div class="ds acc">Недовоз 2 короба · отметка магазина на скане</div></div><button class="btn">Скачать</button></div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-h"><span class="mono acc">Простои сверх нормы</span><div class="rule"></div><span class="mono mut">к согласованию</span></div>
+        <div class="panel-b">
+          <div class="docrow">
+            <div><div class="nm">Костюкова, 12 · <span class="acc" id="cOver">в пределах нормы</span></div>
+            <div class="ds">Прибытие 09:14, начало разгрузки не зафиксировано. Время, геометка и фото рампы приложены.</div></div>
+            <span class="pill hot">факт</span>
+          </div>
+          <p style="font-size:13px;color:var(--mut);margin-top:14px">Спорить не о чем: обе стороны смотрят на одни и те же отметки времени. Именно это и делает простой оплачиваемым.</p>
+        </div>
+      </section>
+    </div>
+  </div>
+</main>
+
+<footer class="foot">
+  <span>РАМПА · продукт REFRACT.AI · refract-ai.ru/rampa</span>
+  <a class="cta-foot" href="https://refract-ai.ru/brief">Заявка на разбор · 2 минуты →</a>
+</footer>
+
+<script>
+(function(){
+  'use strict';
+  var $=function(s){return document.querySelector(s)};
+
+  /* установлено на главный экран → показываем приложение, а не витрину */
+  if((window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) || navigator.standalone){
+    document.body.classList.add('installed');
+  }
+
+  /* тема */
+  var root=document.documentElement, tb=$('#themeBtn');
+  if(window.matchMedia&&window.matchMedia('(prefers-color-scheme: light)').matches) setTheme('light');
+  function setTheme(t){
+    root.setAttribute('data-theme',t);
+    tb.textContent = t==='dark' ? 'Светлая тема' : 'Тёмная тема';
+    var m=document.querySelector('meta[name=theme-color]');
+    if(m) m.setAttribute('content', t==='dark' ? '#161514' : '#F4F2EE');
+  }
+  tb.addEventListener('click',function(){ setTheme(root.getAttribute('data-theme')==='dark'?'light':'dark'); });
+
+  /* роли */
+  var tabs=document.querySelectorAll('.roles button');
+  function goto(id){
+    tabs.forEach(function(x){x.setAttribute('aria-selected',x.dataset.view===id?'true':'false')});
+    document.querySelectorAll('.view').forEach(function(v){v.classList.toggle('on',v.id===id)});
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+  tabs.forEach(function(b){b.addEventListener('click',function(){goto(b.dataset.view)})});
+  document.querySelectorAll('[data-goto]').forEach(function(b){b.addEventListener('click',function(){goto(b.dataset.goto)})});
+
+  /* экраны телефона */
+  var navBtns=document.querySelectorAll('.ph-nav button');
+  navBtns.forEach(function(b){
+    b.addEventListener('click',function(){
+      navBtns.forEach(function(x){x.setAttribute('aria-current',x===b?'true':'false')});
+      document.querySelectorAll('.screen').forEach(function(s){s.classList.toggle('on',s.id===b.dataset.scr)});
+    });
+  });
+
+  /* каналы уведомлений */
+  document.querySelectorAll('.chrow:not(.off):not(#rateToggle)').forEach(function(r){
+    r.addEventListener('click',function(){
+      r.setAttribute('aria-pressed', r.getAttribute('aria-pressed')==='true'?'false':'true');
+    });
+  });
+
+  /* показ стоимости заказа водителю */
+  var rt=$('#rateToggle');
+  rt.addEventListener('click',function(){
+    var on=rt.getAttribute('aria-pressed')!=='true';
+    rt.setAttribute('aria-pressed',on?'true':'false');
+    $('#ratePill').textContent=on?'Вкл':'Выкл';
+    $('#ratePill').className=on?'pill hot':'pill';
+    $('#rateBox').innerHTML = on
+      ? '<div class="kv" style="border:none;padding:0"><span>Стоимость заказа 71-0442</span><b class="flag">11 500 ₽</b></div>'+
+        '<div style="font-size:12px;margin-top:6px">Из них ваша смена — <b>'+fmt(total())+' ₽</b>. Остальное: топливо, амортизация, налоги, диспетчеризация.</div>'
+      : 'Стоимость заказа для заказчика скрыта настройкой компании.';
+    $('#rateBox').className = on ? 'brk' : 'hidden-rate';
+  });
+
+  /* деньги */
+  var BASE=3200, POINTS=500, IDLE_RATE=12, NORM=60, MAX=90, mins=47, over=false;
+  function paidIdle(){ return Math.max(0, mins-NORM) * IDLE_RATE + 0; }
+  function total(){ return BASE+POINTS+324+ (mins>=NORM ? (mins-NORM)*IDLE_RATE : 0); }
+  function fmt(n){ return String(n).replace(/\B(?=(\d{3})+(?!\d))/g,' '); }
+
+  var gv=$('#gv'), gf=$('#gfill'), gb=$('#gban');
+  function paint(){
+    gv.innerHTML=mins+'<small>мин на точке</small>';
+    gf.style.width=Math.min(mins/MAX*100,100)+'%';
+    var isOver=mins>=NORM;
+    gv.classList.toggle('over',isOver); gf.classList.toggle('over',isOver);
+    $('#aDwell').textContent=mins;
+    $('#tDwell').textContent=mins+' мин';
+    $('#cDwell').textContent=mins+' мин';
+    $('#eTotal').innerHTML=fmt(total())+'<small>₽</small>';
+    $('#eIdle').textContent=fmt(324+(isOver?(mins-NORM)*IDLE_RATE:0))+' ₽';
+    if(isOver){
+      $('#cOver').textContent='сверх нормы '+(mins-NORM)+' мин';
+      if(!over){
+        over=true; gb.classList.add('on');
+        $('#aDwellD').textContent='Норма пройдена. Время идёт в счёт заказчику и в смену водителю, доказательства собраны.';
+        $('#kDwell').textContent='4'; $('#kBill').textContent='3 ч 05 м';
+        addEvent('сейчас · Х312УК31','Простой перешёл норму. Основание для счёта сформировано, водителю начисляется оплата ожидания.');
+      }
+    }
+    if(rt.getAttribute('aria-pressed')==='true'){
+      var d=$('#rateBox').querySelector('div:last-child');
+      if(d) d.innerHTML='Из них ваша смена — <b>'+fmt(total())+' ₽</b>. Остальное: топливо, амортизация, налоги, диспетчеризация.';
+    }
+  }
+  var tick=setInterval(function(){ if(mins<MAX){mins++;paint();} else clearInterval(tick); },1000);
+
+  function addEvent(meta,text){
+    var d=document.createElement('div');
+    d.className='ev'; d.innerHTML='<div class="m">'+meta+'</div><div class="x">'+text+'</div>';
+    $('#feed').insertBefore(d,$('#feed').firstChild);
+  }
+
+  /* действия водителя */
+  var slot=$('#slot');
+  function show(h){ slot.innerHTML=h; }
+
+  $('#bDoc').addEventListener('click',function(){
+    show('<div class="result"><div class="rh"><span>Распознано</span><span class="ai">ИИ</span></div>'+
+      '<div class="kv"><span>Документ</span><b>УПД 8842</b></div>'+
+      '<div class="kv"><span>По заданию</span><b>18 коробов</b></div>'+
+      '<div class="kv"><span>Отметка магазина</span><b class="flag">16 коробов</b></div>'+
+      '<div class="kv"><span>Расхождение</span><b class="flag">недовоз 2 кор.</b></div>'+
+      '<div class="acts"><button class="btn primary wide">Отправить логисту и заказчику</button></div></div>');
+    addEvent('сейчас · Х312УК31 · документ','УПД 8842 распознан. Недовоз 2 короба, пакет ушёл заказчику.');
+  });
+
+  $('#bVoice').addEventListener('click',function(){
+    show('<div class="result"><div class="rh"><span>Запись…</span><span class="mono mut">00:04</span></div>'+
+      '<p class="mut" style="font-size:12.5px">Говорите как обычно — форму заполнять не нужно.</p></div>');
+    setTimeout(function(){
+      show('<div class="result"><div class="rh"><span>Расшифровка</span><span class="ai">ИИ</span></div>'+
+        '<p class="quote">«Рампа занята, сказали ещё минут сорок, тут фура разгружается»</p>'+
+        '<div class="kv"><span>Причина</span><b>очередь на рампе</b></div>'+
+        '<div class="kv"><span>Задержка</span><b class="flag">+40 мин</b></div>'+
+        '<div class="kv"><span>Заказчик</span><b>уведомлён</b></div></div>');
+      addEvent('сейчас · Х312УК31 · голосовое <span class="ai">ИИ</span>','«Рампа занята, ещё минут сорок» → причина: очередь на рампе, сдвиг +40 мин, заказчик уведомлён.');
+    },1400);
+  });
+
+  $('#bLeave').addEventListener('click',function(){
+    clearInterval(tick);
+    var t=9*60+14+mins, hh=Math.floor(t/60), mm=t%60;
+    show('<div class="result"><div class="rh"><span>Точка закрыта</span><span class="mono acc">09:14 → '+
+      (hh<10?'0':'')+hh+':'+(mm<10?'0':'')+mm+'</span></div>'+
+      '<div class="kv"><span>Время на точке</span><b>'+mins+' мин</b></div>'+
+      (mins>=NORM?'<div class="kv"><span>Сверх нормы</span><b class="flag">'+(mins-NORM)+' мин · '+((mins-NORM)*IDLE_RATE)+' ₽ вам</b></div>':'')+
+      '<div class="kv"><span>Следующая</span><b>Ватутина, 2 · 12:00–14:00</b></div></div>');
+    addEvent('сейчас · Х312УК31','Выезд с Костюкова, 12. Время на точке '+mins+' мин.');
+  });
+
+  /* Навигатор: если приложения нет — уводим на веб-карты */
+  $('#bNav').addEventListener('click',function(){
+    var t=Date.now();
+    setTimeout(function(){
+      if(Date.now()-t<1600 && !document.hidden){
+        show('<div class="result"><div class="rh"><span>Навигатор не установлен</span></div>'+
+          '<p style="font-size:12.5px;color:var(--mut)">Открываем маршрут в веб-картах. На телефоне водителя с установленным Навигатором приложение запустится сразу.</p>'+
+          '<div class="acts"><a class="btn wide" target="_blank" rel="noopener" href="https://yandex.ru/maps/?rtext=~50.586500,36.547900&amp;rtt=auto">Открыть в Яндекс Картах</a></div></div>');
+      }
+    },1200);
+  });
+
+  paint();
+})();
+</script>
+<script>
+if('serviceWorker' in navigator && location.protocol === 'https:'){
+  window.addEventListener('load',function(){ navigator.serviceWorker.register('sw.js').catch(function(){}); });
+}
+</script>
+</body>
+</html>
