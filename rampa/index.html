@@ -147,7 +147,7 @@ h2{font-family:var(--fd);font-weight:700;font-size:19px;line-height:1.25}
 .stops{margin-top:16px;border-top:1px solid var(--ln);padding-top:12px}
 .stop{display:flex;gap:10px;align-items:baseline;padding:7px 0;font-size:13px;border-bottom:1px dashed var(--ln)}
 .stop:last-child{border-bottom:none}
-.stop .i{font-family:var(--fm);font-size:10px;color:var(--mut);width:16px;flex:none}
+.stop .i{font-family:var(--fm);font-size:10px;color:var(--mut);min-width:16px;flex:none}
 .stop .s{margin-left:auto;font-family:var(--fm);font-size:9.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--mut);flex:none}
 .stop.done .n{color:var(--mut)}
 .stop.now .n{color:var(--acc);font-weight:600}
@@ -246,9 +246,10 @@ td .plate{font-family:var(--fm);font-size:11.5px;letter-spacing:.04em}
 @media(max-width:720px){
   .top-in{padding:10px 14px;gap:10px}
   .brand span{display:none}
-  .roles{flex:1}
+  .top .rule{display:none}
+  .roles{order:3;flex-basis:100%}
   .roles button{flex:1;padding:9px 6px;font-size:9.5px;letter-spacing:.06em}
-  .theme{padding:9px 10px;font-size:9.5px;letter-spacing:.06em}
+  .theme{margin-left:auto;padding:9px 10px;font-size:9.5px;letter-spacing:.06em}
   .note{padding:8px 14px 0;font-size:9px}
   .view{padding:0 0 40px}
   #logist,#client{padding:18px 14px 48px}
