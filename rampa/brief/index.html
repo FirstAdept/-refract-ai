@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>РАМПА — бриф перевозчика · 2 минуты</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#161514">
+<meta name="description" content="10 вопросов о вашем парке — вернёмся с расчётом цены рутины в рублях.">
+<style>
+@font-face{font-family:'Inter';font-weight:400;font-display:swap;src:url(../fonts/inter-cyrillic-400-normal.woff2) format('woff2');unicode-range:U+0400-045F}
+@font-face{font-family:'Inter';font-weight:400;font-display:swap;src:url(../fonts/inter-latin-400-normal.woff2) format('woff2')}
+@font-face{font-family:'Inter';font-weight:500;font-display:swap;src:url(../fonts/inter-cyrillic-500-normal.woff2) format('woff2');unicode-range:U+0400-045F}
+@font-face{font-family:'Inter';font-weight:500;font-display:swap;src:url(../fonts/inter-latin-500-normal.woff2) format('woff2')}
+@font-face{font-family:'Inter Tight';font-weight:800;font-display:swap;src:url(../fonts/inter-tight-cyrillic-800-normal.woff2) format('woff2');unicode-range:U+0400-045F}
+@font-face{font-family:'Inter Tight';font-weight:800;font-display:swap;src:url(../fonts/inter-tight-latin-800-normal.woff2) format('woff2')}
+@font-face{font-family:'JetBrains Mono';font-weight:600;font-display:swap;src:url(../fonts/jetbrains-mono-cyrillic-600-normal.woff2) format('woff2');unicode-range:U+0400-045F}
+@font-face{font-family:'JetBrains Mono';font-weight:600;font-display:swap;src:url(../fonts/jetbrains-mono-latin-600-normal.woff2) format('woff2')}
+:root{--bg:#161514;--sur:#1D1C1A;--tx:#F4F2EE;--mut:#8F8B84;--ln:#33312D;--acc:#F15A24;
+--fd:'Inter Tight',Arial,sans-serif;--fb:'Inter',Arial,sans-serif;--fm:'JetBrains Mono',Consolas,monospace}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--fb);background:var(--bg);color:var(--tx);line-height:1.5;-webkit-font-smoothing:antialiased}
+.wrap{max-width:720px;margin:0 auto;padding:32px 20px 64px}
+.tag{font-family:var(--fm);font-weight:600;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--acc)}
+h1{font-family:var(--fd);font-weight:800;font-size:clamp(26px,5vw,38px);line-height:1.1;letter-spacing:-.01em;margin:14px 0 12px}
+.lead{color:var(--mut);font-size:15px;max-width:56ch}
+.head{display:flex;align-items:center;gap:14px;margin-bottom:8px}
+.head .rule{flex:1;height:1px;background:var(--ln)}
+.head a{font-family:var(--fm);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--mut);text-decoration:none}
+.head a:hover{color:var(--acc)}
+form{margin-top:28px}
+.q{border:1px solid var(--ln);border-radius:2px;background:var(--sur);padding:18px;margin-bottom:14px}
+.q .n{font-family:var(--fm);font-weight:600;font-size:10px;letter-spacing:.1em;color:var(--acc);text-transform:uppercase}
+.q label.t{display:block;font-weight:500;font-size:15px;margin:8px 0 10px}
+input[type=text],input[type=tel],textarea{width:100%;background:var(--bg);border:1px solid var(--ln);border-radius:2px;
+color:var(--tx);font:inherit;font-size:14px;padding:11px 12px}
+textarea{min-height:74px;resize:vertical}
+input:focus,textarea:focus{outline:none;border-color:var(--acc)}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opts label{display:flex;align-items:center;gap:8px;border:1px solid var(--ln);border-radius:2px;padding:9px 12px;
+font-size:13.5px;cursor:pointer;user-select:none}
+.opts input{accent-color:var(--acc)}
+.opts label:has(input:checked){border-color:var(--acc)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:560px){.grid2{grid-template-columns:1fr}}
+.send{width:100%;margin-top:8px;background:var(--acc);border:1px solid var(--acc);border-radius:2px;color:#fff;
+font-family:var(--fm);font-weight:600;font-size:12px;letter-spacing:.1em;text-transform:uppercase;padding:16px;cursor:pointer}
+.send:hover{background:#d94d1b}
+.send:disabled{opacity:.6;cursor:wait}
+.note{font-size:12px;color:var(--mut);margin-top:12px;text-align:center}
+.ok{display:none;border:1px solid var(--acc);border-radius:2px;padding:28px 22px;margin-top:28px}
+.ok h2{font-family:var(--fd);font-weight:800;font-size:24px;margin-bottom:8px}
+.ok p{color:var(--mut);font-size:14.5px}
+.ok a{color:var(--acc)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="head"><span class="tag">РАМПА · БРИФ</span><div class="rule"></div><a href="../">← к демо</a></div>
+  <h1>10 вопросов о вашем парке</h1>
+  <p class="lead">Вернёмся с расчётом: сколько стоит рутина вокруг ваших рейсов — документы, звонки, простои — и что из этого РАМПА заберёт на себя. Без звонков, пока вы сами не захотите.</p>
+
+  <form id="f" action="https://formsubmit.co/hello.refract@gmail.com" method="POST">
+    <input type="hidden" name="_subject" value="Бриф РАМПА: перевозчик">
+    <input type="hidden" name="_template" value="table">
+    <input type="hidden" name="_captcha" value="false">
+
+    <div class="q"><span class="n">01</span><label class="t" for="q1">Сколько машин в работе и какие?</label>
+      <input type="text" id="q1" name="01. Парк" placeholder="например: 20 своих, тенты 20 т" required></div>
+
+    <div class="q"><span class="n">02</span><label class="t" for="q2">Сколько рейсов в месяц в среднем?</label>
+      <input type="text" id="q2" name="02. Рейсов в месяц" placeholder="например: 350–400"></div>
+
+    <div class="q"><span class="n">03</span><label class="t" for="q3">Кто оформляет документы рейса (ТТН, УПД, акты) и сколько времени уходит на один рейс?</label>
+      <textarea id="q3" name="03. Документы рейса" placeholder="кто делает и сколько минут/часов на рейс"></textarea></div>
+
+    <div class="q"><span class="n">04</span><label class="t">Как приходят заявки?</label>
+      <div class="opts">
+        <label><input type="checkbox" name="04. Заявки" value="телефон">телефон</label>
+        <label><input type="checkbox" name="04. Заявки" value="мессенджер">мессенджер</label>
+        <label><input type="checkbox" name="04. Заявки" value="биржа (АТИ и др.)">биржа (АТИ и др.)</label>
+        <label><input type="checkbox" name="04. Заявки" value="постоянные заказчики">постоянные заказчики</label>
+      </div></div>
+
+    <div class="q"><span class="n">05</span><label class="t" for="q5">Как заказчики узнают статус груза?</label>
+      <input type="text" id="q5" name="05. Статусы заказчикам" placeholder="звонят диспетчеру / пишут / никак"></div>
+
+    <div class="q"><span class="n">06</span><label class="t" for="q6">Бывают ли задержки оплаты? Как контролируете и напоминаете?</label>
+      <textarea id="q6" name="06. Контроль оплат" placeholder="кто следит за сроками и как напоминаете"></textarea></div>
+
+    <div class="q"><span class="n">07</span><label class="t" for="q7">Где ищете загрузки, включая обратные?</label>
+      <input type="text" id="q7" name="07. Поиск загрузок" placeholder="АТИ, знакомые, тендеры…"></div>
+
+    <div class="q"><span class="n">08</span><label class="t">Какой учёт используете?</label>
+      <div class="opts">
+        <label><input type="radio" name="08. Учёт" value="1С">1С</label>
+        <label><input type="radio" name="08. Учёт" value="Excel">Excel</label>
+        <label><input type="radio" name="08. Учёт" value="бумага/тетрадь">бумага / тетрадь</label>
+        <label><input type="radio" name="08. Учёт" value="другое">другое</label>
+      </div></div>
+
+    <div class="q"><span class="n">09</span><label class="t" for="q9">Сколько человек в офисе, кроме водителей?</label>
+      <input type="text" id="q9" name="09. Офис" placeholder="например: 3 — логист, бухгалтер, я"></div>
+
+    <div class="q"><span class="n">10</span><label class="t" for="q10">Что съедает больше всего вашего личного времени в неделю?</label>
+      <textarea id="q10" name="10. Главный пожиратель времени" placeholder="своими словами"></textarea></div>
+
+    <div class="q"><span class="n">Контакты</span>
+      <div class="grid2" style="margin-top:10px">
+        <div><label class="t" for="cn">Имя</label><input type="text" id="cn" name="Имя" required></div>
+        <div><label class="t" for="cc">Компания</label><input type="text" id="cc" name="Компания"></div>
+      </div>
+      <label class="t" for="ct" style="margin-top:12px">Телефон или Telegram</label>
+      <input type="text" id="ct" name="Контакт" placeholder="+7… или @…" required></div>
+
+    <button class="send" id="sb" type="submit">Отправить — вернёмся с расчётом</button>
+    <p class="note">Данные уходят только на почту REFRACT.AI и не передаются третьим лицам. Работаем по NDA.</p>
+  </form>
+
+  <div class="ok" id="ok">
+    <h2>Бриф получен.</h2>
+    <p>Посчитаем цену рутины на ваших цифрах и вернёмся в течение рабочего дня. Быстрее — в Telegram: <a href="https://t.me/StanislavRefract">@StanislavRefract</a>. А пока можно ещё раз потыкать <a href="../">живое демо</a>.</p>
+  </div>
+</div>
+
+<script>
+document.getElementById('f').addEventListener('submit',async function(e){
+  e.preventDefault();
+  var b=document.getElementById('sb');b.disabled=true;b.textContent='Отправляем…';
+  try{
+    var r=await fetch('https://formsubmit.co/ajax/hello.refract@gmail.com',
+      {method:'POST',headers:{'Accept':'application/json'},body:new FormData(this)});
+    if(!r.ok)throw 0;
+    this.style.display='none';
+    document.getElementById('ok').style.display='block';
+    window.scrollTo({top:0,behavior:'smooth'});
+  }catch(_){b.disabled=false;b.textContent='Отправить — вернёмся с расчётом';this.submit();}
+});
+</script>
+</body>
+</html>

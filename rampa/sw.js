@@ -1,6 +1,6 @@
 /* Кабинет перевозчика — демо · REFRACT.AI
    Кэш оболочки: демо открывается даже без сети (важно на встрече в подвале у клиента). */
-var CACHE = 'refract-cabinet-v2';
+var CACHE = 'refract-cabinet-v3';
 var SHELL = [
   './',
   'index.html',
