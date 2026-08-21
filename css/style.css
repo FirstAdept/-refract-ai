@@ -1937,3 +1937,5 @@ html.chat-open .hero__scroll { opacity: 0; pointer-events: none; transition: opa
 @media (prefers-reduced-motion: reduce) {
     .ring, .orb-hint b { animation: none; }
 }
+
+html.chat-open .header { opacity: 0; pointer-events: none; transition: opacity .35s ease; }
