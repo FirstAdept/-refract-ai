@@ -1458,11 +1458,15 @@ form.addEventListener('submit', async (e) => {
       try{ scrollTo({top:0,behavior:'instant'}); }catch(_){ scrollTo(0,0); }
       slot.appendChild(orb);
       layer.classList.add('on');
+      var _h=document.querySelector('.header');
+      if(_h)_h.style.setProperty('display','none','important');
       layer.setAttribute('aria-hidden','false');
       document.documentElement.classList.add('chat-open');
     }
     function closeLayer(){
       layer.classList.remove('on');
+      var _h2=document.querySelector('.header');
+      if(_h2)_h2.style.removeProperty('display');
       layer.setAttribute('aria-hidden','true');
       document.documentElement.classList.remove('chat-open');
       home.appendChild(orb);
