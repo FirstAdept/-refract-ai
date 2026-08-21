@@ -1,4 +1,4 @@
-const CACHE_NAME = 'refract-ai-v13';
+const CACHE_NAME = 'refract-ai-v14';
 const ASSETS = [
     '/',
     '/index.html',
@@ -39,7 +39,8 @@ self.addEventListener('fetch', (e) => {
     if (e.request.method !== 'GET') return;
     // Skip analytics and external
     if (e.request.url.includes('mc.yandex.ru') ||
-        e.request.url.includes('api.telegram.org')) return;
+        e.request.url.includes('api.telegram.org') ||
+        new URL(e.request.url).pathname.startsWith('/api/')) return;
 
     e.respondWith(
         caches.match(e.request).then((cached) =>
