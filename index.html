@@ -165,7 +165,7 @@
     .hero{padding:100px 0 90px}.hero__title{margin-top:38px}.approach{height:420vh}
     .pains,.ind,.free{padding:72px 0}.pains__grid,.ind__grid{grid-template-columns:1fr}}
     </style>
-    <link rel="stylesheet" href="css/style.css?v=16">
+    <link rel="stylesheet" href="css/style.css?v=17">
 </head>
 <body>
     <div class="scroll-progress" id="scrollProgress"></div>
@@ -260,28 +260,6 @@
     </section>
 
     <!-- Stats -->
-    <section class="stats">
-        <div class="container stats__inner">
-            <div class="stat" data-animate>
-                <div class="stat__number" data-count="50">0</div>
-                <div class="stat__label" data-i18n="stats.projects">Проектов реализовано</div>
-            </div>
-            <div class="stat" data-animate>
-                <div class="stat__number" data-count="30">0</div>
-                <div class="stat__label" data-i18n="stats.processes">Процессов автоматизировано</div>
-            </div>
-            <div class="stat" data-animate>
-                <div class="stat__number" data-count="15">0</div>
-                <div class="stat__label" data-i18n="stats.team">Специалистов в команде</div>
-            </div>
-            <div class="stat" data-animate>
-                <div class="stat__number" data-count="98">0</div>
-                <div class="stat__label" data-i18n="stats.return">% клиентов возвращаются</div>
-            </div>
-        </div>
-    </section>
-
-
     <!-- Solutions -->
     <section class="projects" id="projects">
         <div class="container">
@@ -484,6 +462,32 @@
                         </div>
                     </div>
                 </div>
+                <div class="project-card" data-animate>
+                    <div class="project-card__bg">
+                        <svg class="project-card__art" viewBox="0 0 520 300" fill="none" role="img" aria-hidden="true"><g stroke="#ffffff" stroke-width="1" opacity="0.34"><rect x="106" y="112" width="84" height="56" rx="4"/><path d="M118 156l12-16 9 10 11-14 17 20"/><rect x="106" y="182" width="84" height="56" rx="4"/><path d="M118 226l12-16 9 10 11-14 17 20"/><rect x="330" y="112" width="84" height="56" rx="4"/><path d="M342 156l12-16 9 10 11-14 17 20"/><rect x="330" y="182" width="84" height="56" rx="4"/><path d="M342 226l12-16 9 10 11-14 17 20"/></g><g stroke="#ffffff" stroke-width="1.4"><rect x="236" y="60" width="48" height="20" rx="4"/><path d="M247 80v8m26-8v8"/><circle cx="260" cy="70" r="5"/></g><rect x="212" y="112" width="96" height="66" rx="4" stroke="#ffffff" stroke-width="1.4"/><path d="M260 128l15 26h-30z" stroke="#ffffff" stroke-width="1.4"/><line x1="260" y1="137" x2="260" y2="145" stroke="#ffffff" stroke-width="1.4"/><rect x="212" y="192" width="96" height="26" rx="4" stroke="#ffffff" stroke-width="1" opacity="0.7"/><path d="M224 205h44" stroke="#ffffff" stroke-width="1" opacity="0.55"/><circle cx="292" cy="205" r="4" stroke="#ffffff" stroke-width="1.2"/></svg>
+                    </div>
+                    <div class="project-card__info">
+                        <span class="project-card__tag" data-i18n="proj.video.tag">Видеоаналитика</span>
+                        <h3 class="project-card__title" data-i18n="proj.video.t">Контроль по камерам</h3>
+                        <p class="project-card__desc" data-i18n="proj.video.desc">ИИ смотрит трансляции и архив вместо человека: чужие на территории, нарушения, очереди и простои приходят событием в телефон, а не часами записи</p>
+                        <div class="project-card__stack">
+                            <span>CV</span><span>RTSP</span><span>События</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card" data-animate>
+                    <div class="project-card__bg">
+                        <svg class="project-card__art" viewBox="0 0 520 300" fill="none" role="img" aria-hidden="true"><g stroke="#ffffff" stroke-width="1" opacity="0.34"><rect x="132" y="76" width="256" height="152" rx="6"/><line x1="132" y1="98" x2="388" y2="98"/><circle cx="146" cy="87" r="3"/><circle cx="158" cy="87" r="3"/><circle cx="170" cy="87" r="3"/></g><path d="M198 136l-24 24 24 24" stroke="#ffffff" stroke-width="1.6"/><path d="M246 136l24 24-24 24" stroke="#ffffff" stroke-width="1.6"/><line x1="212" y1="190" x2="232" y2="130" stroke="#ffffff" stroke-width="1.4" opacity="0.8"/><g stroke="#ffffff" stroke-width="1.2" opacity="0.75"><rect x="296" y="128" width="68" height="15" rx="3"/><rect x="296" y="152" width="50" height="15" rx="3"/><rect x="296" y="176" width="60" height="15" rx="3"/></g><path d="M372 196l10 10 16-18" stroke="#ffffff" stroke-width="1.5"/></svg>
+                    </div>
+                    <div class="project-card__info">
+                        <span class="project-card__tag" data-i18n="proj.soft.tag">Разработка под вас</span>
+                        <h3 class="project-card__title" data-i18n="proj.soft.t">Персональный софт</h3>
+                        <p class="project-card__desc" data-i18n="proj.soft.desc">CRM, кабинеты, ERP и внутренние сервисы под ваши процессы: с ИИ мы разрабатываем такой софт в разы быстрее и дешевле коробочных систем</p>
+                        <div class="project-card__stack">
+                            <span>Веб</span><span>PWA</span><span>ИИ-разработка</span>
+                        </div>
+                    </div>
+                </div>
 
             </div>
         </div>
@@ -495,7 +499,7 @@
             <div class="section-header">
                 <span class="section-label" data-i18n="cases.label">03 / Работы</span>
                 <h2 class="section-title" data-i18n="cases.title">Разборы, которые мы приносим на первую встречу</h2>
-                <p class="cases__lead" data-i18n="cases.lead">Прежде чем что-то предлагать, мы разбираем бизнес по открытым источникам и показываем, где рутина стоит денег. Ниже — два таких разбора целиком.</p>
+                <p class="cases__lead" data-i18n="cases.lead">Прежде чем что-то предлагать, мы разбираем бизнес по открытым источникам и показываем, где рутина стоит денег. Ниже — разборы целиком и то, что мы собираем прямо сейчас.</p>
             </div>
             <div class="cases__grid">
                 <article class="case">
@@ -510,8 +514,9 @@
                         </div>
                         <a class="case__open" href="/agronom/" target="_blank" rel="noopener" data-i18n="cases.open">Открыть в новой вкладке →</a>
                     </div>
-                    <div class="case__frame">
+                    <div class="case__frame case__frame--preview">
                         <iframe src="/agronom/" title="ООО «Агроном-сад»" loading="lazy" referrerpolicy="no-referrer"></iframe>
+                        <button class="case__expand" type="button" data-deck="/agronom/" data-deck-title="ООО «Агроном-сад»"><span data-i18n="cases.expand">Развернуть проект</span></button>
                     </div>
                 </article>
                 <article class="case">
@@ -526,10 +531,28 @@
                         </div>
                         <a class="case__open" href="/rampa/" target="_blank" rel="noopener" data-i18n="cases.open">Открыть в новой вкладке →</a>
                     </div>
-                    <div class="case__frame">
+                    <div class="case__frame case__frame--preview">
                         <iframe src="/rampa/" title="РАМПА — кабинет перевозчика" loading="lazy" referrerpolicy="no-referrer"></iframe>
+                        <button class="case__expand" type="button" data-deck="/rampa/" data-deck-title="РАМПА — кабинет перевозчика"><span data-i18n="cases.expand">Развернуть проект</span></button>
                     </div>
                 </article>
+                <article class="case">
+                    <div class="case__head">
+                        <span class="case__tag" data-i18n="case.mng.tag">ERP · собственная разработка</span>
+                        <h3 class="case__t" data-i18n="case.mng.t">ERP «Многогранники»</h3>
+                        <p class="case__d" data-i18n="case.mng.d">ERP для производственной компании: заказы, склад, производство и деньги в одном контуре, с ИИ-помощником внутри. Собираем под процессы клиента — без коробочных компромиссов.</p>
+                        <div class="case__meta">
+                            <span data-i18n="case.mng.m1">ERP</span>
+                            <span data-i18n="case.mng.m2">в разработке</span>
+                            <span data-i18n="case.mng.m3">2026</span>
+                        </div>
+                    </div>
+                    <div class="case__frame case__frame--dev" aria-hidden="true">
+                        <svg viewBox="0 0 200 200" fill="none"><g stroke="#7f77dd" stroke-width="1.2"><path d="M100 22l64 37v74l-64 37-64-37V59z"/><path d="M100 22v74m0 0l64 37m-64-37l-64 37m64-37l64-37m-64 37l-64-37m64 37v74" opacity="0.55"/></g><g fill="#9be1cb"><circle cx="100" cy="22" r="2.5"/><circle cx="164" cy="59" r="2.5"/><circle cx="164" cy="133" r="2.5"/><circle cx="100" cy="170" r="2.5"/><circle cx="36" cy="133" r="2.5"/><circle cx="36" cy="59" r="2.5"/><circle cx="100" cy="96" r="2.5"/></g></svg>
+                        <span class="case__devlabel" data-i18n="cases.dev">Проект в разработке</span>
+                    </div>
+                </article>
+
             </div>
         </div>
     </section>
@@ -798,7 +821,7 @@
         <span class="demo" id="demoBadge" data-i18n="chat.demo">Демо-сценарий</span>
     </div>
 
-    <script src="js/main.js?v=16" defer></script>
+    <script src="js/main.js?v=17" defer></script>
 
     <!-- Yandex.Metrika counter -->
     <script type="text/javascript">
