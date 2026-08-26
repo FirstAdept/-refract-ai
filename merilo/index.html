@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>М—ЕРИЛО · единая система «Многогранников»</title>
+<style>
+  :root{
+    --ink:#141414; --paper:#FFFFFF; --steel:#7A7A76;
+    --line:#DFDDD8; --primer:#C73E1D; --primer-deep:#9E3013;
+    --mist:#F6F5F2;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{background:#ECEAE6}
+  body{font-family:"Liberation Sans",Arial,sans-serif;color:var(--ink);
+       font-size:10.5pt;line-height:1.45}
+
+  /* ======== ЛИСТ (слайд) ======== */
+  .sheet{
+    width:297mm;height:209.5mm;background:var(--paper);
+    margin:8mm auto;position:relative;overflow:hidden;
+    box-shadow:0 2px 14px rgba(20,20,20,.14);
+    page-break-after:always;
+  }
+  .sheet:last-child{page-break-after:auto}
+  /* чертёжная рамка */
+  .frame{position:absolute;inset:7mm;border:.6pt solid var(--ink);pointer-events:none}
+  .frame::before{content:"";position:absolute;inset:1.2mm;border:.25pt solid var(--line)}
+  /* угловой штамп */
+  .stamp{
+    position:absolute;right:7mm;bottom:7mm;display:flex;align-items:stretch;
+    border:.6pt solid var(--ink);background:var(--paper);
+    font-family:"Liberation Mono",monospace;font-size:6.4pt;letter-spacing:.02em;
+  }
+  .stamp div{padding:1.6mm 3mm;border-left:.4pt solid var(--ink);display:flex;flex-direction:column;justify-content:center}
+  .stamp div:first-child{border-left:none}
+  .stamp b{font-size:7.6pt;letter-spacing:.06em}
+  .stamp .lbl{color:var(--steel);font-size:5.2pt;text-transform:uppercase;letter-spacing:.14em}
+  .content{position:absolute;inset:14mm 16mm 20mm 16mm}
+
+  /* ======== ТИПОГРАФИКА ======== */
+  .eyebrow{font-family:"Liberation Mono",monospace;font-size:7.5pt;letter-spacing:.28em;
+           text-transform:uppercase;color:var(--primer);margin-bottom:4mm}
+  .eyebrow .n{color:var(--ink);border:.6pt solid var(--ink);padding:.4mm 1.6mm;margin-right:2.5mm}
+  h1,h2{font-family:"DejaVu Sans Condensed","Liberation Sans",sans-serif;
+        text-transform:uppercase;line-height:.98;letter-spacing:.005em;font-weight:bold}
+  h2{font-size:26pt;margin-bottom:5mm}
+  .lead{font-size:12.5pt;line-height:1.5;max-width:200mm;color:#2B2B29}
+  .mono{font-family:"Liberation Mono",monospace}
+  .accent{color:var(--primer)}
+  .muted{color:var(--steel)}
+  .mdash{color:var(--primer);font-weight:bold}
+
+  /* ======== ЛИСТ 1: ТИТУЛ ======== */
+  .title-wrap{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;padding:0 22mm}
+  .brand-m{font-family:"DejaVu Sans Condensed",sans-serif;font-weight:bold;
+           font-size:118pt;line-height:.9;letter-spacing:-.01em}
+  .brand-m .dash{color:var(--primer)}
+  .brand-sub{font-family:"DejaVu Sans Condensed",sans-serif;font-weight:bold;text-transform:uppercase;
+             font-size:34pt;letter-spacing:.04em;margin-top:1mm}
+  .title-tag{margin-top:8mm;font-size:13pt;max-width:190mm;line-height:1.5}
+  .title-meta{position:absolute;top:16mm;left:22mm;right:22mm;display:flex;justify-content:space-between;
+              font-family:"Liberation Mono",monospace;font-size:8pt;letter-spacing:.18em;text-transform:uppercase;color:var(--steel)}
+  .title-rule{width:52mm;height:2.2mm;background:var(--primer);margin-top:9mm}
+
+  /* ======== СЕТКИ ======== */
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:6mm}
+  .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:5mm}
+  .grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:5.5mm}
+
+  /* карточка модуля */
+  .mod{border:.6pt solid var(--ink);padding:5mm 5mm 12mm;position:relative;background:var(--paper);min-height:56mm}
+  .mod .num{position:absolute;top:0;right:0;font-family:"Liberation Mono",monospace;font-size:6pt;
+            color:var(--steel);padding:1.2mm 2mm;letter-spacing:.1em}
+  .mod h3{font-family:"DejaVu Sans Condensed",sans-serif;text-transform:uppercase;font-size:13pt;
+          letter-spacing:.02em;margin-bottom:1.6mm}
+  .mod p{font-size:9.6pt;color:#3A3A38;line-height:1.45}
+  .mod .fig{font-family:"Liberation Mono",monospace;font-size:9.6pt;color:var(--primer-deep);
+            position:absolute;left:5mm;right:5mm;bottom:4.2mm;letter-spacing:.02em}
+
+  /* шаги */
+  .step{display:grid;grid-template-columns:14mm 1fr;gap:4mm;padding:5.6mm 0;border-top:.5pt solid var(--line)}
+  .step:first-child{border-top:none}
+  .step .no{font-family:"DejaVu Sans Condensed",sans-serif;font-weight:bold;font-size:22pt;color:var(--primer);line-height:1}
+  .step h3{font-size:12pt;font-family:"DejaVu Sans Condensed",sans-serif;text-transform:uppercase;margin-bottom:1mm}
+  .step p{font-size:10pt;color:#33332F;line-height:1.5}
+  .kbd{font-family:"Liberation Mono",monospace;background:var(--mist);border:.5pt solid var(--line);
+       padding:.3mm 1.8mm;font-size:9pt;white-space:nowrap}
+
+  /* принцип зеркала */
+  .flow{display:grid;grid-template-columns:1fr 9mm 1fr 9mm 1fr;align-items:stretch;gap:0;margin:5mm 0 6mm}
+  .flow .node{border:.7pt solid var(--ink);padding:4.5mm;background:var(--paper)}
+  .flow .node h3{font-family:"DejaVu Sans Condensed",sans-serif;text-transform:uppercase;font-size:11pt;margin-bottom:1.4mm}
+  .flow .node p{font-size:9.4pt;color:#3A3A38;line-height:1.5}
+  .flow .arrow{display:flex;align-items:center;justify-content:center;
+               font-family:"Liberation Mono",monospace;font-size:13pt;color:var(--primer)}
+  .notice{border-left:2.2mm solid var(--primer);background:var(--mist);padding:3.5mm 4.5mm;font-size:9.8pt;max-width:100%}
+  .notice b{text-transform:uppercase;font-size:8.6pt;letter-spacing:.1em}
+
+  /* правила */
+  .rule-card{border-top:1.4mm solid var(--ink);padding-top:3mm}
+  .rule-card h3{font-family:"DejaVu Sans Condensed",sans-serif;text-transform:uppercase;font-size:11.5pt;margin-bottom:1.6mm}
+  .rule-card p{font-size:10pt;color:#33332F;line-height:1.5}
+
+  /* дорожная карта */
+  .road{border-left:.7pt solid var(--ink);margin-left:3mm}
+  .road .item{position:relative;padding:0 0 6.6mm 8mm}
+  .road .item::before{content:"";position:absolute;left:-1.35mm;top:1.6mm;width:2.6mm;height:2.6mm;
+                      background:var(--primer);border:.5pt solid var(--ink)}
+  .road h3{font-family:"DejaVu Sans Condensed",sans-serif;text-transform:uppercase;font-size:11.5pt}
+  .road p{font-size:9.8pt;color:#3A3A38;max-width:122mm;line-height:1.45}
+  .road .tag{font-family:"Liberation Mono",monospace;font-size:6.6pt;letter-spacing:.14em;
+             text-transform:uppercase;color:var(--steel)}
+
+  .bigquote{font-family:"DejaVu Sans Condensed",sans-serif;font-weight:bold;text-transform:uppercase;
+            font-size:30pt;line-height:1.05;max-width:230mm}
+  .bigquote .accent{color:var(--primer)}
+
+  table.spec{border-collapse:collapse;width:100%;font-size:9.2pt}
+  table.spec td{border-top:.5pt solid var(--line);padding:2mm 0;vertical-align:top}
+  table.spec td.k{width:62mm;color:var(--steel);text-transform:uppercase;font-size:7.6pt;
+                  letter-spacing:.12em;font-family:"Liberation Mono",monospace;padding-top:2.6mm}
+  table.spec td.v{font-size:9.8pt}
+
+
+  /* матрица ролей */
+  table.mx{border-collapse:collapse;width:100%;font-size:8.8pt}
+  table.mx th{font-family:"DejaVu Sans Condensed",sans-serif;text-transform:uppercase;font-size:9pt;
+    letter-spacing:.04em;padding:2mm 1.5mm;border-bottom:1pt solid var(--ink);text-align:center;vertical-align:bottom;line-height:1.15}
+  table.mx th.rowh{text-align:left}
+  table.mx td{border-bottom:.4pt solid var(--line);padding:1.9mm 1.5mm;text-align:center}
+  table.mx td.rname{text-align:left;font-size:9.2pt}
+  .dot{display:inline-block;width:3.2mm;height:3.2mm;border-radius:50%;background:var(--ink);vertical-align:middle}
+  .dot.half{background:var(--paper);border:.7pt solid var(--ink)}
+  .dot.own{background:var(--primer)}
+  .legend{font-size:8.2pt;color:var(--steel);margin-top:3.5mm}
+  .legend .dot{width:2.6mm;height:2.6mm;margin:0 1mm 0 3mm}
+
+  /* мокапы экранов */
+  .mock{border:.8pt solid var(--ink);background:var(--paper)}
+  .mock .mbar{height:4.4mm;background:var(--mist);border-bottom:.5pt solid var(--line);
+    display:flex;align-items:center;gap:1.2mm;padding:0 2mm}
+  .mock .mbar i{width:1.8mm;height:1.8mm;border:.45pt solid var(--steel);border-radius:50%}
+  .mock .mtitle{font-family:"Liberation Mono",monospace;font-size:6pt;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--steel);margin-left:1.5mm}
+  .mock .mbody{padding:4mm 3.5mm}
+  .mrow{display:flex;gap:1.4mm;margin-bottom:2.1mm;align-items:center}
+  .mc{height:3.4mm;background:var(--mist);border:.3pt solid var(--line)}
+  .f1{flex:1}.f2{flex:2}.f3{flex:3}
+  .chip{font-family:"Liberation Mono",monospace;font-size:6.4pt;padding:.2mm 1.2mm;border:.4pt solid}
+  .chip.ok{color:#2A6B2E;border-color:#2A6B2E}
+  .chip.bad{color:var(--primer-deep);border-color:var(--primer-deep)}
+  .gline{display:flex;align-items:center;gap:2mm;margin-bottom:3.4mm}
+  .glabel{font-family:"Liberation Mono",monospace;font-size:6.2pt;width:17mm;color:#3A3A38}
+  .gtrack{flex:1;height:4.4mm;background:var(--mist);border:.3pt solid var(--line);position:relative}
+  .gplan{position:absolute;top:0;bottom:0;background:var(--ink)}
+  .gfact{position:absolute;bottom:0;background:var(--primer);height:1.9mm}
+  .mock .cap{font-size:9.2pt;color:#33332F;padding:3mm 3.5mm 3.5mm;border-top:.4pt solid var(--line);line-height:1.4}
+  .board{display:grid;grid-template-columns:repeat(8,1fr);gap:.9mm}
+  .bcell{height:6.2mm;background:var(--mist);border:.3pt solid var(--line)}
+  .bcell.b1{background:var(--ink)}
+  .bcell.b2{background:#8A8A86}
+  .bcell.b3{background:var(--primer)}
+
+  @page{size:297mm 210mm;margin:0}
+  @media print{
+    html{background:#fff}
+    .sheet{margin:0;box-shadow:none}
+  }
+</style>
+</head>
+<body>
+
+<!-- ======== ЛИСТ 1 · ТИТУЛ ======== -->
+<section class="sheet">
+  <div class="frame"></div>
+  <div class="title-meta">
+    <span>ООО «Многогранники» · инженерное ателье</span>
+    <span>26 августа 2026</span>
+  </div>
+  <div class="title-wrap">
+    <div class="brand-m">М<span class="dash">—</span></div>
+    <div class="brand-sub">ЕРИЛО</div>
+    <div class="title-rule"></div>
+    <p class="title-tag">Единая система управления производством и&nbsp;финансами компании.
+    Объекты, деньги, зарплата, цех&nbsp;— в&nbsp;одном месте, со&nbsp;сверкой каждой цифры.
+    <span class="muted">О&nbsp;продукте · как пользоваться · что автоматизируем дальше.</span></p>
+  </div>
+  <div class="stamp">
+    <div><span class="lbl">Система</span><b>М—ЕРИЛО</b></div>
+    <div><span class="lbl">Документ</span><b>Презентация</b></div>
+    <div><span class="lbl">Дата</span><b>26.08.2026</b></div>
+    <div><span class="lbl">Лист</span><b>1&nbsp;/&nbsp;11</b></div>
+  </div>
+</section>
+
+<!-- ======== ЛИСТ 2 · ЗАЧЕМ ======== -->
+<section class="sheet">
+  <div class="frame"></div>
+  <div class="content">
+    <div class="eyebrow"><span class="n">01</span>Зачем это компании</div>
+    <h2 style="font-size:30pt">Все данные компании<br>жили в&nbsp;пятнадцати таблицах.<br><span class="accent">Теперь&nbsp;— в&nbsp;одной системе.</span></h2>
+    <div class="grid3" style="margin-top:13mm;gap:8mm">
+      <div class="rule-card">
+        <h3>Одно окно вместо поиска по&nbsp;таблицам</h3>
+        <p>Объект, его деньги, зарплата, график производства и&nbsp;акты&nbsp;— на&nbsp;связанных экранах.
+        Не&nbsp;нужно помнить, в&nbsp;какой книге что лежит и&nbsp;у&nbsp;кого спросить ссылку.</p>
+      </div>
+      <div class="rule-card">
+        <h3>Цифры сверяются сами</h3>
+        <p>Система пересчитывает формулы таблиц своими силами и&nbsp;сравнивает результат
+        с&nbsp;тем, что записано. Расхождение&nbsp;— подсвечено и&nbsp;названо, а&nbsp;не&nbsp;спрятано.</p>
+      </div>
+      <div class="rule-card">
+        <h3>Ничего не&nbsp;ломаем</h3>
+        <p>Google-таблицы продолжают работать как раньше. Система читает их каждую ночь
+        и&nbsp;ничего в&nbsp;них не&nbsp;меняет&nbsp;— переход будет постепенным и&nbsp;без потерь.</p>
+      </div>
+    </div>
+  </div>
+  <div class="stamp">
+    <div><span class="lbl">Система</span><b>М—ЕРИЛО</b></div>
+    <div><span class="lbl">Раздел</span><b>Зачем</b></div>
+    <div><span class="lbl">Лист</span><b>2&nbsp;/&nbsp;11</b></div>
+  </div>
+</section>
+
+<!-- ======== ЛИСТ 3 · ЧТО ВНУТРИ ======== -->
+<section class="sheet">
+  <div class="frame"></div>
+  <div class="content">
+    <div class="eyebrow"><span class="n">02</span>Что уже работает · живые данные компании</div>
+    <h2 style="font-size:22pt">Восемь разделов<span class="accent">.</span> Цифры&nbsp;— настоящие, на&nbsp;сегодня<span class="accent">.</span></h2>
+    <div class="grid4" style="margin-top:7mm">
+      <div class="mod"><span class="num">A</span><h3>Объекты</h3>
+        <p>Реестр всех проектов: статусы, команда, договорная база.</p>
+        <span class="fig">95 объектов</span></div>
+      <div class="mod"><span class="num">B</span><h3>Деньги · ДДС</h3>
+        <p>Движение денежных средств по&nbsp;статьям и&nbsp;объектам.</p>
+        <span class="fig">33&nbsp;320 операций</span></div>
+      <div class="mod"><span class="num">C</span><h3>Рентабельности</h3>
+        <p>Реестр и&nbsp;книги объектов, автоматическая проверка формул.</p>
+        <span class="fig">92 объекта · 90&nbsp;книг</span></div>
+      <div class="mod"><span class="num">D</span><h3>Свод прибыли</h3>
+        <p>План прибыли по&nbsp;активным объектам с&nbsp;горизонтом.</p>
+        <span class="fig">266,9 млн руб · 7 объектов</span></div>
+      <div class="mod"><span class="num">E</span><h3>Зарплата</h3>
+        <p>Ведомость, сдельщина цеха и&nbsp;двусторонняя сверка сумм.</p>
+        <span class="fig">52 работы · 4&nbsp;месяца</span></div>
+      <div class="mod"><span class="num">F</span><h3>Производство</h3>
+        <p>Борды загрузки цеха и&nbsp;поэтажная детализация «Яндекс».</p>
+        <span class="fig">2 борда · 205&nbsp;строк</span></div>
+      <div class="mod"><span class="num">G</span><h3>Графики работ</h3>
+        <p>ГПР по&nbsp;каждому объекту: план этапов и&nbsp;место для факта.</p>
+        <span class="fig">61 график · 487&nbsp;этапов</span></div>
+      <div class="mod"><span class="num">H</span><h3>КС и&nbsp;инциденты</h3>
+        <p>Акты выполненных работ и&nbsp;журнал замечаний с&nbsp;историей.</p>
+        <span class="fig">233 акта КС</span></div>
+    </div>
+    <p style="margin-top:8mm;font-size:9.8pt" class="muted">Каждый раздел&nbsp;— точное отражение
+    ваших рабочих таблиц: те&nbsp;же колонки, те&nbsp;же названия, те&nbsp;же суммы до&nbsp;копейки.</p>
+  </div>
+  <div class="stamp">
+    <div><span class="lbl">Система</span><b>М—ЕРИЛО</b></div>
+    <div><span class="lbl">Раздел</span><b>Состав</b></div>
+    <div><span class="lbl">Лист</span><b>3&nbsp;/&nbsp;11</b></div>
+  </div>
+</section>
+
+<!-- ======== ЛИСТ 4 · КАК РАБОТАЕТ ======== -->
+<section class="sheet">
+  <div class="frame"></div>
+  <div class="content">
+    <div class="eyebrow"><span class="n">03</span>Принцип работы · «зеркало»</div>
+    <h2 style="font-size:22pt">Система читает&nbsp;— и&nbsp;сверяет<span class="accent">.</span><br>Ваши таблицы она не&nbsp;трогает<span class="accent">.</span></h2>
+    <div class="flow" style="margin:7mm 0 8mm">
+      <div class="node">
+        <h3>1&nbsp;· Ночью читает</h3>
+        <p>Каждую ночь система забирает свежие данные из&nbsp;рабочих Google-таблиц:
+        деньги, зарплату, акты, графики, борды производства.</p>
+      </div>
+      <div class="arrow">→</div>
+      <div class="node">
+        <h3>2&nbsp;· Утром показывает</h3>
+        <p>К&nbsp;началу дня всё лежит на&nbsp;экранах системы&nbsp;— в&nbsp;привычном виде листа
+        или в&nbsp;виде журнала с&nbsp;поиском и&nbsp;фильтрами.</p>
+      </div>
+      <div class="arrow">→</div>
+      <div class="node">
+        <h3>3&nbsp;· Сразу сверяет</h3>
+        <p>Формулы пересчитываются независимо. Сошлось&nbsp;— зелёная отметка.
+        Разошлось&nbsp;— красная, с&nbsp;точной причиной и&nbsp;адресом ячейки.</p>
+      </div>
+    </div>
+    <div class="grid2">
+      <div class="notice">
+        <b>Введённое в&nbsp;систему&nbsp;— сохраняется.</b>&nbsp;
+        Если запись создана прямо в&nbsp;системе (например, акт&nbsp;КС), она получает пометку
+        «заведено в&nbsp;ERP» и&nbsp;ночное обновление её не&nbsp;затирает. Это уже проверено.
+      </div>
+      <div class="notice" style="border-left-color:var(--ink)">
+        <b>Права&nbsp;— только на&nbsp;чтение.</b>&nbsp;
+        У&nbsp;системы технически нет возможности изменить ваши Google-таблицы:
+        доступ выдан в&nbsp;режиме «читатель», и&nbsp;это проверяется на&nbsp;каждом обновлении.
+      </div>
+    </div>
+    <table class="spec" style="margin-top:9mm">
+      <tr><td class="k">Обновление данных</td><td class="v">автоматически каждую ночь; при необходимости&nbsp;— вручную в&nbsp;течение дня</td></tr>
+      <tr><td class="k">Проверки сегодня</td><td class="v">формулы книг рентабельности, реестры, суммы зарплаты цеха, сверка борда с&nbsp;графиками производства</td></tr>
+    </table>
+  </div>
+  <div class="stamp">
+    <div><span class="lbl">Система</span><b>М—ЕРИЛО</b></div>
+    <div><span class="lbl">Раздел</span><b>Принцип</b></div>
+    <div><span class="lbl">Лист</span><b>4&nbsp;/&nbsp;11</b></div>
+  </div>
+</section>
+
+
+<!-- ======== ЛИСТ 5 · РОЛИ ======== -->
+<section class="sheet">
+  <div class="frame"></div>
+  <div class="content">
+    <div class="eyebrow"><span class="n">04</span>Доступ по ролям</div>
+    <h2 style="font-size:22pt">Каждый видит своё<span class="accent">.</span> Лишнего на&nbsp;экране нет<span class="accent">.</span></h2>
+    <table class="mx" style="margin-top:6mm">
+      <tr>
+        <th class="rowh" style="width:56mm">Раздел</th>
+        <th>Руководство</th><th>Экономика<br>и&nbsp;финансы</th><th>Коммерческий<br>отдел</th>
+        <th>Руководитель<br>проекта</th><th>Производство<br>/&nbsp;цех</th>
+      </tr>
+      <tr><td class="rname">Объекты и&nbsp;договорная база</td>
+        <td><span class="dot"></span></td><td><span class="dot"></span></td><td><span class="dot"></span></td>
+        <td><span class="dot own"></span></td><td><span class="dot half"></span></td></tr>
+      <tr><td class="rname">Деньги · ДДС · план поступлений</td>
+        <td><span class="dot"></span></td><td><span class="dot"></span></td><td><span class="dot half"></span></td>
+        <td>—</td><td>—</td></tr>
+      <tr><td class="rname">Рентабельности и&nbsp;свод прибыли</td>
+        <td><span class="dot"></span></td><td><span class="dot"></span></td><td><span class="dot half"></span></td>
+        <td><span class="dot own"></span></td><td>—</td></tr>
+      <tr><td class="rname">Зарплата и&nbsp;сдельщина цеха</td>
+        <td><span class="dot"></span></td><td><span class="dot"></span></td><td>—</td>
+        <td>—</td><td><span class="dot half"></span></td></tr>
+      <tr><td class="rname">Производство: борды и&nbsp;графики</td>
+        <td><span class="dot"></span></td><td><span class="dot half"></span></td><td><span class="dot half"></span></td>
+        <td><span class="dot own"></span></td><td><span class="dot"></span></td></tr>
+      <tr><td class="rname">Акты&nbsp;КС</td>
+        <td><span class="dot"></span></td><td><span class="dot"></span></td><td><span class="dot half"></span></td>
+        <td><span class="dot own"></span></td><td>—</td></tr>
+      <tr><td class="rname">Инциденты (замечания)</td>
+        <td><span class="dot"></span></td><td><span class="dot"></span></td><td><span class="dot"></span></td>
+        <td><span class="dot"></span></td><td><span class="dot"></span></td></tr>
+    </table>
+    <p class="legend"><span class="dot"></span> полный доступ
+      <span class="dot half"></span> просмотр / частично
+      <span class="dot own"></span> свои объекты
+      &nbsp;&nbsp;—&nbsp; раздела не&nbsp;видно</p>
+    <div class="notice" style="margin-top:5mm">
+      <b>Роль выдаётся под задачи человека.</b>&nbsp;
+      Состав ролей и&nbsp;границы доступа настраиваются&nbsp;— если по&nbsp;ходу теста окажется,
+      что кому-то нужен другой набор разделов, это меняется без переделки системы.
+    </div>
+  </div>
+  <div class="stamp">
+    <div><span class="lbl">Система</span><b>М—ЕРИЛО</b></div>
+    <div><span class="lbl">Раздел</span><b>Роли</b></div>
+    <div><span class="lbl">Лист</span><b>5&nbsp;/&nbsp;11</b></div>
+  </div>
+</section>
+
+<!-- ======== ЛИСТ 6 · ЭКРАНЫ ======== -->
+<section class="sheet">
+  <div class="frame"></div>
+  <div class="content">
+    <div class="eyebrow"><span class="n">05</span>Примеры рабочих экранов · схематично</div>
+    <h2 style="font-size:22pt">Как это выглядит в&nbsp;работе</h2>
+    <div class="grid3" style="margin-top:5mm;gap:6mm">
+      <div class="mock">
+        <div class="mbar"><i></i><i></i><i></i><span class="mtitle">Рентабельности · реестр</span></div>
+        <div class="mbody">
+          <div class="mrow"><div class="mc f2" style="background:#E8E6E1"></div><div class="mc f1" style="background:#E8E6E1"></div><div class="mc f1" style="background:#E8E6E1"></div><span class="chip ok" style="visibility:hidden">✓</span></div>
+          <div class="mrow"><div class="mc f2"></div><div class="mc f1"></div><div class="mc f1"></div><span class="chip ok">✓ сошлось</span></div>
+          <div class="mrow"><div class="mc f2"></div><div class="mc f1"></div><div class="mc f1"></div><span class="chip ok">✓ сошлось</span></div>
+          <div class="mrow"><div class="mc f2"></div><div class="mc f1"></div><div class="mc f1"></div><span class="chip bad">✗ битая ссылка</span></div>
+          <div class="mrow"><div class="mc f2"></div><div class="mc f1"></div><div class="mc f1"></div><span class="chip ok">✓ сошлось</span></div>
+          <div class="mrow"><div class="mc f2"></div><div class="mc f1"></div><div class="mc f1"></div><span class="chip ok">✓ сошлось</span></div>
+          <div class="mrow"><div class="mc f2"></div><div class="mc f1"></div><div class="mc f1"></div><span class="chip ok">✓ сошлось</span></div>
+        </div>
+        <div class="cap">Реестр объектов с&nbsp;отметками сверки. Клик по&nbsp;строке раскрывает книгу
+        объекта с&nbsp;деталями и&nbsp;причиной каждого расхождения.</div>
+      </div>
+      <div class="mock">
+        <div class="mbar"><i></i><i></i><i></i><span class="mtitle">ГПР объекта · план / факт</span></div>
+        <div class="mbody" style="padding-top:4mm">
+          <div class="gline"><span class="glabel">ПРОЕКТ</span><div class="gtrack"><div class="gplan" style="left:0;width:26%"></div><div class="gfact" style="left:0;width:22%"></div></div></div>
+          <div class="gline"><span class="glabel">ЗАГОТОВКА</span><div class="gtrack"><div class="gplan" style="left:20%;width:30%"></div><div class="gfact" style="left:20%;width:18%"></div></div></div>
+          <div class="gline"><span class="glabel">СБОРКА</span><div class="gtrack"><div class="gplan" style="left:44%;width:32%"></div><div class="gfact" style="left:44%;width:8%"></div></div></div>
+          <div class="gline"><span class="glabel">ОКРАСКА</span><div class="gtrack"><div class="gplan" style="left:70%;width:16%"></div></div></div>
+          <div class="gline"><span class="glabel">МОНТАЖ</span><div class="gtrack"><div class="gplan" style="left:84%;width:16%"></div></div></div>
+        </div>
+        <div class="cap">График работ: чёрное&nbsp;— план этапов, <span style="color:var(--primer)">суриковое</span>&nbsp;—
+        факт. Видно, где объект идёт по&nbsp;плану, а&nbsp;где отстаёт.</div>
+      </div>
+      <div class="mock">
+        <div class="mbar"><i></i><i></i><i></i><span class="mtitle">Борд загрузки цеха · недели</span></div>
+        <div class="mbody">
+          <div class="board">
+            <div class="bcell b1"></div><div class="bcell b1"></div><div class="bcell"></div><div class="bcell"></div><div class="bcell"></div><div class="bcell"></div><div class="bcell"></div><div class="bcell"></div>
+            <div class="bcell"></div><div class="bcell b2"></div><div class="bcell b2"></div><div class="bcell b2"></div><div class="bcell"></div><div class="bcell"></div><div class="bcell"></div><div class="bcell"></div>
+            <div class="bcell"></div><div class="bcell"></div><div class="bcell b3"></div><div class="bcell b3"></div><div class="bcell b3"></div><div class="bcell b3"></div><div class="bcell"></div><div class="bcell"></div>
+            <div class="bcell"></div><div class="bcell"></div><div class="bcell"></div><div class="bcell b1"></div><div class="bcell b1"></div><div class="bcell"></div><div class="bcell"></div><div class="bcell"></div>
+            <div class="bcell"></div><div class="bcell"></div><div class="bcell"></div><div class="bcell"></div><div class="bcell b2"></div><div class="bcell b2"></div><div class="bcell b2"></div><div class="bcell"></div>
+            <div class="bcell b3"></div><div class="bcell b3"></div><div class="bcell"></div><div class="bcell"></div><div class="bcell"></div><div class="bcell b1"></div><div class="bcell b1"></div><div class="bcell b1"></div>
+          </div>
+        </div>
+        <div class="cap">Загрузка производства по&nbsp;неделям: каждая полоса&nbsp;— объект в&nbsp;цеху.
+        Рядом&nbsp;— поэтажная детализация «Яндекс» отдельной вкладкой.</div>
+      </div>
+    </div>
+    <p style="margin-top:5mm;font-size:9pt" class="muted">Схемы упрощены для наглядности&nbsp;—
+    настоящие экраны показывают те&nbsp;же названия колонок и&nbsp;суммы, что и&nbsp;ваши таблицы.</p>
+  </div>
+  <div class="stamp">
+    <div><span class="lbl">Система</span><b>М—ЕРИЛО</b></div>
+    <div><span class="lbl">Раздел</span><b>Экраны</b></div>
+    <div><span class="lbl">Лист</span><b>6&nbsp;/&nbsp;11</b></div>
+  </div>
+</section>
+
+<!-- ======== ЛИСТ 5 · КАК ПОПРОБОВАТЬ ======== -->
+<section class="sheet">
+  <div class="frame"></div>
+  <div class="content">
+    <div class="eyebrow"><span class="n">06</span>Тестовый доступ · с&nbsp;1&nbsp;сентября</div>
+    <div class="grid2" style="grid-template-columns:104mm 1fr;gap:10mm">
+      <div>
+        <h2 style="font-size:22pt">Как зайти<br>и&nbsp;что попробовать</h2>
+        <p class="lead" style="font-size:10.5pt;margin-top:2mm">Задача теста&nbsp;— походить по&nbsp;системе
+        глазами и&nbsp;сказать, что удобно, что нет и&nbsp;чего не&nbsp;хватает. Работать в&nbsp;ней пока
+        не&nbsp;нужно&nbsp;— продолжайте вести таблицы как обычно.</p>
+        <table class="spec" style="margin-top:5mm">
+          <tr><td class="k">Адрес</td><td class="v mono">http://178.20.44.129</td></tr>
+          <tr><td class="k">Вход</td><td class="v">логин и&nbsp;пароль выдаются каждому персонально</td></tr>
+          <tr><td class="k">Откуда</td><td class="v">с&nbsp;рабочего компьютера или телефона, из&nbsp;офиса и&nbsp;извне</td></tr>
+          <tr><td class="k">Замечания</td><td class="v">прямо в&nbsp;системе, раздел «Инциденты»&nbsp;— это канал обратной связи</td></tr>
+        </table>
+      </div>
+      <div>
+        <div class="step"><div class="no">1</div><div>
+          <h3>Войдите</h3><p>Откройте <span class="kbd">178.20.44.129</span>, введите выданные логин и&nbsp;пароль.</p></div></div>
+        <div class="step"><div class="no">2</div><div>
+          <h3>Найдите свой объект</h3><p>Раздел «Объекты»: откройте карточку проекта, который ведёте,&nbsp;— проверьте статус и&nbsp;состав.</p></div></div>
+        <div class="step"><div class="no">3</div><div>
+          <h3>Откройте «Рентабельности»</h3><p>Кликните строку объекта&nbsp;— раскроется книга с&nbsp;деталями и&nbsp;отметками сверки.</p></div></div>
+        <div class="step"><div class="no">4</div><div>
+          <h3>Загляните в&nbsp;«Производство»</h3><p>Борд загрузки цеха и&nbsp;график работ по&nbsp;объекту&nbsp;— сравните с&nbsp;тем, что знаете.</p></div></div>
+        <div class="step"><div class="no">5</div><div>
+          <h3>Оставьте замечание</h3><p>Что-то не&nbsp;так или непонятно&nbsp;— создайте запись в&nbsp;«Инцидентах». Каждая будет разобрана и&nbsp;получит ответ.</p></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="stamp">
+    <div><span class="lbl">Система</span><b>М—ЕРИЛО</b></div>
+    <div><span class="lbl">Раздел</span><b>Тест-драйв</b></div>
+    <div><span class="lbl">Лист</span><b>7&nbsp;/&nbsp;11</b></div>
+  </div>
+</section>
+
+<!-- ======== ЛИСТ 6 · ПРАВИЛА ТЕСТА ======== -->
+<section class="sheet">
+  <div class="frame"></div>
+  <div class="content">
+    <div class="eyebrow"><span class="n">07</span>Правила тестового периода</div>
+    <h2 style="font-size:22pt">Четыре правила<span class="accent">,</span><br>чтобы тест был полезным</h2>
+    <div class="grid2" style="margin-top:10mm;gap:9mm 10mm">
+      <div class="rule-card">
+        <h3>Работайте как обычно</h3>
+        <p>Google-таблицы остаются основным рабочим инструментом. Система идёт параллельно
+        и&nbsp;показывает те&nbsp;же данные&nbsp;— ваша задача сравнить и&nbsp;оценить, а&nbsp;не&nbsp;переучиваться.</p>
+      </div>
+      <div class="rule-card">
+        <h3>Данные&nbsp;— настоящие</h3>
+        <p>В&nbsp;системе реальные цифры компании: деньги, зарплата, объекты.
+        Относитесь к&nbsp;ним как к&nbsp;рабочим документам&nbsp;— без скриншотов наружу.</p>
+      </div>
+      <div class="rule-card">
+        <h3>Пароль&nbsp;— личный</h3>
+        <p>Каждому выдаётся свой вход, под ролью с&nbsp;нужными правами. Не&nbsp;передавайте
+        пароль коллегам&nbsp;— по&nbsp;журналу системы видно, кто и&nbsp;что делал.</p>
+      </div>
+      <div class="rule-card">
+        <h3>Каждое замечание&nbsp;— в&nbsp;дело</h3>
+        <p>Непонятная кнопка, странная цифра, неудобный экран&nbsp;— всё это ценно.
+        Заводите инцидент: у&nbsp;каждого будет разбор, ответ и&nbsp;след в&nbsp;истории.</p>
+      </div>
+    </div>
+    <div class="notice" style="margin-top:12mm;font-size:10.4pt">
+      <b>Если цифра в&nbsp;системе не&nbsp;совпала с&nbsp;таблицей&nbsp;—</b>&nbsp;это самое интересное.
+      Либо система нашла реальное расхождение в&nbsp;данных, либо мы что-то отразили неточно.
+      В&nbsp;обоих случаях сообщите&nbsp;— такие находки уже не&nbsp;раз помогали навести порядок.
+    </div>
+  </div>
+  <div class="stamp">
+    <div><span class="lbl">Система</span><b>М—ЕРИЛО</b></div>
+    <div><span class="lbl">Раздел</span><b>Правила</b></div>
+    <div><span class="lbl">Лист</span><b>8&nbsp;/&nbsp;11</b></div>
+  </div>
+</section>
+
+<!-- ======== ЛИСТ 7 · ДОРОЖНАЯ КАРТА ======== -->
+<section class="sheet">
+  <div class="frame"></div>
+  <div class="content">
+    <div class="eyebrow"><span class="n">08</span>Что автоматизируем дальше</div>
+    <div class="grid2" style="grid-template-columns:96mm 1fr;gap:12mm">
+      <div>
+        <h2 style="font-size:22pt">От&nbsp;зеркала&nbsp;—<br>к&nbsp;рабочему<br>инструменту</h2>
+        <p class="lead" style="font-size:10.5pt;margin-top:3mm">Сейчас система повторяет ваши таблицы
+        и&nbsp;сверяет их. Следующий шаг&nbsp;— чтобы данные рождались прямо в&nbsp;ней,
+        а&nbsp;таблицы получали их автоматически. Переход&nbsp;— поблочно, начиная с&nbsp;самого простого.</p>
+      </div>
+      <div class="road">
+        <div class="item"><span class="tag">Ближайшее</span>
+          <h3>Ввод данных в&nbsp;системе</h3>
+          <p>Первыми&nbsp;— акты&nbsp;КС: заводятся в&nbsp;системе, сохраняются навсегда, попадают в&nbsp;сверку.</p></div>
+        <div class="item"><span class="tag">По&nbsp;схеме цеха</span>
+          <h3>Задания производству</h3>
+          <p>Наряды и&nbsp;учёт выработки цеха&nbsp;— по&nbsp;схеме, которую готовит начальник участка: как привыкли, только без ручной перепечатки.</p></div>
+        <div class="item"><span class="tag">Автоматом</span>
+          <h3>Факт производства из&nbsp;накладных</h3>
+          <p>Отметки о&nbsp;приёмке деталей будут сами закрывать этапы графика работ&nbsp;— видно, где реально идёт объект.</p></div>
+        <div class="item"><span class="tag">Интеграция</span>
+          <h3>Обмен с&nbsp;1С</h3>
+          <p>Платежи, справочники и&nbsp;контрагенты&nbsp;— напрямую между системами, без ручного переноса.</p></div>
+        <div class="item"><span class="tag">Для привычки</span>
+          <h3>Выгрузка обратно в&nbsp;Google</h3>
+          <p>Отдельная книга-выгрузка: данные из&nbsp;системы появляются в&nbsp;привычных таблицах сами&nbsp;— для тех отчётов, что удобно смотреть по-старому.</p></div>
+        <div class="item"><span class="tag">Сигналы</span>
+          <h3>Уведомления</h3>
+          <p>Важные события&nbsp;— просрочки, расхождения, новые акты&nbsp;— приходят сами, а&nbsp;не&nbsp;ждут, пока их заметят.</p></div>
+      </div>
+    </div>
+  </div>
+  <div class="stamp">
+    <div><span class="lbl">Система</span><b>М—ЕРИЛО</b></div>
+    <div><span class="lbl">Раздел</span><b>Дальше</b></div>
+    <div><span class="lbl">Лист</span><b>9&nbsp;/&nbsp;11</b></div>
+  </div>
+</section>
+
+
+<!-- ======== ЛИСТ 10 · ОПТИМИЗАЦИЯ ПО ПОЖЕЛАНИЯМ ======== -->
+<section class="sheet">
+  <div class="frame"></div>
+  <div class="content">
+    <div class="eyebrow"><span class="n">09</span>Отдельная глава · по&nbsp;вашим пожеланиям</div>
+    <h2 style="font-size:22pt">Что ещё можно оптимизировать<span class="accent">.</span><br>Приоритеты расставите вы<span class="accent">.</span></h2>
+    <p class="lead" style="font-size:10.2pt;margin-top:2mm;max-width:250mm">Ниже&nbsp;— возможности, которые система может взять
+    на&nbsp;себя по&nbsp;запросу. Ничего из&nbsp;этого не&nbsp;навязывается: скажете на&nbsp;тесте, что нужнее&nbsp;— то и&nbsp;сделаем первым.</p>
+    <div class="grid3" style="margin-top:6mm;gap:6mm 7mm">
+      <div class="rule-card"><h3>Сводка руководителю</h3>
+        <p>Один экран на&nbsp;утро: деньги за&nbsp;вчера, состояние объектов, загрузка цеха,
+        что требует решения&nbsp;— вместо обхода пяти таблиц.</p></div>
+      <div class="rule-card"><h3>Контроль сроков и&nbsp;просрочек</h3>
+        <p>Система сама замечает: этап графика просрочен, акт не&nbsp;закрыт, платёж завис&nbsp;—
+        и&nbsp;показывает списком, пока не&nbsp;разобрано.</p></div>
+      <div class="rule-card"><h3>Помощь в&nbsp;распределении премий</h3>
+        <p>Расчёт-подсказка долей по&nbsp;выработке: цифры считает система, решение
+        остаётся за&nbsp;начальником участка&nbsp;— как принято сейчас.</p></div>
+      <div class="rule-card"><h3>История и&nbsp;поиск по&nbsp;всему</h3>
+        <p>Найти объект, сумму или акт за&nbsp;любой месяц&nbsp;— одной строкой поиска,
+        не&nbsp;вспоминая, в&nbsp;какой книге и&nbsp;на&nbsp;какой вкладке это лежало.</p></div>
+      <div class="rule-card"><h3>Отчёты по&nbsp;форме заказчика</h3>
+        <p>Типовые печатные формы&nbsp;— КС, справки, реестры&nbsp;— собираются из&nbsp;данных
+        системы кнопкой, без ручной сборки в&nbsp;Excel.</p></div>
+      <div class="rule-card"><h3>Аналитика по&nbsp;цеху и&nbsp;участкам</h3>
+        <p>Выработка по&nbsp;видам работ, загрузка станков, себестоимость этапов&nbsp;—
+        когда накопятся данные заданий производства.</p></div>
+    </div>
+    <div class="notice" style="margin-top:8mm">
+      <b>Как это попадает в&nbsp;работу.</b>&nbsp;Пожелание фиксируется в&nbsp;«Инцидентах» или
+      проговаривается на&nbsp;встрече&nbsp;— мы оцениваем, показываем макет, согласуем и&nbsp;делаем.
+      Маленькие вещи появляются за&nbsp;дни, крупные&nbsp;— планируются этапами.
+    </div>
+  </div>
+  <div class="stamp">
+    <div><span class="lbl">Система</span><b>М—ЕРИЛО</b></div>
+    <div><span class="lbl">Раздел</span><b>Пожелания</b></div>
+    <div><span class="lbl">Лист</span><b>10&nbsp;/&nbsp;11</b></div>
+  </div>
+</section>
+
+<!-- ======== ЛИСТ 8 · ФИНАЛ ======== -->
+<section class="sheet">
+  <div class="frame"></div>
+  <div class="content" style="display:flex;flex-direction:column;justify-content:center">
+    <div class="eyebrow"><span class="n">10</span>Обратная связь</div>
+    <p class="bigquote">Система собрана<br>по&nbsp;вашим таблицам<span class="accent">.</span><br>
+    Дальше она растёт<br>по&nbsp;вашим замечаниям<span class="accent">.</span></p>
+    <table class="spec" style="margin-top:10mm;max-width:200mm">
+      <tr><td class="k">Замечания и&nbsp;идеи</td><td class="v">раздел «Инциденты» в&nbsp;самой системе&nbsp;— основной канал</td></tr>
+      <tr><td class="k">Вопросы по&nbsp;входу</td><td class="v">руководителю проекта внедрения&nbsp;— выдаст доступ и&nbsp;поможет разобраться</td></tr>
+      <tr><td class="k">Тестовый период</td><td class="v">с&nbsp;1&nbsp;сентября 2026&nbsp;— просто заходите и&nbsp;смотрите</td></tr>
+    </table>
+  </div>
+  <div class="stamp">
+    <div><span class="lbl">Система</span><b>М—ЕРИЛО</b></div>
+    <div><span class="lbl">Документ</span><b>Презентация</b></div>
+    <div><span class="lbl">Дата</span><b>26.08.2026</b></div>
+    <div><span class="lbl">Лист</span><b>11&nbsp;/&nbsp;11</b></div>
+  </div>
+</section>
+
+</body>
+</html>
