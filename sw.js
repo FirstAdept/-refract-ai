@@ -1,11 +1,5 @@
-const CACHE_NAME = 'refract-ai-v14';
+const CACHE_NAME = 'refract-ai-v15';
 const ASSETS = [
-    '/',
-    '/index.html',
-    '/404.html',
-    '/manifest.json',
-    '/css/style.css',
-    '/js/main.js',
     '/assets/logo.svg',
     '/assets/favicon.svg',
     '/assets/og-image.svg',
@@ -21,7 +15,7 @@ const ASSETS = [
 
 self.addEventListener('install', (e) => {
     e.waitUntil(
-        caches.open(CACHE_NAME).then((cache) => cache.addAll(ASSETS))
+        caches.open(CACHE_NAME).then((cache) => cache.addAll(ASSETS)).catch(() => {})
     );
     self.skipWaiting();
 });
@@ -35,17 +29,40 @@ self.addEventListener('activate', (e) => {
     self.clients.claim();
 });
 
+// Свежий код важнее офлайна: html/css/js — только из сети,
+// кэш служит запасным вариантом, если сети нет.
+function isFresh(url, request) {
+    if (request.mode === 'navigate') return true;
+    return /\.(?:html|css|js|json)$/.test(url.pathname);
+}
+
 self.addEventListener('fetch', (e) => {
     if (e.request.method !== 'GET') return;
-    // Skip analytics and external
-    if (e.request.url.includes('mc.yandex.ru') ||
-        e.request.url.includes('api.telegram.org') ||
-        new URL(e.request.url).pathname.startsWith('/api/')) return;
+
+    let url;
+    try { url = new URL(e.request.url); } catch (err) { return; }
+    if (url.origin !== location.origin) return;
+    if (url.pathname.startsWith('/api/')) return;
+
+    if (isFresh(url, e.request)) {
+        e.respondWith(
+            fetch(e.request).then((response) => {
+                if (response && response.ok) {
+                    const clone = response.clone();
+                    caches.open(CACHE_NAME).then((cache) => cache.put(e.request, clone));
+                }
+                return response;
+            }).catch(() =>
+                caches.match(e.request).then((cached) => cached || caches.match('/404.html'))
+            )
+        );
+        return;
+    }
 
     e.respondWith(
         caches.match(e.request).then((cached) =>
             cached || fetch(e.request).then((response) => {
-                if (response.ok && new URL(e.request.url).origin === location.origin) {
+                if (response && response.ok) {
                     const clone = response.clone();
                     caches.open(CACHE_NAME).then((cache) => cache.put(e.request, clone));
                 }
