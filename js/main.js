@@ -119,6 +119,21 @@ const translations = {
         'proj.rampa.t': 'РАМПА — кабинет перевозчика',
         'proj.rampa.tag': 'Отраслевой продукт',
         'proj.rampa.desc': 'Простои на приёмке становятся оплачиваемыми, документы уходят в день доставки, статусы — без звонков. Кабинеты водителя, логиста и заказчика',
+        'proj.cv.tag': 'Компьютерное зрение',
+        'proj.cv.t': 'Контроль качества на линии',
+        'proj.cv.desc': 'Камеры и ИИ смотрят на продукцию вместо контролёра: брак, комплектность, СИЗ и простои фиксируются сами — в цеху, на складе, на ферме',
+        'proj.voice.tag': 'Голосовые роботы',
+        'proj.voice.t': 'Звонки без операторов',
+        'proj.voice.desc': 'Робот принимает заявки, подтверждает записи и обзванивает базу, а каждый разговор превращается в текст и попадает в CRM',
+        'proj.rpa.tag': 'Роботизация рутины',
+        'proj.rpa.t': 'Данные переносятся сами',
+        'proj.rpa.desc': 'RPA-роботы забирают офисную рутину: сверки, счета, выгрузки и отчёты ходят между 1С, Excel и CRM без человека',
+        'proj.pm.tag': 'Промышленный IoT',
+        'proj.pm.t': 'Ремонт до поломки',
+        'proj.pm.desc': 'Датчики на оборудовании и модель отказов: линия предупреждает о будущей поломке заранее, а не встаёт посреди смены',
+        'proj.hr.tag': 'HR и найм',
+        'proj.hr.t': 'Найм на автопилоте',
+        'proj.hr.desc': 'ИИ разбирает отклики, проводит первичный отбор и сам напоминает кандидатам — HR видит только готовых к собеседованию',
         'stack.geo': 'Геолокация',
         'proj.more': 'Подробнее →',
         'step1.n': '01 / Аудит',
@@ -255,6 +270,21 @@ const translations = {
         'proj.rampa.t': 'RAMPA — carrier cabinet',
         'proj.rampa.tag': 'Industry product',
         'proj.rampa.desc': 'Dock detention becomes billable, PODs arrive on delivery day, status updates need no phone calls. Cabinets for driver, dispatcher and shipper',
+        'proj.cv.tag': 'Computer vision',
+        'proj.cv.t': 'Quality control on the line',
+        'proj.cv.desc': 'Cameras plus AI watch the product instead of an inspector: defects, completeness, PPE and downtime get logged automatically',
+        'proj.voice.tag': 'Voice robots',
+        'proj.voice.t': 'Calls without operators',
+        'proj.voice.desc': 'A robot takes requests, confirms bookings and dials your base, and every call becomes text inside the CRM',
+        'proj.rpa.tag': 'Process robots',
+        'proj.rpa.t': 'Data moves itself',
+        'proj.rpa.desc': 'RPA robots take over office routine: reconciliations, invoices and reports travel between ERP, Excel and CRM with no human',
+        'proj.pm.tag': 'Industrial IoT',
+        'proj.pm.t': 'Repair before failure',
+        'proj.pm.desc': 'Sensors plus a failure-prediction model: the line warns about a coming breakdown instead of stopping mid-shift',
+        'proj.hr.tag': 'HR and hiring',
+        'proj.hr.t': 'Hiring on autopilot',
+        'proj.hr.desc': 'AI screens applications, runs the first pass and nudges candidates — HR only sees people ready for an interview',
         'stack.geo': 'Geolocation',
         'proj.more': 'Learn more →',
         'step1.n': '01 / Audit',
@@ -1602,4 +1632,106 @@ form.addEventListener('submit', async (e) => {
     dots(0);
   })();
   
+})();
+
+/* ============ Кристалл: вращение икосаэдра по раскадровке ============ */
+/* кадры: точка света 2с - проявление рёбер 2с - свечение 2с - вращение Y 5с
+   - плюс ось X 5с - продолжение 4с - замедление и возврат 3с - цикл на кадр 4 */
+(function(){
+    var orb = document.getElementById('orb');
+    if (!orb || !window.CanvasRenderingContext2D) return;
+    [].slice.call(orb.children).forEach(function(el){ el.style.display = 'none'; });
+    var cv = document.createElement('canvas');
+    cv.style.cssText = 'display:block;width:170px;height:186px;pointer-events:none;';
+    cv.setAttribute('aria-hidden', 'true');
+    orb.appendChild(cv);
+    var ctx = cv.getContext('2d');
+    var PH = (1 + Math.sqrt(5)) / 2;
+    var V = [[-1,PH,0],[1,PH,0],[-1,-PH,0],[1,-PH,0],[0,-1,PH],[0,1,PH],[0,-1,-PH],[0,1,-PH],[PH,0,-1],[PH,0,1],[-PH,0,-1],[-PH,0,1]];
+    var L = Math.sqrt(1 + PH * PH);
+    V = V.map(function(v){ return [v[0]/L, v[1]/L, v[2]/L]; });
+    var E = [];
+    for (var i = 0; i < 12; i++) for (var j = i + 1; j < 12; j++) {
+        var dx = V[i][0]-V[j][0], dy = V[i][1]-V[j][1], dz = V[i][2]-V[j][2];
+        if (dx*dx + dy*dy + dz*dz < 1.3) E.push([i, j]);
+    }
+    E.sort(function(a, b){ return (V[b[0]][1]+V[b[1]][1]) - (V[a[0]][1]+V[a[1]][1]); });
+    var tx = 0, ty = 0, mx = 0, my = 0;
+    window.addEventListener('mousemove', function(e){
+        tx = e.clientX / window.innerWidth - 0.5;
+        ty = e.clientY / window.innerHeight - 0.5;
+    }, { passive: true });
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    function sm(x){ return x <= 0 ? 0 : x >= 1 ? 1 : x * x * (3 - 2 * x); }
+    function herm(p0, v0, p1, u, T){
+        var t = u / T, t2 = t * t, t3 = t2 * t;
+        return p0 * (2*t3 - 3*t2 + 1) + v0 * T * (t3 - 2*t2 + t) + p1 * (3*t2 - 2*t3);
+    }
+    var WY = 0.4, WX = 0.28, t0 = performance.now();
+    function draw(now){
+        var t = reduce ? 4.5 : (now - t0) / 1000;
+        var w = cv.clientWidth || 170, h = cv.clientHeight || 186, dpr = window.devicePixelRatio || 1;
+        if (cv.width !== (w * dpr | 0)) { cv.width = w * dpr | 0; cv.height = h * dpr | 0; }
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        ctx.clearRect(0, 0, w, h);
+        var cx = w / 2, cy = h / 2, S = Math.min(w, h) * 0.42;
+        mx += (tx - mx) * 0.05; my += (ty - my) * 0.05;
+        var ax = 0, ay = 0, glow = 0, f = 0, pt = 0;
+        if (t < 2) { pt = sm(t / 2); }
+        else if (t < 4) { f = sm((t - 2) / 2); pt = 1 - f; glow = 0.35; }
+        else if (t < 6) { f = 1; glow = 0.4 + 0.45 * Math.sin((t - 4) / 2 * Math.PI); }
+        else {
+            f = 1;
+            var u = (t - 6) % 17;
+            if (u < 5) { ay = WY * u; }
+            else if (u < 14) { ay = WY * u; ax = WX * (u - 5); }
+            else { ay = herm(WY * 14, WY, Math.PI * 2, u - 14, 3); ax = herm(WX * 9, WX, 0, u - 14, 3); }
+            glow = 0.4 + 0.18 * Math.sin(t * 0.9);
+        }
+        ax += my * 0.5; ay += mx * 0.6;
+        var ca = Math.cos(ax), sa = Math.sin(ax), cb = Math.cos(ay), sb = Math.sin(ay);
+        var P = [];
+        for (var k = 0; k < 12; k++) {
+            var v = V[k];
+            var x = v[0]*cb + v[2]*sb, z = -v[0]*sb + v[2]*cb, y = v[1];
+            var y2 = y*ca - z*sa, z2 = y*sa + z*ca;
+            var pz = 3.4 / (3.4 + z2);
+            P.push([cx + x*S*pz, cy - y2*S*pz, z2]);
+        }
+        if (pt > 0) {
+            var R = (3 + 9 * pt) * 4;
+            var g = ctx.createRadialGradient(cx, cy, 0, cx, cy, R);
+            g.addColorStop(0, 'rgba(255,255,255,' + (0.95 * pt).toFixed(3) + ')');
+            g.addColorStop(0.35, 'rgba(205,210,245,' + (0.4 * pt).toFixed(3) + ')');
+            g.addColorStop(1, 'rgba(205,210,245,0)');
+            ctx.fillStyle = g;
+            ctx.beginPath(); ctx.arc(cx, cy, R, 0, 7); ctx.fill();
+        }
+        if (f > 0) {
+            var n = E.length * f;
+            ctx.lineWidth = 1.3; ctx.lineCap = 'round';
+            for (var q = 0; q < E.length; q++) {
+                if (q >= n) break;
+                var e = E[q], p1 = P[e[0]], p2 = P[e[1]];
+                var part = Math.min(1, n - q);
+                var zm = (p1[2] + p2[2]) / 2;
+                var op = (0.3 + 0.6 * ((zm + 1) / 2)) * (0.35 + 0.65 * f);
+                ctx.strokeStyle = 'rgba(240,242,252,' + op.toFixed(3) + ')';
+                ctx.shadowColor = 'rgba(190,200,255,' + (0.25 + 0.5 * glow).toFixed(3) + ')';
+                ctx.shadowBlur = 5 + 9 * glow;
+                ctx.beginPath();
+                ctx.moveTo(p1[0], p1[1]);
+                ctx.lineTo(p1[0] + (p2[0]-p1[0]) * part, p1[1] + (p2[1]-p1[1]) * part);
+                ctx.stroke();
+            }
+            ctx.shadowBlur = 0;
+            for (var d = 0; d < 12; d++) {
+                var pv = P[d];
+                ctx.fillStyle = 'rgba(255,255,255,' + ((0.35 + 0.6 * ((pv[2]+1)/2)) * f).toFixed(3) + ')';
+                ctx.beginPath(); ctx.arc(pv[0], pv[1], 1.7, 0, 7); ctx.fill();
+            }
+        }
+        if (!reduce) requestAnimationFrame(draw);
+    }
+    requestAnimationFrame(draw);
 })();
