@@ -2065,3 +2065,29 @@ html.chat-open .header { opacity: 0; pointer-events: none; transition: opacity .
     .deck-modal__body { margin: 0 10px 10px; border-radius: 12px; }
     .case__expand { bottom: 12px; padding: 11px 18px; }
 }
+
+/* ===== Решения: сетка 3x3 и живые карточки ===== */
+@media (min-width: 900px) {
+    .projects__grid { grid-template-columns: repeat(3, 1fr); }
+}
+.project-card__art { animation: artSway 7s ease-in-out infinite; }
+.project-card:nth-child(3n+2) .project-card__art { animation-delay: -2.3s; }
+.project-card:nth-child(3n) .project-card__art { animation-delay: -4.6s; }
+@keyframes artSway {
+    0%, 100% { translate: 0 0; rotate: 0deg; }
+    50% { translate: 0 -7px; rotate: 0.45deg; }
+}
+.project-card__art .orbit {
+    transform-box: fill-box; transform-origin: center;
+    animation: orbitSpin 26s linear infinite;
+}
+.project-card:nth-child(2n) .project-card__art .orbit { animation-direction: reverse; animation-duration: 34s; }
+.project-card:nth-child(3n) .project-card__art .orbit { animation-duration: 44s; }
+@keyframes orbitSpin { to { transform: rotate(360deg); } }
+.project-card__art [stroke-dasharray] { animation: dashDrift 3s linear infinite; }
+@keyframes dashDrift { to { stroke-dashoffset: -26; } }
+@media (prefers-reduced-motion: reduce) {
+    .project-card__art,
+    .project-card__art .orbit,
+    .project-card__art [stroke-dasharray] { animation: none; }
+}
