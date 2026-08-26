@@ -1946,3 +1946,8 @@ html.chat-open .header { opacity: 0; pointer-events: none; transition: opacity .
     font-size: 11px; letter-spacing: 2.4px; text-transform: uppercase; color: #666680;
 }
 .chat .modlab:first-child { margin-top: 0; }
+
+.chat .q .scr {
+    font-style: normal; color: #9be1cb; opacity: .8;
+    text-shadow: 0 0 8px rgba(155, 225, 203, .55);
+}
