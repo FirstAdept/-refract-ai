@@ -80,7 +80,7 @@ const translations = {
         'projects.label': '02 / Решения',
         'cases.label': '03 / Работы',
         'cases.title': 'Разборы, которые мы приносим на первую встречу',
-        'cases.lead': 'Прежде чем что-то предлагать, мы разбираем бизнес по открытым источникам и показываем, где рутина стоит денег. Ниже — два таких разбора целиком.',
+        'cases.lead': 'Прежде чем что-то предлагать, мы разбираем бизнес по открытым источникам и показываем, где рутина стоит денег. Ниже — разборы целиком и то, что мы собираем прямо сейчас.',
         'case.agro.tag': 'Агропром · оффер по открытым данным',
         'case.agro.t': 'ООО «Агроном-сад»',
         'case.agro.d': '2 500 га интенсивных садов, до 40 000 т яблок в год, 500+ сезонных рабочих и линия сортировки, которая делает 150 снимков каждого плода. Нашли шесть мест вокруг производства, где всё держится на звонках и ведомостях, и собрали четыре контура автоматизации — от сезонного найма до прогноза выхода партии.',
@@ -95,6 +95,20 @@ const translations = {
         'case.rampa.m3': 'в работе',
         'cases.cta': 'Смотреть целиком →',
         'cases.open': 'Открыть в новой вкладке →',
+        'cases.expand': 'Развернуть проект',
+        'cases.dev': 'Проект в разработке',
+        'case.mng.tag': 'ERP · собственная разработка',
+        'case.mng.t': 'ERP «Многогранники»',
+        'case.mng.d': 'ERP для производственной компании: заказы, склад, производство и деньги в одном контуре, с ИИ-помощником внутри. Собираем под процессы клиента — без коробочных компромиссов.',
+        'case.mng.m1': 'ERP',
+        'case.mng.m2': 'в разработке',
+        'case.mng.m3': '2026',
+        'proj.video.tag': 'Видеоаналитика',
+        'proj.video.t': 'Контроль по камерам',
+        'proj.video.desc': 'ИИ смотрит трансляции и архив вместо человека: чужие на территории, нарушения, очереди и простои приходят событием в телефон, а не часами записи',
+        'proj.soft.tag': 'Разработка под вас',
+        'proj.soft.t': 'Персональный софт',
+        'proj.soft.desc': 'CRM, кабинеты, ERP и внутренние сервисы под ваши процессы: с ИИ мы разрабатываем такой софт в разы быстрее и дешевле коробочных систем',
         'projects.title': 'Что мы автоматизируем',
         'approach.label': '05 / Подход',
         'team.label': '07 / Команда',
@@ -231,7 +245,7 @@ const translations = {
         'projects.label': '02 / Solutions',
         'cases.label': '03 / Work',
         'cases.title': 'The analysis we bring to the first meeting',
-        'cases.lead': 'Before proposing anything, we study the business from public sources and show where routine costs money.',
+        'cases.lead': 'Before proposing anything, we study the business from public sources and show where routine costs money. Below are full teardowns and what we are building right now.',
         'case.agro.tag': 'Agriculture · offer from public data',
         'case.agro.t': 'Agronom-Sad',
         'case.agro.d': '2,500 hectares of intensive orchards, up to 40,000 tonnes of apples a year, 500+ seasonal workers and a sorting line that takes 150 images of every fruit.',
@@ -246,6 +260,20 @@ const translations = {
         'case.rampa.m3': 'in progress',
         'cases.cta': 'See the full deck →',
         'cases.open': 'Open in a new tab →',
+        'cases.expand': 'Expand the project',
+        'cases.dev': 'Project in progress',
+        'case.mng.tag': 'ERP · in-house build',
+        'case.mng.t': 'Mnogogranniki ERP',
+        'case.mng.d': 'An ERP for a manufacturing company: orders, stock, production and money in one loop, with an AI assistant inside. Built around the client processes — no boxed compromises.',
+        'case.mng.m1': 'ERP',
+        'case.mng.m2': 'in progress',
+        'case.mng.m3': '2026',
+        'proj.video.tag': 'Video analytics',
+        'proj.video.t': 'Camera control',
+        'proj.video.desc': 'AI watches streams and archives instead of a person: intruders, violations, queues and downtime arrive as phone events, not hours of footage',
+        'proj.soft.tag': 'Built for you',
+        'proj.soft.t': 'Personal software',
+        'proj.soft.desc': 'CRMs, portals, ERPs and internal tools shaped to your processes: with AI we build them times faster and cheaper than boxed systems',
         'projects.title': 'What we automate',
         'approach.label': '05 / Approach',
         'team.label': '07 / Team',
@@ -1734,4 +1762,89 @@ form.addEventListener('submit', async (e) => {
         if (!reduce) requestAnimationFrame(draw);
     }
     requestAnimationFrame(draw);
+})();
+
+/* ============ Работы: живые превью колод и разворот ============ */
+(function(){
+    var frames = document.querySelectorAll('.case__frame--preview');
+    if (!frames.length) return;
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    // модалка разворота
+    var modal = document.createElement('div');
+    modal.className = 'deck-modal';
+    modal.setAttribute('role', 'dialog');
+    modal.setAttribute('aria-modal', 'true');
+    modal.innerHTML = '<div class="deck-modal__bar"><span class="deck-modal__t"></span>' +
+        '<button class="deck-modal__close" type="button">✕</button></div>' +
+        '<div class="deck-modal__body"><iframe title="Презентация" referrerpolicy="no-referrer"></iframe></div>';
+    document.body.appendChild(modal);
+    var mIfr = modal.querySelector('iframe');
+    var mT = modal.querySelector('.deck-modal__t');
+    function openDeck(src, title){
+        mIfr.src = src;
+        mT.textContent = title || '';
+        modal.classList.add('open');
+        document.documentElement.style.overflow = 'hidden';
+    }
+    function closeDeck(){
+        modal.classList.remove('open');
+        document.documentElement.style.overflow = '';
+        setTimeout(function(){ if (!modal.classList.contains('open')) mIfr.src = 'about:blank'; }, 400);
+    }
+    modal.querySelector('.deck-modal__close').addEventListener('click', closeDeck);
+    modal.addEventListener('click', function(e){ if (e.target === modal) closeDeck(); });
+    document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeDeck(); });
+    document.querySelectorAll('.case__expand').forEach(function(btn){
+        btn.addEventListener('click', function(e){
+            e.stopPropagation();
+            openDeck(btn.getAttribute('data-deck'), btn.getAttribute('data-deck-title'));
+        });
+    });
+    // клик по всей рамке тоже разворачивает
+    frames.forEach(function(fr){
+        fr.addEventListener('click', function(){
+            var b = fr.querySelector('.case__expand');
+            if (b) openDeck(b.getAttribute('data-deck'), b.getAttribute('data-deck-title'));
+        });
+    });
+    // автолистание превью: вниз медленно, назад быстро
+    frames.forEach(function(fr){
+        var ifr = fr.querySelector('iframe');
+        if (!ifr || reduce) return;
+        var doc = null, dir = 1, pos = 0, pause = 2, active = false;
+        function prep(){
+            try {
+                doc = ifr.contentDocument;
+                if (!doc || !doc.documentElement) { doc = null; return; }
+                var st = doc.createElement('style');
+                st.textContent = 'html,body{scrollbar-width:none !important} ::-webkit-scrollbar{width:0 !important;height:0 !important;display:none !important}';
+                (doc.head || doc.documentElement).appendChild(st);
+            } catch (err) { doc = null; }
+        }
+        ifr.addEventListener('load', function(){ pos = 0; dir = 1; pause = 2; prep(); });
+        prep();
+        var io = new IntersectionObserver(function(en){ active = en[0].isIntersecting; }, { threshold: 0.12 });
+        io.observe(fr);
+        var last = performance.now();
+        function tick(now){
+            var dt = Math.min(0.1, (now - last) / 1000);
+            last = now;
+            if (active && doc && doc.documentElement) {
+                try {
+                    var max = Math.max(0, doc.documentElement.scrollHeight - ifr.clientHeight);
+                    if (max > 8) {
+                        if (pause > 0) { pause -= dt; }
+                        else {
+                            pos += dir * dt * (dir > 0 ? 95 : 520);
+                            if (pos >= max) { pos = max; dir = -1; pause = 1.8; }
+                            if (pos <= 0 && dir < 0) { pos = 0; dir = 1; pause = 1.4; }
+                        }
+                        ifr.contentWindow.scrollTo(0, pos);
+                    }
+                } catch (err) {}
+            }
+            requestAnimationFrame(tick);
+        }
+        requestAnimationFrame(tick);
+    });
 })();
