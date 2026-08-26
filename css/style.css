@@ -2016,3 +2016,52 @@ html.chat-open .header { opacity: 0; pointer-events: none; transition: opacity .
 @media (max-width: 600px) {
     .case__frame { aspect-ratio: auto; height: 460px; }
 }
+
+/* ===== Работы: живые превью и разворот колод ===== */
+.case__frame--preview { cursor: pointer; }
+.case__frame--preview iframe { pointer-events: none; }
+.case__frame--preview::after {
+    content: ''; position: absolute; inset: 0; pointer-events: none;
+    background: linear-gradient(180deg, rgba(20,20,30,0) 72%, rgba(20,20,30,.62));
+}
+.case__expand {
+    position: absolute; left: 50%; bottom: 20px; transform: translateX(-50%); z-index: 2;
+    padding: 13px 24px; border-radius: 999px;
+    border: 1px solid rgba(255,255,255,.28); background: rgba(20,20,30,.72);
+    -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+    color: #fff; font-family: inherit; font-size: 12px; font-weight: 600;
+    letter-spacing: 1.4px; text-transform: uppercase; cursor: pointer;
+    transition: color .3s ease, border-color .3s ease, transform .3s ease;
+}
+.case__expand:hover { color: #9be1cb; border-color: #9be1cb; transform: translateX(-50%) translateY(-3px); }
+.deck-modal {
+    position: fixed; inset: 0; z-index: 3000; display: flex; flex-direction: column;
+    background: rgba(10,10,16,.94);
+    opacity: 0; visibility: hidden; transition: opacity .35s ease, visibility .35s ease;
+}
+.deck-modal.open { opacity: 1; visibility: visible; }
+.deck-modal__bar { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 14px 22px; }
+.deck-modal__t { font-size: 14px; font-weight: 600; color: #fff; letter-spacing: .4px; }
+.deck-modal__close {
+    border: 1px solid rgba(255,255,255,.28); background: transparent; color: #fff;
+    border-radius: 999px; padding: 10px 20px; font-family: inherit; font-size: 13px;
+    cursor: pointer; transition: color .3s ease, border-color .3s ease;
+}
+.deck-modal__close:hover { color: #9be1cb; border-color: #9be1cb; }
+.deck-modal__body {
+    flex: 1; margin: 0 22px 22px; border: 1px solid var(--border); border-radius: 16px;
+    overflow: hidden; background: #14141e;
+    transform: scale(.975); transition: transform .35s ease;
+}
+.deck-modal.open .deck-modal__body { transform: scale(1); }
+.deck-modal__body iframe { width: 100%; height: 100%; border: 0; display: block; }
+.case__frame--dev {
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 22px;
+    background: radial-gradient(ellipse at center, #191926 0%, #14141e 72%);
+}
+.case__frame--dev svg { width: 150px; height: 150px; opacity: .9; }
+.case__devlabel { font-size: 12px; letter-spacing: 2.4px; text-transform: uppercase; color: #666680; }
+@media (max-width: 600px) {
+    .deck-modal__body { margin: 0 10px 10px; border-radius: 12px; }
+    .case__expand { bottom: 12px; padding: 11px 18px; }
+}
