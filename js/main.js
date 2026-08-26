@@ -10,6 +10,7 @@ const translations = {
     ru: {
         'nav.projects': 'Решения',
         'nav.ind': 'Отрасли',
+        'nav.cases': 'Работы',
         'pains.label': '01 / Диагностика',
         'pains.title': 'С чем к нам обращаются чаще всего',
         'pain1.t': 'Обращения обрабатываются с задержкой',
@@ -145,6 +146,7 @@ const translations = {
     en: {
         'nav.projects': 'Solutions',
         'nav.ind': 'Industries',
+        'nav.cases': 'Work',
         'pains.label': '01 / Diagnostics',
         'pains.title': 'What companies come to us with',
         'pain1.t': 'Enquiries are handled with delay',
