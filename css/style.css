@@ -2067,8 +2067,8 @@ html.chat-open .header { opacity: 0; pointer-events: none; transition: opacity .
 }
 
 /* ===== Решения: сетка 3x3 и живые карточки ===== */
-@media (min-width: 900px) {
-    .projects__grid { grid-template-columns: repeat(3, 1fr); }
+@media (min-width: 820px) {
+    .projects__grid { grid-template-columns: repeat(3, 1fr); gap: 18px; }
 }
 .project-card__art { animation: artSway 7s ease-in-out infinite; }
 .project-card:nth-child(3n+2) .project-card__art { animation-delay: -2.3s; }
