@@ -1313,11 +1313,33 @@ form.addEventListener('submit', async (e) => {
       flow.innerHTML='';
     }
   
-    async function typeInto(el,text){
-      for(let i=0;i<text.length;i++){
-        el.textContent+=text[i];
-        if(!(i%2))await sleep(reduce?0:13);
-      }
+    const GLYPHS='アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホ0123456789<>/|{}[]#$%&*+=~';
+    function escHtml(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+    function typeInto(el,text){
+      if(reduce){ el.textContent=text; return Promise.resolve(); }
+      const chars=[...text];
+      const n=chars.length;
+      const step=Math.max(2,Math.ceil(n/170));
+      const tail=14;
+      let done=0;
+      return new Promise(function(resolve){
+        function frame(){
+          done+=step;
+          let settled='',scr='',rest='';
+          for(let i=0;i<n;i++){
+            const c=chars[i];
+            if(i<done) settled+=c;
+            else if(i<done+tail&&c!=='\n'&&c!==' ') scr+=GLYPHS[(Math.random()*GLYPHS.length)|0];
+            else if(i<done+tail) scr+=c;
+            else rest+=(c==='\n')?'\n':' ';
+          }
+          el.innerHTML=escHtml(settled)+'<i class="scr">'+escHtml(scr)+'</i>'+escHtml(rest);
+          if(done<n) requestAnimationFrame(frame);
+          else { el.textContent=text; resolve(); }
+        }
+        requestAnimationFrame(frame);
+      });
     }
   
     async function showQuestion(text){
