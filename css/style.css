@@ -1939,3 +1939,10 @@ html.chat-open .hero__scroll { opacity: 0; pointer-events: none; transition: opa
 }
 
 html.chat-open .header { opacity: 0; pointer-events: none; transition: opacity .35s ease; }
+
+.chat .q { white-space: pre-line; }
+.chat .modlab {
+    grid-column: 1 / -1; margin-top: 8px;
+    font-size: 11px; letter-spacing: 2.4px; text-transform: uppercase; color: #666680;
+}
+.chat .modlab:first-child { margin-top: 0; }
