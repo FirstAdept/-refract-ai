@@ -1279,7 +1279,7 @@ form.addEventListener('submit', async (e) => {
     const sleep=ms=>new Promise(r=>setTimeout(r,ms));
     const history=[];
     let demo=false,demoStep=0,busy=false,started=false,askCount=0;
-    const TOTAL_Q=6;
+    const TOTAL_Q=3;
   
     function dots(n){let s='';for(let i=0;i<TOTAL_Q;i++)s+=i<n?'<b>●</b>':'<i>●</i>';
       stDots.innerHTML=s;}
@@ -1344,12 +1344,8 @@ form.addEventListener('submit', async (e) => {
     }
   
     const DEMO_Q=[
-      'Представьте: у вас появился сотрудник, который не спит, не ошибается и не просит зарплату. Какую работу вы отдали бы ему первой?',
-      'Принято. Два слова о компании: чем занимаетесь и сколько вас?',
-      'Что держит ваш учёт — 1С, CRM, Excel? Или всё в голове у самого незаменимого сотрудника?',
-      'Вспомните вчерашний день. На что команда потратила час, который хочется вернуть?',
-      'Где чаще всего рождаются ошибки: документы, заявки, сроки, отчёты?',
-      'Финальный вопрос. Завтра клиентов станет вдвое больше — что сломается первым?'
+      'Понял. Теперь про объём: сколько таких операций проходит за день и сколько минут съедает каждая? И кто этим занят — один человек или вся смена?',
+      'Последний вопрос. Завтра клиентов вдвое больше — что сломается первым: люди, учёт или сроки?'
     ];
   
     function pickModules(){
@@ -1380,9 +1376,18 @@ form.addEventListener('submit', async (e) => {
       flow.appendChild(head);flyFrom(head);
       await sleep(500);
       const wrap=document.createElement('div');wrap.className='mods';flow.appendChild(wrap);
+      const CORE=Math.min(3,list.length);
       let total=0;
       for(let i=0;i<list.length;i++){
         const it=list[i],m=CATALOG[it.id];if(!m)continue;
+        if(i===0){
+          const l=document.createElement('div');l.className='modlab';
+          l.textContent='Начать с этого';wrap.appendChild(l);
+        }
+        if(i===CORE&&list.length>CORE){
+          const l=document.createElement('div');l.className='modlab';
+          l.textContent='Следующий шаг';wrap.appendChild(l);
+        }
         total+=m.price;
         const d=document.createElement('div');d.className='mod';
         d.innerHTML='<div class="id">'+it.id+'</div><div class="nm">'+m.name+'</div>'+
@@ -1441,13 +1446,21 @@ form.addEventListener('submit', async (e) => {
       busy=false;
     }
   
-    function start(){
+    const INTRO_RU='Я — искусственный интеллект REFRACT.AI. Задам три вопроса о вашей работе и по вашим же цифрам соберу конкретный план: какие процессы можно снять с людей и сколько времени это вернёт.\n\nЧем занимается ваша компания и какая рутина съедает в ней больше всего времени?';
+    const INTRO_EN='I am the REFRACT.AI artificial intelligence. I will ask three questions about your work and build a concrete plan from your own numbers: which processes can be taken off people, and how much time that gives back.\n\nWhat does your company do, and which routine eats the most time in it?';
+
+    async function start(){
       if(started)return;started=true;
       openLayer();
       stage.classList.add('started');
       ripple();crystal.boost=3;
-      history.push({role:'user',content:'Начни диагностику: одна короткая фраза-приветствие и сразу первый вопрос.'});
-      setTimeout(async()=>{await reply();history.splice(0,1);},650);
+      var en=(document.documentElement.lang==='en');
+      var intro=en?INTRO_EN:INTRO_RU;
+      askCount=1;dots(1);
+      stLabel.textContent=en?('question 1 of '+TOTAL_Q):('вопрос 1 из '+TOTAL_Q);
+      await new Promise(function(r){setTimeout(r,650);});
+      await showQuestion(intro);
+      history.push({role:'assistant',content:intro});
     }
     var layer=document.getElementById('chatLayer'),
         slot=document.getElementById('orbSlot'),
