@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>ИИ для «Агроном-Сада» — REFRACT.AI</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Inter+Tight:wght@700;800&family=JetBrains+Mono:wght@600&display=swap&subset=cyrillic,latin');
+
+/* ===== DNA tokens (refract-blueprint-orange v1.0) ===== */
+:root{
+  --bg-d:#161514; --bg-l:#F4F2EE; --sur-d:#1D1C1A; --sur-l:#FFFFFF;
+  --tx-d:#F4F2EE; --tx-l:#161514; --mut-d:#8F8B84; --mut-l:#807B73;
+  --acc:#F15A24; --ln-d:#33312D; --ln-l:#D8D4CC;
+  --fd:'Inter Tight','Inter',sans-serif; --fb:'Inter',sans-serif; --fm:'JetBrains Mono',monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+@page{size:1280px 720px;margin:0}
+body{font-family:var(--fb);-webkit-font-smoothing:antialiased;width:1280px;margin:0 auto;background:#000}
+.slide{width:1280px;height:720px;padding:56px 64px;position:relative;overflow:hidden;page-break-after:always;display:flex;flex-direction:column}
+.dark{background:var(--bg-d);color:var(--tx-d)}
+.light{background:var(--bg-l);color:var(--tx-l)}
+.dark{--mut:var(--mut-d);--ln:var(--ln-d);--sur:var(--sur-d)}
+.light{--mut:var(--mut-l);--ln:var(--ln-l);--sur:var(--sur-l)}
+
+.head{display:flex;align-items:center;gap:16px;margin-bottom:32px}
+.tag{font-family:var(--fm);font-weight:600;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--acc);white-space:nowrap}
+.head .rule{flex:1;height:1px;background:var(--ln)}
+.head .pg{font-family:var(--fm);font-size:11px;color:var(--mut);letter-spacing:.1em}
+
+h1{font-family:var(--fd);font-weight:800;font-size:38px;line-height:1.14;letter-spacing:-.01em}
+h2{font-family:var(--fd);font-weight:700;font-size:24px;line-height:1.2}
+.hero{font-family:var(--fd);font-weight:800;font-size:58px;line-height:1.06;letter-spacing:-.015em}
+.sub{font-size:17px;line-height:1.5;color:var(--mut)}
+.mono{font-family:var(--fm);font-weight:600;font-size:11px;letter-spacing:.1em;text-transform:uppercase}
+.acc{color:var(--acc)}
+.est{font-family:var(--fm);font-weight:600;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--mut);border:1px solid var(--ln);border-radius:2px;padding:2px 6px;vertical-align:middle;white-space:nowrap}
+
+.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.tile{border:1px solid var(--ln);border-radius:2px;background:var(--sur);padding:20px 22px}
+.tile .n{font-family:var(--fd);font-weight:800;font-size:40px;line-height:1;letter-spacing:-.01em}
+.tile .c{font-family:var(--fm);font-weight:600;font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--mut);margin-top:10px;line-height:1.5}
+
+.cards{display:grid;gap:16px}
+.card{border:1px solid var(--ln);border-radius:2px;background:var(--sur);padding:18px 20px}
+.card h3{font-family:var(--fd);font-weight:700;font-size:18px;margin-bottom:6px;line-height:1.2}
+.card p{font-size:14px;line-height:1.45;color:var(--mut)}
+.card .price{display:block;margin-top:10px;font-family:var(--fm);font-weight:600;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--acc)}
+
+.pipe{display:flex;align-items:stretch;gap:0;margin-top:auto}
+.pnode{flex:1;border:1px solid var(--ln);border-radius:2px;background:var(--sur);padding:15px 17px;position:relative}
+.pnode.human{border-color:var(--acc)}
+.pnode .k{font-family:var(--fm);font-weight:600;font-size:10px;letter-spacing:.1em;color:var(--mut);text-transform:uppercase}
+.pnode .t{font-family:var(--fd);font-weight:700;font-size:16px;margin-top:6px;line-height:1.25}
+.pnode .d{font-size:12.5px;color:var(--mut);margin-top:4px;line-height:1.4}
+.parr{width:40px;position:relative;flex:none}
+.parr:before{content:'';position:absolute;top:50%;left:5px;right:5px;border-top:1px dashed var(--acc)}
+.parr:after{content:'';position:absolute;top:50%;right:5px;width:7px;height:7px;border-top:1px solid var(--acc);border-right:1px solid var(--acc);transform:translateY(-50%) rotate(45deg)}
+
+.mets{display:flex;flex-direction:column;gap:18px}
+.met .n{font-family:var(--fd);font-weight:800;font-size:42px;line-height:1;color:var(--acc);letter-spacing:-.01em}
+.met .c{font-size:13.5px;color:var(--mut);margin-top:6px;line-height:1.45;max-width:250px}
+
+.ps{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.ps .blk .mono{color:var(--mut);margin-bottom:10px;display:block}
+.ps .blk p{font-size:16px;line-height:1.55}
+
+.tick{position:absolute;width:14px;height:14px;border-color:var(--ln)!important}
+.tick.tl{top:28px;left:28px;border-left:1px solid;border-top:1px solid}
+.tick.br{bottom:28px;right:28px;border-right:1px solid;border-bottom:1px solid}
+
+.foot{margin-top:auto;padding-top:18px;border-top:1px solid var(--ln);display:flex;justify-content:space-between;align-items:center;font-family:var(--fm);font-size:10.5px;letter-spacing:.08em;color:var(--mut);text-transform:uppercase;gap:24px}
+
+.tl{display:grid;grid-template-columns:repeat(4,1fr);gap:0;flex:1}
+.tcol{border-left:1px solid var(--ln);padding:6px 20px 0 20px;position:relative}
+.tcol .k{font-family:var(--fm);font-weight:600;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--acc)}
+.tcol h3{font-family:var(--fd);font-weight:700;font-size:18px;margin:10px 0 8px}
+.tcol p{font-size:13.5px;line-height:1.5;color:var(--mut)}
+.tcol .when{margin-top:12px;font-family:var(--fm);font-size:10px;letter-spacing:.08em;color:var(--mut);text-transform:uppercase}
+.badge{display:inline-block;font-family:var(--fm);font-weight:600;font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:#fff;background:var(--acc);border-radius:2px;padding:4px 8px}
+.badge.ghost{background:none;color:var(--acc);border:1px solid var(--acc)}
+
+/* адаптация под экран (веб-версия) */
+@media (max-width:1320px){ body{width:100%} .slide{zoom:calc(100vw / 1280)} }
+</style>
+</head>
+<body>
+
+<!-- ============ 1 ТИТУЛ (dark) ============ -->
+<section class="slide dark">
+  <div class="tick tl"></div><div class="tick br"></div>
+  <div class="head"><span class="tag">REFRACT.AI → ООО «Агроном-сад»</span><div class="rule"></div><span class="pg">Оффер · 08.2026</span></div>
+  <div style="display:flex;gap:36px;flex:1;align-items:center">
+    <div style="width:690px">
+      <div class="hero">150 снимков<br>на каждое яблоко.<br>И один рабочий день<br>на ответ кандидату.</div>
+      <p class="sub" style="margin-top:22px;max-width:610px">Линия сортировки уже работает на данных. Всё вокруг неё — заявки, обращения, приёмка, упаковка, выработка смен — пока держится на звонках и ведомостях. ИИ забирает эту рутину <b style="color:var(--tx-d)">без расширения штата</b>.</p>
+    </div>
+    <div style="flex:1;position:relative">
+      <svg viewBox="0 0 420 300" fill="none" stroke="#F4F2EE" stroke-width="2" style="width:100%">
+        <!-- яблоко: контур -->
+        <path d="M210 92 C168 62 108 78 100 138 C92 200 140 268 176 268 C194 268 200 258 210 258 C220 258 226 268 244 268 C280 268 328 200 320 138 C312 78 252 62 210 92 Z"/>
+        <!-- черенок и лист -->
+        <path d="M210 92 L210 52" stroke-width="2"/>
+        <path d="M210 62 C238 40 266 44 274 30 C280 56 250 74 210 62 Z" stroke="#F15A24" stroke-width="2"/>
+        <!-- «сканирующие» линии -->
+        <path d="M118 150 L302 150" stroke="#F15A24" stroke-width="1" stroke-dasharray="4 4"/>
+        <path d="M112 186 L308 186" stroke="#F15A24" stroke-width="1" stroke-dasharray="4 4"/>
+        <path d="M124 222 L296 222" stroke="#F15A24" stroke-width="1" stroke-dasharray="4 4"/>
+        <!-- метки-риски -->
+        <path d="M60 92 L60 268" stroke="#F15A24" stroke-width="1" stroke-dasharray="4 4"/>
+        <path d="M54 92 L66 92 M54 268 L66 268" stroke="#F15A24" stroke-width="1"/>
+        <path d="M360 138 L360 200" stroke="#33312D" stroke-width="1"/>
+      </svg>
+      <div class="mono" style="position:absolute;top:0;left:0;color:var(--acc)">контур данных</div>
+    </div>
+  </div>
+  <div class="foot"><span>refract-ai.ru</span><span>ИИ-оптимизация бизнес-процессов</span></div>
+</section>
+
+<!-- ============ 2 ЧТО МЫ УВИДЕЛИ (light) ============ -->
+<section class="slide light">
+  <div class="head"><span class="tag">01 / Что мы увидели</span><div class="rule"></div><span class="pg">02 · 13</span></div>
+  <h1 style="margin-bottom:26px">Мы изучили ваш бизнес по открытым источникам — вот что видно снаружи</h1>
+  <div class="tiles" style="flex:1;grid-auto-rows:1fr">
+    <div class="tile"><div class="n">1929</div><div class="c">истоки хозяйства · сегодня — топ-10 отрасли</div></div>
+    <div class="tile"><div class="n">2 500 га</div><div class="c">интенсивных садов · до 40 000 т яблок в год</div></div>
+    <div class="tile"><div class="n">25 000 т</div><div class="c">единовременного хранения РГС / ULO, до 12 месяцев</div></div>
+    <div class="tile"><div class="n">57</div><div class="c">регионов поставок · 30+ сортов в портфеле</div></div>
+    <div class="tile" style="border-color:var(--acc)"><div class="n acc">150</div><div class="c">изображений на каждый плод · линия >11 т/час</div></div>
+    <div class="tile"><div class="n">500+</div><div class="c">человек в команде · сезон сбора август — октябрь</div></div>
+  </div>
+  <div class="foot"><span>Источники: agronom-sad.ru, открытые данные · август 2026</span><span>Сад и линия уже работают на данных</span></div>
+</section>
+
+<!-- ============ 3 УЗКИЕ МЕСТА (dark) ============ -->
+<section class="slide dark">
+  <div class="head"><span class="tag">02 / Где рутина стоит денег</span><div class="rule"></div><span class="pg">03 · 13</span></div>
+  <h1 style="margin-bottom:22px">Шесть мест вокруг производства, где всё держится на людях и ведомостях</h1>
+  <div class="cards" style="grid-template-columns:repeat(3,1fr);flex:1;grid-auto-rows:1fr">
+    <div class="card"><h3>Сезонный набор</h3><p>500+ человек за 2,5 месяца, а обещание на сайте — «ответ HR за 1 рабочий день». Если заявки разбираются вручную, часть кандидатов уходит туда, где ответили за час.</p></div>
+    <div class="card"><h3>Вход для кандидата</h3><p>26.08.2026, в разгар сбора, раздел «Сезонная работа» сообщает «сезон ещё не открыт», а старый лендинг sbor.agronom-sad.ru отдаёт 404 — в поиске он ещё живой.</p></div>
+    <div class="card"><h3>Обратная связь</h3><p>91 отзыв на Яндекс.Картах и около 25 на hh, где статус работодателя — «не работает с отзывами». Внутри — нормы, подрядчики, логистика выезда в сады.</p></div>
+    <div class="card"><h3>Между садом и линией</h3><p>Линия видит каждый плод в 150 снимках. Съём, перевалка, приёмка контейнеров и упаковка видит только человек — и только тот, кто в этот момент рядом.</p></div>
+    <div class="card"><h3>Выработка смены</h3><p>Килограммы бригады считают ведомости. Простои — ожидание плодовоза, лестниц, транспорта — не считает никто, хотя именно о них пишут сезонники в отзывах.</p></div>
+    <div class="card"><h3>B2B-заявки</h3><p>Заявка → звонок менеджера → КП «в течение рабочего дня». На витрине 8 сортов из 30+. Каждое предложение собирается руками.</p></div>
+  </div>
+  <div class="foot"><span>Каждый пункт опирается на открытый источник, проверенный 26.08.2026 — мы не утверждаем, а предлагаем проверить бесплатно</span><span>REFRACT.AI</span></div>
+</section>
+
+<!-- ============ 4 ТРИ ПРИОРИТЕТА (light) ============ -->
+<section class="slide light">
+  <div class="head"><span class="tag">03 / С чего начать</span><div class="rule"></div><span class="pg">04 · 13</span></div>
+  <h1 style="margin-bottom:22px">Четыре контура — начинаем с самого быстрого и безрискового</h1>
+  <div class="cards" style="grid-template-columns:repeat(4,1fr);flex:1;align-items:stretch">
+    <div class="card" style="border-color:var(--acc);display:flex;flex-direction:column;padding:20px 22px">
+      <span class="badge" style="align-self:flex-start;margin-bottom:12px">Начинаем здесь</span>
+      <h3 style="font-size:20px">1 · Люди и голоса</h3>
+      <p style="margin-top:8px;font-size:14.5px">Радар обращений и отзывов + конвейер сезонных заявок: ни одна заявка и ни один сигнал не остаются без ответа.</p>
+      <span class="price" style="margin-top:auto">малый бюджет · недели</span>
+    </div>
+    <div class="card" style="display:flex;flex-direction:column;padding:20px 22px">
+      <span class="badge ghost" style="align-self:flex-start;margin-bottom:12px">Производство</span>
+      <h3 style="font-size:20px">2 · Глаза на площадке</h3>
+      <p style="margin-top:8px;font-size:14.5px">ИИ-надзор по записям камер на приёмке и упаковке + объективный учёт выработки бригад и смен.</p>
+      <span class="price" style="margin-top:auto;color:var(--mut)">пилот на одном участке</span>
+    </div>
+    <div class="card" style="display:flex;flex-direction:column;padding:20px 22px">
+      <span class="badge ghost" style="align-self:flex-start;margin-bottom:12px">Возможность</span>
+      <h3 style="font-size:20px">3 · B2B-конвейер</h3>
+      <p style="margin-top:8px;font-size:14.5px">Ассистент заявок 24/7, черновики КП и спецификаций, мониторинг закупок по вашим 57 регионам.</p>
+      <span class="price" style="margin-top:auto;color:var(--mut)">после первых результатов</span>
+    </div>
+    <div class="card" style="display:flex;flex-direction:column;padding:20px 22px">
+      <span class="badge ghost" style="align-self:flex-start;margin-bottom:12px">Вторым этапом</span>
+      <h3 style="font-size:20px">4 · Прогноз партии</h3>
+      <p style="margin-top:8px;font-size:14.5px">Выход товарных категорий и очерёдность отгрузки — на данных сортировки, которые уже накоплены.</p>
+      <span class="price" style="margin-top:auto;color:var(--mut)">когда заработаем доверие</span>
+    </div>
+  </div>
+  <div class="foot"><span>Контур №1 выбран не как самый прибыльный, а как самый быстрый и безопасный для вас</span><span>REFRACT.AI</span></div>
+</section>
+
+<!-- ============ 5 БП1 СЕЗОННЫЙ НАЙМ (dark) ============ -->
+<section class="slide dark">
+  <div class="head"><span class="tag">04 / Быстрая победа 1 — сезонный найм</span><div class="rule"></div><span class="pg">05 · 13</span></div>
+  <div style="display:flex;gap:44px;flex:1;align-items:center;padding-bottom:20px">
+    <div class="ps" style="flex:1">
+      <div class="blk"><span class="mono">Проблема</span><p>Пик сбора длится недели, а не месяцы. Если заявку с сайта, из соцсетей и с телефона разбирает человек, ответ приходит к вечеру следующего дня — и кандидат уже уехал в другое хозяйство.</p></div>
+      <div class="blk"><span class="mono acc">Решение</span><p>Ассистент отвечает мгновенно в том канале, где пришла заявка: уточняет даты, опыт, документы, ставит в очередь смены и напоминает перед выездом. Рекрутёр звонит только готовым.</p></div>
+    </div>
+    <div class="mets" style="width:250px;flex:none">
+      <div class="met"><div class="n">минуты</div><div class="c">вместо рабочего дня — время первого ответа кандидату <span class="est">оценка</span></div></div>
+      <div class="met"><div class="n">100%</div><div class="c">заявок получают ответ — ни одна не теряется в пик сезона</div></div>
+    </div>
+  </div>
+  <div class="pipe">
+    <div class="pnode"><div class="k">Шаг 1</div><div class="t">Заявка</div><div class="d">сайт, соцсети, звонок</div></div>
+    <div class="parr"></div>
+    <div class="pnode"><div class="k">Шаг 2</div><div class="t">Ассистент уточняет</div><div class="d">даты, опыт, документы, проезд</div></div>
+    <div class="parr"></div>
+    <div class="pnode"><div class="k">Шаг 3</div><div class="t">Очередь и напоминание</div><div class="d">смена, заезд, инструктаж</div></div>
+    <div class="parr"></div>
+    <div class="pnode human"><div class="k acc">Шаг 4 · человек</div><div class="t">HR звонит готовым</div><div class="d">решение о выходе — всегда за вами</div></div>
+  </div>
+  <div class="foot"><span>Все цифры уточняются на бесплатной диагностике по вашей конверсии «заявка → смена»</span><span>REFRACT.AI</span></div>
+</section>
+
+<!-- ============ 6 БП2 РАДАР (light) ============ -->
+<section class="slide light">
+  <div class="head"><span class="tag">05 / Быстрая победа 2 — радар обращений</span><div class="rule"></div><span class="pg">06 · 13</span></div>
+  <div style="display:flex;gap:44px;flex:1;align-items:center;padding-bottom:20px">
+    <div class="ps" style="flex:1">
+      <div class="blk"><span class="mono">Проблема</span><p>О вас пишут три разные аудитории: сезонники, перевозчики на погрузке и покупатели в сетях. Тексты лежат на пяти площадках, читаются выборочно и не превращаются в решения.</p></div>
+      <div class="blk"><span class="mono acc">Решение</span><p>ИИ собирает все площадки и обращения, раскладывает по темам и подразделениям, показывает динамику и готовит черновики ответов. Руководство получает одну сводку в неделю.</p></div>
+    </div>
+    <div class="mets" style="width:250px;flex:none">
+      <div class="met"><div class="n">300+</div><div class="c">публичных отзывов и обращений в первом разборе</div></div>
+      <div class="met"><div class="n">1 экран</div><div class="c">вместо пяти площадок — темы, динамика, ответственные</div></div>
+    </div>
+  </div>
+  <div class="pipe">
+    <div class="pnode"><div class="k">Шаг 1</div><div class="t">Сбор</div><div class="d">карты, hh, отзовики, сети, 8-800</div></div>
+    <div class="parr"></div>
+    <div class="pnode"><div class="k">Шаг 2</div><div class="t">Разбор по темам</div><div class="d">нормы, подрядчики, отгрузка, качество</div></div>
+    <div class="parr"></div>
+    <div class="pnode"><div class="k">Шаг 3</div><div class="t">Сводка и черновики</div><div class="d">неделя одним экраном + тексты ответов</div></div>
+    <div class="parr"></div>
+    <div class="pnode human"><div class="k acc">Шаг 4 · человек</div><div class="t">Вы отвечаете</div><div class="d">ни один ответ не уходит без вашей правки</div></div>
+  </div>
+  <div class="foot"><span>Работает на публичных данных — первую версию покажем на встрече</span><span>REFRACT.AI</span></div>
+</section>
+
+<!-- ============ 7 КАМЕРЫ (dark) ============ -->
+<section class="slide dark">
+  <div class="head"><span class="tag">06 / Контур 2 — ИИ-надзор по камерам</span><div class="rule"></div><span class="pg">07 · 13</span></div>
+  <div style="display:flex;gap:44px;flex:1;align-items:center;padding-bottom:20px">
+    <div class="ps" style="flex:1">
+      <div class="blk"><span class="mono">Проблема</span><p>Ваше компьютерное зрение смотрит на плод — 150 снимков на каждом. А на съём, перевалку, приёмку контейнеров и паллетирование смотрит только тот человек, который в эту минуту рядом. Отклонение всплывает уже в рекламации сети.</p></div>
+      <div class="blk"><span class="mono acc">Решение</span><p>ИИ разбирает записи камер, которые и так пишутся: бой и посторонние предметы в контейнере, отклонения паллеты от спецификации, нарушения техпроцесса. Утром у мастера — сводка с таймкодами вместо часов перемотки.</p></div>
+    </div>
+    <div class="mets" style="width:250px;flex:none">
+      <div class="met"><div class="n">100%</div><div class="c">смен под разбором вместо выборочного просмотра</div></div>
+      <div class="met"><div class="n">часы → мин</div><div class="c">поиск эпизода по записи смены <span class="est">оценка</span></div></div>
+    </div>
+  </div>
+  <div class="pipe">
+    <div class="pnode"><div class="k">Шаг 1</div><div class="t">Камера пишет</div><div class="d">как и раньше, ничего не меняем</div></div>
+    <div class="parr"></div>
+    <div class="pnode"><div class="k">Шаг 2</div><div class="t">ИИ размечает</div><div class="d">бой, посторонние предметы, отклонения</div></div>
+    <div class="parr"></div>
+    <div class="pnode"><div class="k">Шаг 3</div><div class="t">Сводка с таймкодами</div><div class="d">эпизоды за смену, а не весь архив</div></div>
+    <div class="parr"></div>
+    <div class="pnode human"><div class="k acc">Шаг 4 · человек</div><div class="t">Мастер решает</div><div class="d">контур качества и линию не трогаем</div></div>
+  </div>
+  <div class="foot"><span>Работает рядом с линией, а не вместо неё: сертифицированный контроль качества остаётся вашим</span><span>REFRACT.AI</span></div>
+</section>
+
+<!-- ============ 8 ВЫРАБОТКА (light) ============ -->
+<section class="slide light">
+  <div class="head"><span class="tag">07 / Контур 2 — выработка и простои</span><div class="rule"></div><span class="pg">08 · 13</span></div>
+  <div style="display:flex;gap:44px;flex:1;align-items:center;padding-bottom:20px">
+    <div class="ps" style="flex:1">
+      <div class="blk"><span class="mono">Проблема</span><p>Килограммы бригады считает ведомость. Почему бригада собрала меньше — ждала плодовоз, лестницы или автобус — не считает никто. Именно об этих простоях сезонники пишут в публичных отзывах, и именно они съедают дни пика.</p></div>
+      <div class="blk"><span class="mono acc">Решение</span><p>ИИ сводит сканы вёдер, ведомости и события смены в один отчёт: темп кг/час по бригадам, причины и длительность простоев, вклад каждого подрядчика, связка «темп ↔ качество съёма».</p></div>
+    </div>
+    <div class="mets" style="width:250px;flex:none">
+      <div class="met"><div class="n">5 причин</div><div class="c">простоя — измеренных, а не оценённых на глаз</div></div>
+      <div class="met"><div class="n">утром</div><div class="c">отчёт по бригадам и подрядчикам — а не в конце сезона</div></div>
+    </div>
+  </div>
+  <div class="pipe">
+    <div class="pnode"><div class="k">Шаг 1</div><div class="t">Данные смены</div><div class="d">сканы вёдер, ведомости, события</div></div>
+    <div class="parr"></div>
+    <div class="pnode"><div class="k">Шаг 2</div><div class="t">ИИ сводит</div><div class="d">темп, простои, причины, качество</div></div>
+    <div class="parr"></div>
+    <div class="pnode"><div class="k">Шаг 3</div><div class="t">Отчёт по бригадам</div><div class="d">и по подрядчикам — сопоставимо</div></div>
+    <div class="parr"></div>
+    <div class="pnode human"><div class="k acc">Шаг 4 · человек</div><div class="t">Решение за вами</div><div class="d">кадровые выводы делает руководитель</div></div>
+  </div>
+  <div class="foot"><span>Без распознавания лиц: агрегаты по бригадам и сменам, работники уведомлены, записи не покидают ваш контур</span><span>REFRACT.AI</span></div>
+</section>
+
+<!-- ============ 7 П2 ВОЗМОЖНОСТЬ (dark) ============ -->
+<section class="slide dark">
+  <div class="head"><span class="tag">08 / Контур 3 — B2B-конвейер</span><div class="rule"></div><span class="pg">09 · 13</span></div>
+  <div style="display:flex;gap:44px;flex:1;align-items:center;padding-bottom:20px">
+    <div class="ps" style="flex:1">
+      <div class="blk"><span class="mono acc">Возможность</span><p>Заявка на поставку приходит ночью или в выходной — ассистент сразу уточняет сорт, калибр, объём, тару и график, а к утру у менеджера готов черновик КП и спецификации из вашего наличия.</p></div>
+      <div class="blk"><span class="mono">Это новые деньги</span><p>Не экономия часов, а сделки: закупщик получает предложение первым, а в подбор попадают все 30+ сортов, а не 8 с витрины.</p></div>
+    </div>
+    <div class="mets" style="width:250px;flex:none">
+      <div class="met"><div class="n">15 минут</div><div class="c">вместо рабочего дня — от заявки до черновика КП <span class="est">оценка</span></div></div>
+      <div class="met"><div class="n">57</div><div class="c">регионов под мониторингом закупок и тендеров</div></div>
+    </div>
+  </div>
+  <div class="pipe">
+    <div class="pnode"><div class="k">Шаг 1</div><div class="t">Заявка 24/7</div><div class="d">сайт, почта, мессенджер</div></div>
+    <div class="parr"></div>
+    <div class="pnode"><div class="k">Шаг 2</div><div class="t">Параметры партии</div><div class="d">сорт, калибр, объём, тара, график</div></div>
+    <div class="parr"></div>
+    <div class="pnode"><div class="k">Шаг 3</div><div class="t">Черновик КП</div><div class="d">спецификация из наличия и прайса</div></div>
+    <div class="parr"></div>
+    <div class="pnode human"><div class="k acc">Шаг 4 · человек</div><div class="t">Менеджер отправляет</div><div class="d">цена и условия — только его решение</div></div>
+  </div>
+  <div class="foot"><span>Ассистент не назначает цену — он готовит менеджеру черновик</span><span>REFRACT.AI</span></div>
+</section>
+
+<!-- ============ 8 П3 БОЛЬШАЯ СТАВКА (light) ============ -->
+<section class="slide light">
+  <div class="head"><span class="tag">09 / Контур 4 — вторым этапом</span><div class="rule"></div><span class="pg">10 · 13</span></div>
+  <h1 style="margin-bottom:10px">Прогноз партии: меньше потерь и переводов в низший сорт</h1>
+  <p class="sub" style="max-width:820px;margin-bottom:26px">Честно: это делаем вторым этапом — когда первые результаты заработают доверие и появится доступ к вашим данным сортировки и хранения.</p>
+  <div style="display:flex;gap:36px;flex:1;align-items:stretch">
+    <div style="width:330px;flex:none;border:1px solid var(--acc);border-radius:2px;background:var(--sur);padding:26px 28px;display:flex;flex-direction:column;justify-content:center">
+      <div style="font-family:var(--fd);font-weight:800;font-size:62px;line-height:1;color:var(--acc);letter-spacing:-.02em">≈14 млн ₽</div>
+      <div class="sub" style="margin-top:14px;font-size:14.5px;color:var(--mut)">в год — эффект снижения потерь и понижений сорта на 1% при выручке около 1,44 млрд ₽ <span class="est">оценка</span></div>
+    </div>
+    <div class="cards" style="flex:1;grid-template-columns:1fr;align-content:stretch">
+      <div class="card" style="padding:20px 22px"><h3>Данные уже накоплены</h3><p>До 150 изображений на плод, карточка партии, условия хранения и результат отгрузки — это готовая обучающая выборка, собранная вашей же линией.</p></div>
+      <div class="card" style="padding:20px 22px"><h3>Что даёт модель</h3><p>Прогноз выхода товарных категорий по партии и рекомендация очерёдности отгрузки: что продавать сейчас, а что доживёт до весны.</p></div>
+      <div class="card" style="padding:20px 22px"><h3>Решение — за агрономом</h3><p>Модель предлагает приоритет, финальную команду по партии даёт человек. Никакого вмешательства в линию и в контур качества.</p></div>
+    </div>
+  </div>
+  <div class="foot"><span>Расчёт эффекта — арифметика от публичной выручки, уточняется на ваших данных</span><span>REFRACT.AI</span></div>
+</section>
+
+<!-- ============ 9 ПРОБНЫЙ МОДУЛЬ (dark) ============ -->
+<section class="slide dark">
+  <div class="head"><span class="tag">10 / Первый шаг — бесплатно</span><div class="rule"></div><span class="pg">11 · 13</span></div>
+  <div style="display:flex;align-items:baseline;gap:18px;margin-bottom:6px">
+    <h1>«Голос сада» · диагностика за 2 недели</h1>
+    <span class="badge">0 ₽</span>
+  </div>
+  <p class="sub" style="max-width:900px;margin-bottom:18px;font-size:16px">Собираем всё, что о вас пишут кандидаты, перевозчики и покупатели, раскладываем по темам и отдаём руководству одной сводкой с готовыми ответами.</p>
+  <div class="cards" style="grid-template-columns:repeat(4,1fr);flex:1;grid-auto-rows:1fr">
+    <div class="card"><span class="mono acc">Что берём</span><h3 style="margin-top:8px;font-size:17px">Почти ничего</h3><p>Публичные площадки — сами. По желанию: обезличенная выгрузка заявок сезона-2026 в Excel.</p></div>
+    <div class="card"><span class="mono acc">Чего не берём</span><h3 style="margin-top:8px;font-size:17px">Ваших систем</h3><p>Ни 1С, ни ЭДО, ни персональных данных, ни коммерческой тайны сверх NDA.</p></div>
+    <div class="card"><span class="mono acc">Что на руки</span><h3 style="margin-top:8px;font-size:17px">Сводка и дашборд</h3><p>Разбор 300+ отзывов по темам, ~20 черновиков ответов, оценка цены недобора сезона.</p></div>
+    <div class="card"><span class="mono acc">Ваше участие</span><h3 style="margin-top:8px;font-size:17px">1 человек, 3 часа</h3><p>Одно контактное лицо, две короткие встречи, 40 минут с руководством в финале.</p></div>
+  </div>
+  <div style="display:flex;gap:0;margin-top:18px;border-top:1px solid var(--ln);border-bottom:1px solid var(--ln)">
+    <div style="flex:1;padding:12px 20px 12px 0"><span class="mono acc">Неделя 1</span><p style="margin-top:5px;font-size:13.5px;color:var(--mut);line-height:1.4">Сбор всех площадок и обращений, разметка тем, первые срезы по трём аудиториям.</p></div>
+    <div style="flex:1;padding:12px 20px;border-left:1px solid var(--ln)"><span class="mono acc">Неделя 2</span><p style="margin-top:5px;font-size:13.5px;color:var(--mut);line-height:1.4">Сводка, дашборд, черновики ответов и 40 минут с руководством — с планом шага 1.</p></div>
+  </div>
+  <div style="display:flex;gap:18px;margin-top:14px">
+    <div class="card" style="flex:1;border-color:var(--acc);padding:18px 22px">
+      <span class="mono acc">Нулевое демо — уже готово к встрече</span>
+      <p style="margin-top:8px;font-size:14.5px;color:var(--tx-d)">Первую версию сводки — по 91 отзыву на Яндекс.Картах, отзывам на hh и Dream Job, отзовикам и карточкам «Собрано в саду» в сетях — приносим на встречу. Не запросив у вас ни одного файла.</p>
+    </div>
+    <div class="card" style="flex:1;padding:18px 22px">
+      <span class="mono acc">Вариант Б — если ближе производство</span>
+      <p style="margin-top:8px;font-size:14.5px;color:var(--tx-d)">Тот же формат на архиве одной камеры приёмки: 10 часов записи, 2 недели, 0 ₽. На выходе — размеченные эпизоды и оценка, что даст постоянный разбор смен.</p>
+    </div>
+  </div>
+  <div class="foot"><span>Условия: NDA · одно контактное лицо · без обязательств</span><span>Честное ограничение: публично видны только те, кто написал</span></div>
+</section>
+
+<!-- ============ 10 РОАДМАП (light) ============ -->
+<section class="slide light">
+  <div class="head"><span class="tag">11 / Дорожная карта</span><div class="rule"></div><span class="pg">12 · 13</span></div>
+  <h1 style="margin-bottom:30px">От нуля рублей до контура, который работает вокруг сада сам</h1>
+  <div class="tl">
+    <div class="tcol"><span class="k">Шаг 0</span><h3>Диагностика</h3><p>«Голос сада» на публичных данных или разбор архива одной камеры. Без обязательств.</p><div class="when">2 недели · 0 ₽</div></div>
+    <div class="tcol"><span class="k">Шаг 1</span><h3>Люди и голоса</h3><p>Конвейер сезонных заявок и радар обращений — к набору сезона-2027.</p><div class="when">осень — зима</div></div>
+    <div class="tcol"><span class="k">Шаг 2</span><h3>Глаза на площадке</h3><p>Разбор записей приёмки и упаковки + отчёт по выработке и простоям смен.</p><div class="when">к сезону 2027</div></div>
+    <div class="tcol"><span class="k">Шаг 3</span><h3>B2B и прогноз</h3><p>Ассистент заявок и черновики КП, затем прогноз выхода товарных категорий.</p><div class="when">по результатам</div></div>
+  </div>
+  <div class="foot"><span>Сезон-2026 идёт сейчас: его данные собираются один раз в год — диагностика в сентябре даёт готовый конвейер к набору 2027</span><span>Бюджет шагов считаем на диагностике</span></div>
+</section>
+
+<!-- ============ 11 CTA (dark) ============ -->
+<section class="slide dark">
+  <div class="tick tl"></div><div class="tick br"></div>
+  <div class="head"><span class="tag">12 / Первый шаг ничего не стоит</span><div class="rule"></div><span class="pg">13 · 13</span></div>
+  <div style="display:flex;gap:48px;flex:1;align-items:center">
+    <div style="flex:1">
+      <div class="hero" style="font-size:44px">Дайте 40 минут —<br>принесём сводку по вашим<br>отзывам и план на сезон-2027.</div>
+      <div style="display:flex;gap:12px;margin-top:26px;flex-wrap:wrap">
+        <span class="badge">Ответить на это письмо</span>
+        <span class="badge ghost">Telegram: @StanislavRefract</span>
+        <span class="badge ghost">40 минут созвона</span>
+      </div>
+      <p class="sub" style="margin-top:24px;font-size:14.5px;max-width:600px">Безопасность: код и модели — собственность заказчика, данные не покидают ваш контур, работаем по NDA. Почему мы: делаем распознавание документов и видео, NLP-разбор обращений и ML-прогноз — на своих продуктах и в проектах клиентов.</p>
+    </div>
+    <div style="flex:none;width:260px;border:1px solid var(--ln);border-radius:2px;background:var(--sur);padding:24px">
+      <span class="mono acc">REFRACT.AI</span>
+      <p style="margin-top:14px;font-size:15px;line-height:1.6;color:var(--tx-d)">Студия разработки ИИ-продуктов и внедрения ИИ в бизнес-процессы.</p>
+      <p style="margin-top:16px;font-size:14px;line-height:1.7;color:var(--mut)">refract-ai.ru<br>hello.refract@gmail.com<br>+7 916 758-13-36</p>
+    </div>
+  </div>
+  <div class="foot"><span>REFRACT.AI · ИИ-оптимизация бизнес-процессов</span><span>Оффер подготовлен 26.08.2026 по открытым источникам</span></div>
+</section>
+
+</body>
+</html>
