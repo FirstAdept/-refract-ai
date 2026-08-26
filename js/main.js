@@ -1835,7 +1835,7 @@ form.addEventListener('submit', async (e) => {
                     if (max > 8) {
                         if (pause > 0) { pause -= dt; }
                         else {
-                            pos += dir * dt * (dir > 0 ? 95 : 520);
+                            pos += dir * dt * (dir > 0 ? Math.max(90, max / 50) : 620);
                             if (pos >= max) { pos = max; dir = -1; pause = 1.8; }
                             if (pos <= 0 && dir < 0) { pos = 0; dir = 1; pause = 1.4; }
                         }
