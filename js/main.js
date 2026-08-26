@@ -1479,7 +1479,13 @@ form.addEventListener('submit', async (e) => {
       if(!demo){
         try{
           const r=await fetch('/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},
-            body:JSON.stringify({messages:history})});
+            body:JSON.stringify({messages:(function(){
+            var p=history.slice();
+            if(askCount>=TOTAL_Q&&p.length&&p[p.length-1].role==='user'){
+              p[p.length-1]={role:'user',content:p[p.length-1].content+'\n\n(Вопросы закончены — выдай финальную конфигурацию сейчас, без новых вопросов.)'};
+            }
+            return p;
+          })()})});
           if(r.ok){text=(await r.json()).reply;}
           else if(r.status===503||r.status===404)demo=true;
           else text='Я перегружен — повторите через минуту.';
