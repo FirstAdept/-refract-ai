@@ -1988,3 +1988,31 @@ html.chat-open .header { opacity: 0; pointer-events: none; transition: opacity .
     .chat__stage { max-width: 1320px; }
     .chat .mods { max-width: 1240px; grid-template-columns: repeat(4, 1fr); }
 }
+
+/* ===== Работы: встроенная презентация ===== */
+.cases__grid { grid-template-columns: 1fr; gap: 56px; }
+.case { padding: 0; background: transparent; border: 0; border-radius: 0; }
+.case:hover { transform: none; box-shadow: none; border: 0; }
+.case__head { max-width: 78ch; }
+.case__open {
+    display: inline-block; margin-top: 4px; font-size: 13px; font-weight: 600;
+    letter-spacing: 1px; text-transform: uppercase; color: #fff;
+    border-bottom: 1px solid rgba(255,255,255,.3); padding-bottom: 3px;
+    transition: border-color .3s ease, color .3s ease;
+}
+.case__open:hover { color: #9be1cb; border-color: #9be1cb; }
+.case__frame {
+    position: relative; margin-top: 28px; width: 100%; aspect-ratio: 16 / 9;
+    border: 1px solid var(--border); border-radius: var(--radius-lg);
+    overflow: hidden; background: #14141e;
+    box-shadow: 0 30px 80px -30px rgba(0,0,0,.8);
+    transition: border-color .4s ease;
+}
+.case__frame:hover { border-color: var(--border-hover); }
+.case__frame iframe { width: 100%; height: 100%; border: 0; display: block; }
+@media (max-width: 900px) {
+    .case__frame { aspect-ratio: 3 / 4; }
+}
+@media (max-width: 600px) {
+    .case__frame { aspect-ratio: auto; height: 460px; }
+}
